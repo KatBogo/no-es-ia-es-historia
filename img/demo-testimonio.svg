@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Espacio reservado para un testimonio. Contenido de demostración.">
+  <rect width="800" height="600" fill="#28231F"/>
+  <g stroke="#F5EFE4" stroke-opacity="0.08" stroke-width="1">
+    <line x1="0" y1="120" x2="800" y2="120"/><line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="280" x2="800" y2="280"/><line x1="0" y1="360" x2="800" y2="360"/>
+    <line x1="0" y1="440" x2="800" y2="440"/>
+  </g>
+  <g fill="#FFAF38">
+    <rect x="80" y="262" width="10" height="36"/><rect x="104" y="248" width="10" height="64"/>
+    <rect x="128" y="230" width="10" height="100"/><rect x="152" y="256" width="10" height="48"/>
+    <rect x="176" y="214" width="10" height="132"/><rect x="200" y="240" width="10" height="80"/>
+    <rect x="224" y="196" width="10" height="168"/><rect x="248" y="226" width="10" height="108"/>
+    <rect x="272" y="252" width="10" height="56"/><rect x="296" y="208" width="10" height="144"/>
+    <rect x="320" y="236" width="10" height="88"/><rect x="344" y="262" width="10" height="36"/>
+    <rect x="368" y="220" width="10" height="120"/><rect x="392" y="190" width="10" height="180"/>
+    <rect x="416" y="232" width="10" height="96"/><rect x="440" y="256" width="10" height="48"/>
+    <rect x="464" y="212" width="10" height="136"/><rect x="488" y="244" width="10" height="72"/>
+    <rect x="512" y="200" width="10" height="160"/><rect x="536" y="236" width="10" height="88"/>
+    <rect x="560" y="258" width="10" height="44"/><rect x="584" y="226" width="10" height="108"/>
+    <rect x="608" y="248" width="10" height="64"/><rect x="632" y="238" width="10" height="84"/>
+    <rect x="656" y="260" width="10" height="40"/><rect x="680" y="252" width="10" height="56"/>
+    <rect x="704" y="266" width="10" height="28"/>
+  </g>
+  <line x1="392" y1="150" x2="392" y2="410" stroke="#F5EFE4" stroke-width="2"/>
+  <polygon points="384,150 400,150 392,162" fill="#F5EFE4"/>
+  <g font-family="Consolas, 'Courier New', monospace" fill="#F5EFE4" letter-spacing="3">
+    <text x="80" y="92" font-size="16" fill-opacity="0.85">● REC · TESTIMONIO ORAL</text>
+    <text x="720" y="92" font-size="16" text-anchor="end" fill-opacity="0.85">00:00 / --:--</text>
+    <text x="400" y="456" font-size="22" text-anchor="middle">TESTIMONIO · AUDIO RESERVADO</text>
+    <text x="400" y="488" font-size="15" text-anchor="middle" fill-opacity="0.75">NINGUNA VOZ REAL NI SINTETIZADA</text>
+  </g>
+  <rect x="0" y="524" width="800" height="76" fill="#9A382C"/>
+  <text x="400" y="571" text-anchor="middle" font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700" letter-spacing="4" fill="#F5EFE4">CONTENIDO DE DEMOSTRACIÓN</text>
+</svg>

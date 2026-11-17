@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Espacio reservado para un documento técnico. Contenido de demostración.">
+  <defs>
+    <pattern id="g" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M20 0 H0 V20" fill="none" stroke="#28231F" stroke-opacity="0.10" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="#D3C6B1"/>
+  <rect x="96" y="40" width="608" height="452" fill="#FBF8F2" stroke="#28231F" stroke-opacity="0.45" stroke-width="2"/>
+  <rect x="96" y="40" width="608" height="452" fill="url(#g)"/>
+  <g fill="none" stroke="#28231F" stroke-width="4" stroke-opacity="0.75">
+    <rect x="160" y="96" width="320" height="300"/>
+    <line x1="320" y1="96" x2="320" y2="250"/>
+    <line x1="160" y1="250" x2="480" y2="250"/>
+    <line x1="400" y1="250" x2="400" y2="396"/>
+  </g>
+  <g stroke="#FBF8F2" stroke-width="8">
+    <line x1="240" y1="250" x2="276" y2="250"/>
+    <line x1="400" y1="300" x2="400" y2="336"/>
+    <line x1="320" y1="150" x2="320" y2="186"/>
+  </g>
+  <g stroke="#9A382C" stroke-width="1.5" stroke-dasharray="4 4">
+    <line x1="160" y1="420" x2="480" y2="420"/>
+    <line x1="510" y1="96" x2="510" y2="396"/>
+  </g>
+  <rect x="536" y="340" width="148" height="132" fill="none" stroke="#28231F" stroke-opacity="0.6" stroke-width="2"/>
+  <g font-family="Consolas, 'Courier New', monospace" fill="#28231F" letter-spacing="2">
+    <text x="548" y="368" font-size="12">PLANO Nº —</text>
+    <text x="548" y="392" font-size="12">ESCALA —</text>
+    <text x="548" y="416" font-size="12">FECHA —</text>
+    <text x="548" y="452" font-size="13" font-weight="700" fill="#9A382C">EJEMPLO</text>
+  </g>
+  <rect x="0" y="524" width="800" height="76" fill="#28231F"/>
+  <rect x="0" y="524" width="18" height="76" fill="#FFAF38"/>
+  <text x="400" y="571" text-anchor="middle" font-family="Consolas, 'Courier New', monospace" font-size="22" font-weight="700" letter-spacing="4" fill="#FFAF38">DOCUMENTO RESERVADO · DEMOSTRACIÓN</text>
+</svg>
