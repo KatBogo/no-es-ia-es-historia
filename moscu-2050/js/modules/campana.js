@@ -47,11 +47,14 @@ export function piezaHTML(p, i, etiqueta = "button", tam = "sm") {
       <span class="pieza__bloque pieza__bloque--3"></span>
       <span class="pieza__diagonal">
         <span class="pieza__micro">MEMORIA / FUENTE / PROCEDENCIA // ${num}</span>
-        <span class="pieza__banda"><span class="pieza__frase">${esc(p.frase)}</span></span>
+        <span class="pieza__banda"><span class="pieza__frase bicolor">${esc(p.frase)}</span></span>
         <span class="pieza__micro">${esc(p.dato)} // MSK 2050</span>
       </span>
       <span class="pieza__flecha">↗</span>
-      <span class="pieza__hash">#NoEsIAEsHistoria</span>
+      <span class="pieza__sello">
+        <span class="logo pieza__logo"><span class="logo__barra"></span><span class="logo__l1 bicolor">NO ES IA.</span><span class="logo__l2 bicolor">ES HISTORIA.</span></span>
+        <span class="pieza__hash">#NoEsIAEsHistoria</span>
+      </span>
       <span class="pieza__num">${num} / ${String(PIEZAS.length).padStart(2, "0")}</span>
       <span class="pieza__grano"></span>
     </${etiqueta}>`;
