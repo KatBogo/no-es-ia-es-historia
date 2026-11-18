@@ -59,6 +59,7 @@ export const QUIZ = [
     registro: "MSK-1941-22",
     clase: "registro",
     clasificacion: "Registro histórico",
+    breve: "Foto de Anatoli Garanin, 7 de noviembre de 1941. La conserva el archivo de RIA Novosti (n.º 669663).",
     explicacion: "Fotografía de Anatoli Garanin del 7 de noviembre de 1941, conservada en el archivo de RIA Novosti con el número 669663.",
     pistas: "El grano, el desenfoque y el blanco y negro parecen pruebas de antigüedad, pero se pueden imitar. Lo que respalda esta imagen es su número de archivo, su autor y su fecha.",
     fuente: "Archivo de RIA Novosti n.º 669663 (vía Wikimedia Commons)"
@@ -67,6 +68,7 @@ export const QUIZ = [
     registro: "REC-2021-31",
     clase: "alterada",
     clasificacion: "Reconstrucción digital (2021)",
+    breve: "Modelo 3D creado en 2021 de un edificio que se proyectó en los años treinta y nunca se construyó.",
     explicacion: "Es un modelo 3D del Palacio de los Sóviets, un edificio que se proyectó en los años treinta y nunca se construyó. Lo creó en 2021 un usuario de Wikimedia Commons combinando varios planos.",
     pistas: "La arquitectura monumental y la composición recuerdan a imágenes de época. Sin una fuente, podría pasar por una fotografía de un edificio que existió.",
     fuente: "Wikimedia Commons, «Palace of the Soviets - Blender 3D» (CC BY-SA 4.0)"
@@ -75,6 +77,7 @@ export const QUIZ = [
     registro: "MSK-1961-26",
     clase: "registro",
     clasificacion: "Registro histórico",
+    breve: "Gagarin recibido en la Plaza Roja el 14 de abril de 1961. La conserva el Archivo Principal de Moscú.",
     explicacion: "Fotografía de Yu. D. Koroliov del recibimiento a Yuri Gagarin en la Plaza Roja el 14 de abril de 1961. La conserva el Archivo Principal de Moscú.",
     pistas: "La escena es tan icónica que podría parecer una recreación. Lo que la sostiene es el archivo que la conserva y su ficha.",
     fuente: "Archivo Principal de Moscú (vía Wikimedia Commons, CC BY 4.0)"
@@ -83,6 +86,7 @@ export const QUIZ = [
     registro: "REC-1921-30",
     clase: "alterada",
     clasificacion: "Reconstrucción artística (1921)",
+    breve: "Acuarela de 1921 que imagina el Kremlin del siglo XIV: una interpretación, no un documento de la época.",
     explicacion: "Acuarela de Apollinari Vasnetsov que imagina el Kremlin del siglo XIV. Es una interpretación histórica, no un documento de la época.",
     pistas: "Que una imagen sea antigua no la convierte en testimonio directo. Esta obra tiene cien años, pero recrea una escena seiscientos años anterior.",
     fuente: "Museo de Moscú (vía Wikimedia Commons, dominio público)"
@@ -92,6 +96,7 @@ export const QUIZ = [
     clase: "alterada",
     parcial: "registro",
     clasificacion: "Registro histórico con color añadido",
+    breve: "Negativo real en blanco y negro (c. 1890) al que se le añadió el color al imprimirlo.",
     explicacion: "Es un fotocromo: parte de un negativo real en blanco y negro, pero el color se añadió durante la impresión. Es un documento de época y, a la vez, una imagen intervenida.",
     pistas: "Los colores suaves y «naturales» hacen pensar en una foto en color. Si respondiste «registro histórico», tienes parte de razón.",
     fuente: "Library of Congress, LCCN 2017660946 (dominio público)"
@@ -100,6 +105,7 @@ export const QUIZ = [
     registro: "MSK-19XX-28",
     clase: "registro",
     clasificacion: "Registro histórico con fecha incoherente",
+    breve: "La foto es auténtica, pero su ficha dice 1900 y el Ejército Rojo no existió hasta 1918.",
     explicacion: "Es un negativo de vidrio real de la agencia Bain News Service. Pero el catálogo lo fecha en 1900, y el Ejército Rojo no existió hasta 1918.",
     pistas: "La imagen es auténtica; su información no. Una foto verdadera con datos falsos también puede engañar.",
     fuente: "Library of Congress, LCCN 2014713395 (dominio público)"
