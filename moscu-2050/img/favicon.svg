@@ -1,5 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" fill="#111111"/>
-  <rect x="0" y="0" width="64" height="64" fill="none" stroke="#C52B32" stroke-width="6"/>
-  <text x="32" y="43" text-anchor="middle" font-family="Arial Narrow, Impact, sans-serif" font-weight="900" font-size="26" fill="#F2F0E9">IA≠H</text>
+  <!-- Marca reducida del logo: barra gris inclinada y bloque partido en rojo y negro -->
+  <rect width="64" height="64" fill="#FFFFFF"/>
+  <rect x="-6" y="27" width="76" height="16" fill="#D3D2CC" transform="rotate(-9.36 32 35)"/>
+  <rect x="12" y="12" width="40" height="23" fill="#C52B32"/>
+  <rect x="12" y="35" width="40" height="17" fill="#0A0A0A"/>
 </svg>
