@@ -8,7 +8,7 @@
  * resúmenes de esos pies de foto; cuando un dato procede de una nota de
  * usuarios de Commons y no de la institución, se indica como pendiente.
  *
- * Estados de verificación usados en este prototipo:
+ * Estados de verificación usados en este archivo:
  *  - "documentada": institución identificable y número de catálogo o inventario.
  *  - "parcial": la copia viene de una fuente secundaria o falta autoría.
  *  - "conflicto": los metadatos disponibles se contradicen.
@@ -58,7 +58,7 @@ export const REGISTROS = [
     estado: "parcial",
     verificado: ["El archivo existe en Wikimedia Commons con licencia de dominio público.", "Otra copia del mismo panorama en Commons lo atribuye a Scherer, Nabholz y Cía. y lo fecha en 1867 (publicado en 1886)."],
     pendiente: ["La copia usada procede de un blog, no de una institución.", "Confirmar la atribución con el álbum original de 1886."],
-    intervenciones: "Miniatura reducida a 1920 px para la web. Sin otras intervenciones conocidas en este prototipo."
+    intervenciones: "Miniatura reducida a 1920 px para la web. Sin otras intervenciones de este archivo."
   },
   {
     id: "MSK-1890-02",
@@ -76,7 +76,7 @@ export const REGISTROS = [
     estado: "documentada",
     verificado: ["Número de catálogo de la Biblioteca del Congreso indicado en Commons.", "Fecha aproximada (1890–1900) según el catálogo."],
     pendiente: ["Punto exacto desde el que se tomó la vista."],
-    intervenciones: "Los colores no son fotográficos: se añadieron en el proceso de impresión del fotocromo. En la portada de esta web se superpone además una capa gráfica especulativa, identificada como tal."
+    intervenciones: "Los colores no son fotográficos: se añadieron en el proceso de impresión del fotocromo. En la portada de esta web se superpone además una capa sintética de 2050, identificada como tal."
   },
   {
     id: "MSK-1890-03",
@@ -112,7 +112,7 @@ export const REGISTROS = [
     estado: "parcial",
     verificado: ["La fecha de la demolición (5 de diciembre de 1931) coincide con la bibliografía general.", "Archivo en Commons con licencia de dominio público."],
     pendiente: ["Autor y archivo de origen de la fotografía.", "La copia disponible es de baja resolución (800 px)."],
-    intervenciones: "Ninguna en este prototipo. Se desconoce si la copia de origen fue retocada."
+    intervenciones: "Ninguna por parte de este archivo. Se desconoce si la copia de origen fue retocada."
   },
   {
     id: "MSK-1890-05",
@@ -310,7 +310,7 @@ export const REGISTROS = [
     estado: "documentada",
     verificado: ["Autor y periodo indicados por el Archivo Principal de Moscú."],
     pendiente: ["Año exacto de la toma."],
-    intervenciones: "Miniatura reducida para la web. En «Antes y después» se usa como base de una visualización especulativa declarada."
+    intervenciones: "Miniatura reducida para la web. En «Antes y después» se usa como base de una capa sintética declarada."
   },
   {
     id: "MSK-1960-16",

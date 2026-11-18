@@ -2,7 +2,7 @@
  * Contenido editorial: riesgos, ejercicio «¿Real o generado?», historias,
  * pares del comparador y piezas de campaña.
  * Las imágenes se referencian por el campo "img" de registros.js.
- * Todo lo que pertenece al escenario de 2050 está marcado como especulativo.
+ * Todo lo que pertenece a 2050 (el presente del archivo) está marcado como tal.
  */
 
 export const RIESGOS = [
@@ -19,7 +19,7 @@ export const RIESGOS = [
     icono: "spark",
     titulo: "Acontecimientos ficticios creados con IA",
     texto: "Un sistema puede producir escenas verosímiles de hechos que nunca ocurrieron.",
-    ejemplo: "Ejemplo hipotético del escenario 2050: aparece una «foto» de una multitud en la Plaza Roja durante un acto que no existió, con grano de película y fecha antigua. Nada en la imagen basta para demostrar que es falsa: hace falta buscar su origen.",
+    ejemplo: "Caso de 2050: circula una «foto» de una multitud en la Plaza Roja durante un acto que nunca existió, con grano de película y fecha antigua. Nada en la imagen basta para demostrar que es falsa: hay que buscar su origen.",
     registro: null
   },
   {
@@ -127,21 +127,21 @@ export const COMPARACIONES = [
     intervenida: "metro-komsomolskaya-1935",
     filtro: "grayscale(1) contrast(1.45) brightness(1.08)",
     capa: false,
-    explicacion: "Para este prototipo se eliminó el tono sepia y se aumentó el contraste con un filtro digital. No se añadió ni se borró ningún elemento.",
+    explicacion: "En este archivo se eliminó el tono sepia y se aumentó el contraste con un filtro digital. No se añadió ni se borró ningún elemento.",
     importancia: "Una restauración puede parecer «más real», pero cambia la imagen. Toda intervención, incluso las mejoras, debe declararse.",
-    fuente: "Original: Rijksmuseum, RP-F-F00935-F (CC0). Intervención: filtro aplicado en este prototipo.",
+    fuente: "Original: Rijksmuseum, RP-F-F00935-F (CC0). Intervención: filtro aplicado por este archivo.",
     registro: "MSK-1935-08"
   },
   {
     id: "especulativa",
-    titulo: "Fotografía histórica y visualización especulativa",
+    titulo: "Fotografía histórica y capa sintética de 2050",
     original: "gorki-1950s",
     intervenida: "gorki-1950s",
     filtro: "grayscale(1) contrast(1.2) brightness(0.75)",
     capa: true,
-    explicacion: "Sobre la fotografía de la calle Gorki se añadió una capa gráfica que imagina Moscú en 2050. Es una ilustración creada para esta campaña.",
+    explicacion: "Sobre la fotografía de la calle Gorki se añadió una capa sintética como las que hoy reescriben Moscú: torres que nunca existieron y etiquetas de reconocimiento automático. La añadió este archivo para mostrar el mecanismo.",
     importancia: "Basta una capa para cambiar el significado de una imagen auténtica. Por eso esta versión lleva una etiqueta que no se puede quitar.",
-    fuente: "Original: M. Trajtman, Archivo Principal de Moscú (CC BY 4.0). Capa: visualización especulativa de este proyecto.",
+    fuente: "Original: M. Trajtman, Archivo Principal de Moscú (CC BY 4.0). Capa: intervención declarada de este archivo.",
     registro: "MSK-1955-15"
   }
 ];
@@ -236,7 +236,7 @@ export const HISTORIAS = [
       "Moscú, 2050. Una bibliotecaria de barrio recibe una caja con negativos de su abuela. Las imágenes no coinciden con las versiones que circulan en las redes de la ciudad: en ellas aparecen calles, carteles y personas que las copias digitales ya no muestran.",
       "Decide digitalizarlas, describir de dónde vienen y depositarlas en un archivo ciudadano antes de compartir una sola."
     ],
-    fragmento: { tipo: "Narrativa especulativa · personaje ficticio", img: null, texto: "«No quiero que me crean a mí. Quiero que puedan comprobarlo». Testimonio imaginado para el escenario de 2050; no corresponde a ninguna persona real." },
+    fragmento: { tipo: "Testimonio · Moscú, 2050", img: null, texto: "«No quiero que me crean a mí. Quiero que puedan comprobarlo». Bibliotecaria de barrio; su nombre se reserva a petición propia." },
     enlace: null,
     registro: null
   }
