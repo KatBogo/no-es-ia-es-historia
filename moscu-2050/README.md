@@ -6,13 +6,22 @@ Archivo ciudadano de la memoria, narrado desde Moscú en 2050. Las fotografías 
 
 Publicada en: https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/
 
+## Identidad (según el logo)
+
+- **Logotipo**: «NO ES IA. / ES HISTORIA.» en Archivo 900 al 100 % de ancho (equivale a Archivo Black), interlineado 0,89.
+- **Corte de color**: cada letra se parte al 57 % de su altura. Primera línea: arriba rojo, abajo negro. Segunda línea: al revés.
+- **Barra gris** detrás, inclinada −9,4°.
+- **Colores**: rojo `#C52B32`, negro `#0A0A0A`, gris del logo `#D3D2CC`, hueso `#F2F0E9`, carbón `#111111`.
+- En fondos oscuros se usa la versión negativa (rojo + hueso, barra gris media `#6E6D68`).
+- En CSS: componente `.logo` (con `.logo__barra`, `.logo__l1`, `.logo__l2`) y la clase `.bicolor`, que aplica el corte rojo/negro a cualquier texto, también de varias líneas.
+
 ## Tipografía
 
 Las tres familias se cargan desde Google Fonts (licencia SIL Open Font License):
 
 | Uso | Familia | Ajustes |
 | --- | --- | --- |
-| Titulares, botones, frases de las piezas | **Archivo** (variable) | peso 800–900, ancho (`font-stretch`) 62–125 % |
+| Logo, titulares, botones, frases de las piezas | **Archivo** (variable) | peso 800–900, ancho 100 % (como el logo) |
 | Texto de lectura | **Newsreader** (variable) | peso 400–600, tamaño óptico 6–72 |
 | Etiquetas, datos técnicos, fichas | **IBM Plex Mono** | peso 400–500, mayúsculas con espaciado |
 
