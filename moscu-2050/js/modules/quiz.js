@@ -15,11 +15,12 @@ export function iniciarQuiz(abrirRegistro) {
   let indice = 0;
   let respuestas = [];
 
+  // Cada resultado tiene un color (ver .res--*), un icono y un titular corto para que se entienda de un vistazo.
   const resultado = (item, r) => {
-    if (r === "duda") return { clave: "duda", texto: "Sin respuesta: está bien dudar" };
-    if (r === item.clase) return { clave: "ok", texto: "Tu respuesta coincide con la clasificación documentada" };
-    if (r === item.parcial) return { clave: "parcial", texto: "Tu respuesta tiene parte de razón" };
-    return { clave: "no", texto: "Tu respuesta no coincide con la clasificación documentada" };
+    if (r === "duda") return { clave: "duda", icono: "?", titular: "Sin respuesta", texto: "Está bien dudar: sin fuente no se puede saber" };
+    if (r === item.clase) return { clave: "ok", icono: "✓", titular: "¡Correcto!", texto: "Tu respuesta coincide con la clasificación documentada" };
+    if (r === item.parcial) return { clave: "parcial", icono: "≈", titular: "Casi", texto: "Tu respuesta tiene parte de razón" };
+    return { clave: "no", icono: "✕", titular: "Incorrecto", texto: "Tu respuesta no coincide con la clasificación documentada" };
   };
 
   function mostrarPaso() {
@@ -47,17 +48,28 @@ export function iniciarQuiz(abrirRegistro) {
     const reg = registroPorId(item.registro);
     const res = resultado(item, op);
     respuestas.push({ item, op, res });
-    cuerpo.querySelectorAll(".opcion").forEach((b) => { b.disabled = true; });
-    boton.classList.add("elegida");
+    cuerpo.querySelectorAll(".opcion").forEach((b) => {
+      b.disabled = true;
+      // Si fallaste o dudaste, se marca en verde cuál era la respuesta documentada
+      if (b !== boton && b.dataset.op === item.clase) {
+        b.classList.add("opcion--correcta");
+        b.querySelector("span").textContent = "✓ Correcta";
+      }
+    });
+    boton.classList.add("elegida", `res--${res.clave}`);
+    boton.querySelector("span").textContent = res.icono;
     const fig = $("#quiz-figura");
-    fig.classList.add("revelando");
+    fig.classList.add("revelando", `res--${res.clave}`);
     $("#quiz-img").alt = `${reg.titulo}. ${reg.fecha}.`;
     barra.style.width = `${((indice + 1) / QUIZ.length) * 100}%`;
     const ultimo = indice === QUIZ.length - 1;
     const zona = $("#quiz-revelacion");
     zona.innerHTML = `
       <div class="revelacion" style="animation-delay:${reducirMovimiento() ? 0 : 0.5}s">
-        <p class="revelacion__resultado ${res.clave === "no" ? "no" : ""}">${esc(res.texto)}</p>
+        <div class="revelacion__resultado res--${res.clave}" role="status">
+          <span class="revelacion__icono" aria-hidden="true">${res.icono}</span>
+          <span><strong>${esc(res.titular)}</strong><span>${esc(res.texto)}</span></span>
+        </div>
         <p class="mono">Clasificación documentada</p>
         <p class="revelacion__clase">${esc(item.clasificacion)}</p>
         <dl>
@@ -78,12 +90,18 @@ export function iniciarQuiz(abrirRegistro) {
     cuerpo.innerHTML = `
       <div class="resumen">
         <p class="resumen__frase" tabindex="-1" id="quiz-final">No basta con mirar. <span>Hay que investigar.</span></p>
-        <p>Coincidencias: <strong>${cuenta("ok")}</strong> · Parcialmente correctas: <strong>${cuenta("parcial")}</strong> · No coincidentes: <strong>${cuenta("no")}</strong> · Dudas: <strong>${cuenta("duda")}</strong>. El resultado no mide tu capacidad para detectar falsificaciones: muestra lo difícil que es clasificar una imagen sin conocer su origen.</p>
+        <ul class="marcador" aria-label="Tu resultado">
+          <li class="res--ok"><span aria-hidden="true">✓</span><strong>${cuenta("ok")}</strong> correctas</li>
+          <li class="res--parcial"><span aria-hidden="true">≈</span><strong>${cuenta("parcial")}</strong> casi</li>
+          <li class="res--no"><span aria-hidden="true">✕</span><strong>${cuenta("no")}</strong> incorrectas</li>
+          <li class="res--duda"><span aria-hidden="true">?</span><strong>${cuenta("duda")}</strong> dudas</li>
+        </ul>
+        <p>El resultado no mide tu capacidad para detectar falsificaciones: muestra lo difícil que es clasificar una imagen sin conocer su origen.</p>
         <ol>
           ${respuestas.map(({ item, op, res }) => {
             const reg = registroPorId(item.registro);
             const elegida = OPCIONES.find((o) => o.id === op).label;
-            return `<li><img src="${img(reg.img, "sm")}" alt=""><div><span class="mono">${esc(res.texto)}</span>${esc(item.clasificacion)}<br><small>Tu respuesta: ${esc(elegida)}</small></div></li>`;
+            return `<li class="res--${res.clave}"><img src="${img(reg.img, "sm")}" alt=""><div><span class="mono resumen__estado"><span aria-hidden="true">${res.icono}</span> ${esc(res.titular)}</span>${esc(item.clasificacion)}<br><small>Tu respuesta: ${esc(elegida)}</small></div></li>`;
           }).join("")}
         </ol>
         <div class="resumen__acciones">
