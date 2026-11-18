@@ -297,6 +297,14 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .fragmento figcaption { margin-top: 14px; font-size: .95rem; color: #CFCBC1; display: grid; gap: 6px; }
 .fragmento figcaption .mono { color: var(--hueso); }
 .fragmento .btn-texto { justify-self: start; color: var(--hueso); }
+.fragmento__boton { justify-self: start; margin-top: 10px; color: var(--hueso); }
+.fragmento__boton::before { content: "↺"; font-size: 1.2em; line-height: 1; }
+.coleccion__acciones { display: flex; flex-wrap: wrap; gap: 12px; }
+.coleccion__acciones .btn[hidden] { display: none; }
+.btn[disabled] { opacity: .6; cursor: progress; }
+.piezas-descarga { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin: 28px 0 8px; }
+.piezas-descarga .mono { color: var(--gris-osc); }
+.pieza-ampliada__botones { display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* 7. Archivo --------------------------------------------------------------- */
 .leyenda-estados { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 36px; font-size: .95rem; color: var(--gris-osc); }
