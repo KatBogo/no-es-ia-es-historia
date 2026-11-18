@@ -16,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/archivo/vista-general-1890.jpg">
-  <link rel="stylesheet" href="css/styles.css?v=20501118c">
+  <link rel="stylesheet" href="css/styles.css?v=20501118d">
 </head>
 <body>
   <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -470,6 +470,27 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script type="module" src="js/main.js?v=20501118c"></script>
+  <!-- Versión de los archivos: al publicar cambios, sube el número (aquí, en main.js y en styles.css)
+       para que ningún navegador mezcle archivos nuevos con otros guardados en caché. -->
+  <script type="importmap">
+  {
+    "imports": {
+      "./js/utils.js": "./js/utils.js?v=20501118d",
+      "./js/data/registros.js": "./js/data/registros.js?v=20501118d",
+      "./js/data/contenido.js": "./js/data/contenido.js?v=20501118d",
+      "./js/modules/archivo.js": "./js/modules/archivo.js?v=20501118d",
+      "./js/modules/campana.js": "./js/modules/campana.js?v=20501118d",
+      "./js/modules/coleccion.js": "./js/modules/coleccion.js?v=20501118d",
+      "./js/modules/comparador.js": "./js/modules/comparador.js?v=20501118d",
+      "./js/modules/hero.js": "./js/modules/hero.js?v=20501118d",
+      "./js/modules/historias.js": "./js/modules/historias.js?v=20501118d",
+      "./js/modules/nav.js": "./js/modules/nav.js?v=20501118d",
+      "./js/modules/participa.js": "./js/modules/participa.js?v=20501118d",
+      "./js/modules/problema.js": "./js/modules/problema.js?v=20501118d",
+      "./js/modules/quiz.js": "./js/modules/quiz.js?v=20501118d"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js?v=20501118d"></script>
 </body>
 </html>
