@@ -243,9 +243,10 @@ export const HISTORIAS = [
 ];
 
 export const PIEZAS = [
-  { id: "p1", frase: "La historia no se genera. Se conserva.", img: "restauracion-1954", registro: "MSK-1954-27", estilo: "a" },
-  { id: "p2", frase: "Antes de compartir, verifica.", img: "yezhov-retocada", registro: "MSK-1937-29", estilo: "b" },
-  { id: "p3", frase: "No todo lo que parece antiguo es auténtico.", img: "palacio-soviets-3d", registro: "REC-2021-31", estilo: "c" },
-  { id: "p4", frase: "La memoria necesita fuentes, no suposiciones.", img: "revista-ejercito-lcc", registro: "MSK-19XX-28", estilo: "a" },
-  { id: "p5", frase: "Moscú 2050: ¿quién controla lo que recordamos?", img: "vista-general-1890", registro: "MSK-1890-02", estilo: "d" }
+  // "dato": texto técnico de la pieza; debe describir con exactitud la imagen usada.
+  { id: "p1", frase: "La historia no se genera. Se conserva.", img: "restauracion-1954", registro: "MSK-1954-27", estilo: "a", dato: "REGISTRO // JUNIO 1954" },
+  { id: "p2", frase: "Antes de compartir, verifica.", img: "yezhov-retocada", registro: "MSK-1937-29", estilo: "b", dato: "FOTO RETOCADA // 1937" },
+  { id: "p3", frase: "No todo lo que parece antiguo es auténtico.", img: "palacio-soviets-3d", registro: "REC-2021-31", estilo: "c", dato: "RECONSTRUCCIÓN 3D // 2021" },
+  { id: "p4", frase: "La memoria necesita fuentes, no suposiciones.", img: "revista-ejercito-lcc", registro: "MSK-19XX-28", estilo: "a", dato: "REGISTRO // FECHA EN CONFLICTO" },
+  { id: "p5", frase: "Moscú 2050: ¿quién controla lo que recordamos?", img: "vista-general-1890", registro: "MSK-1890-02", estilo: "d", dato: "FOTOCROMO // C. 1890–1900" }
 ];

@@ -8,13 +8,13 @@ const URL_CAMPANA = () => location.origin + location.pathname;
  * Pieza en estilo collage: fotografía tramada, bloques rojos, rejilla,
  * banda diagonal con la frase y microtextos técnicos.
  */
-function piezaHTML(p, i, etiqueta = "button") {
+export function piezaHTML(p, i, etiqueta = "button", tam = "sm") {
   const attrs = etiqueta === "button" ? `type="button" data-pieza="${i}" aria-label="Ampliar pieza ${i + 1}: ${esc(p.frase)}"` : `role="img" aria-label="Pieza ${i + 1}: ${esc(p.frase)}"`;
   const reg = registroPorId(p.registro);
   const num = String(i + 1).padStart(2, "0");
   return `<${etiqueta} class="pieza pieza--${p.estilo}" ${attrs}>
       <span class="pieza__bloque pieza__bloque--1"></span>
-      <img class="pieza__foto" src="${img(p.img, "sm")}" alt="" loading="lazy">
+      <img class="pieza__foto" src="${img(p.img, tam)}" alt="" ${tam === "sm" ? 'loading="lazy"' : ""}>
       <span class="pieza__trama"></span>
       <span class="pieza__rejilla"></span>
       <span class="pieza__bloque pieza__bloque--2"></span>
@@ -22,7 +22,7 @@ function piezaHTML(p, i, etiqueta = "button") {
       <span class="pieza__diagonal">
         <span class="pieza__micro">MEMORIA / FUENTE / PROCEDENCIA // ${num}</span>
         <span class="pieza__banda"><span class="pieza__frase">${esc(p.frase)}</span></span>
-        <span class="pieza__micro">REGISTRO ${esc(reg ? reg.anio ?? "S. F." : "")} // MSK 2050 // NO ES IA</span>
+        <span class="pieza__micro">${esc(p.dato)} // MSK 2050</span>
       </span>
       <span class="pieza__flecha">↗</span>
       <span class="pieza__hash">#NoEsIAEsHistoria</span>

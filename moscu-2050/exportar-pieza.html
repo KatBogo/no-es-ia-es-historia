@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Exportar pieza · NO ES IA. ES HISTORIA.</title>
+  <!-- Herramienta interna: muestra una sola pieza de campaña a pantalla completa
+       para exportarla como imagen. Uso: exportar-pieza.html?i=0 (de 0 a 4). -->
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    html, body { margin: 0; background: #111; overflow: hidden; }
+    #lienzo { width: 100vw; height: 125vw; }
+    #lienzo .pieza { width: 100%; height: 100%; aspect-ratio: auto; cursor: default; }
+    #lienzo .pieza:hover { transform: none; box-shadow: none; }
+  </style>
+</head>
+<body>
+  <div id="lienzo"></div>
+  <script type="module">
+    import { piezaHTML } from "./js/modules/campana.js";
+    import { PIEZAS } from "./js/data/contenido.js";
+    const i = Number(new URLSearchParams(location.search).get("i") || 0);
+    document.getElementById("lienzo").innerHTML = piezaHTML(PIEZAS[i], i, "div", "");
+    const foto = document.querySelector(".pieza__foto");
+    Promise.all([document.fonts.ready, foto.decode().catch(() => {})])
+      .then(() => document.body.setAttribute("data-listo", "1"));
+  </script>
+</body>
+</html>
