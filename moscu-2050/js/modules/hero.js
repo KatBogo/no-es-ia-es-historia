@@ -18,7 +18,7 @@ export function iniciarHero() {
       ultimo = fase;
       estado.textContent = fase === "historica"
         ? "Ahora ves: fotografía histórica (fotocromo, c. 1890–1900)"
-        : "Ahora ves: visualización especulativa de 2050";
+        : "Ahora ves: capa sintética de 2050";
     }
   };
 

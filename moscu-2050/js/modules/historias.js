@@ -8,21 +8,21 @@ export function iniciarHistorias(abrirRegistro) {
 
   tiempo.innerHTML = HISTORIAS.map((h, i) => `
     <button class="hito ${h.especulativa ? "especulativo-hito" : ""}" type="button" role="tab" id="hito-${h.id}"
-      aria-selected="${i === 0}" aria-controls="historia-${h.id}" data-i="${i}">${esc(h.anio)}${h.especulativa ? "<span class=\"sr-only\"> (especulativa)</span>" : ""}</button>`).join("");
+      aria-selected="${i === 0}" aria-controls="historia-${h.id}" data-i="${i}">${esc(h.anio)}${h.especulativa ? "<span class=\"sr-only\"> (presente)</span>" : ""}</button>`).join("");
 
   pista.innerHTML = HISTORIAS.map((h) => `
     <li class="historia ${h.especulativa ? "ficcion" : ""}" id="historia-${h.id}" role="tabpanel" aria-labelledby="hito-${h.id}">
       <button class="historia__boton" type="button" aria-expanded="false" aria-controls="det-${h.id}">
         <div class="historia__img ${h.img.startsWith("panorama") ? "historia__img--panorama" : ""}"><img src="${img(h.img)}" alt="" loading="lazy"></div>
         <div class="historia__cabeza">
-          <span class="historia__anio">${esc(h.anio)}${h.especulativa ? " · ESCENARIO ESPECULATIVO" : ""}</span>
+          <span class="historia__anio">${esc(h.anio)}${h.especulativa ? " · PRESENTE" : ""}</span>
           <span class="historia__titulo">${esc(h.titulo)}</span>
           <span class="historia__ampliar">Leer la historia</span>
         </div>
       </button>
       <div class="historia__detalle" id="det-${h.id}">
         <div><div class="historia__texto">
-          ${h.especulativa ? '<p class="sello-ficcion">Ficción · Moscú 2050 es un escenario hipotético</p>' : ""}
+          ${h.especulativa ? '<p class="sello-ficcion">Moscú, 2050 · Relato del presente</p>' : ""}
           ${h.contexto.map((p) => `<p>${esc(p)}</p>`).join("")}
           ${h.fragmento ? `<blockquote class="historia__fragmento">
               <span class="mono">${esc(h.fragmento.tipo)}</span>

@@ -1,8 +1,34 @@
 /** Campaña digital: carrusel de piezas, vista ampliada y botones para compartir la URL. */
-import { $, $$, esc, img, registroPorId, abrirDialogo, cerrarDialogo, copiar, toast } from "../utils.js";
+import { $, $$, esc, img, registroPorId, abrirDialogo, cerrarDialogo, copiar, toast, crearZip, descargarBlob } from "../utils.js";
 import { PIEZAS } from "../data/contenido.js";
 
 const URL_CAMPANA = () => location.origin + location.pathname;
+/** PNG de cada pieza a 2160 × 2700 px (formato 4:5 para redes). */
+const pngPieza = (i) => `img/campana/pieza-${String(i + 1).padStart(2, "0")}.png`;
+const nombrePieza = (i) => `NoEsIAEsHistoria-pieza-${String(i + 1).padStart(2, "0")}.png`;
+
+async function descargarPiezas(boton) {
+  if (boton.disabled) return;
+  const txt = boton.textContent;
+  boton.disabled = true;
+  try {
+    const archivos = [];
+    for (let i = 0; i < PIEZAS.length; i++) {
+      boton.textContent = `Preparando ${i + 1} de ${PIEZAS.length}…`;
+      const res = await fetch(pngPieza(i));
+      if (!res.ok) throw new Error();
+      archivos.push({ nombre: nombrePieza(i), datos: await res.blob() });
+    }
+    archivos.push({ nombre: "TEXTOS.txt", datos: PIEZAS.map((p, i) => `${String(i + 1).padStart(2, "0")} · ${p.frase}\r\n#NoEsIAEsHistoria · ${URL_CAMPANA()}`).join("\r\n\r\n") });
+    descargarBlob(await crearZip(archivos), "NoEsIAEsHistoria-piezas.zip");
+    toast("Piezas de la campaña descargadas");
+  } catch {
+    toast("No se pudieron descargar las piezas. Inténtalo de nuevo.");
+  } finally {
+    boton.textContent = txt;
+    boton.disabled = false;
+  }
+}
 
 /**
  * Pieza en estilo collage: fotografía tramada, bloques rojos, rejilla,
@@ -101,7 +127,10 @@ export function iniciarCampana(abrirRegistro) {
           <p class="mono" id="mp-titulo">Pieza ${i + 1} de ${PIEZAS.length} · #NoEsIAEsHistoria</p>
           <p class="frase">${esc(p.frase)}</p>
           <p>Imagen de base: «${esc(reg.titulo)}» (${esc(reg.fecha)}). ${esc(reg.autor)} · ${esc(reg.institucion)} · ${esc(reg.licencia.nombre)}. El tratamiento gráfico de la pieza es parte de la campaña.</p>
-          <button class="btn btn--linea" type="button" data-ir-registro="${esc(reg.id)}">Ver el registro en el archivo</button>
+          <div class="pieza-ampliada__botones">
+            <a class="btn btn--rojo" href="${pngPieza(i)}" download="${nombrePieza(i)}">Descargar pieza (PNG)</a>
+            <button class="btn btn--linea" type="button" data-ir-registro="${esc(reg.id)}">Ver el registro</button>
+          </div>
           <div class="compartir__botones">${botonesCompartir(p.frase)}</div>
         </div>
       </div>`;
@@ -116,4 +145,5 @@ export function iniciarCampana(abrirRegistro) {
   const zona = $("#compartir");
   zona.innerHTML = botonesCompartir("NO ES IA. ES HISTORIA. Antes de compartir, verifica.");
   zona.addEventListener("click", (e) => manejarCompartir(e, "NO ES IA. ES HISTORIA. Antes de compartir, verifica."));
+  $("#piezas-descargar").addEventListener("click", (e) => descargarPiezas(e.currentTarget));
 }

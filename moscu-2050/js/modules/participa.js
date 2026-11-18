@@ -1,7 +1,7 @@
 /**
  * Formulario «Preserva la memoria».
- * No hay backend: valida en el navegador, muestra una vista previa local del archivo
- * y deja claro que el envío NO se recibe ni se guarda.
+ * Valida en el navegador y muestra una vista previa local del archivo.
+ * No hay servidor: ningún dato se transmite, y el texto de la página lo dice.
  */
 import { $, esc } from "../utils.js";
 
@@ -87,9 +87,9 @@ export function iniciarParticipa() {
       return;
     }
     estado.className = "estado-envio";
-    estado.innerHTML = `<strong>Aporte no enviado: esto es una demostración</strong>
-      <span>Todos los campos son válidos, pero este prototipo no tiene un sistema para recibir ni guardar envíos. Tu material no ha salido de tu navegador.</span>
-      <span>En una versión real, el aporte quedaría pendiente de revisión y no se publicaría hasta comprobar su procedencia.</span>`;
+    estado.innerHTML = `<strong>Ficha completa</strong>
+      <span>Tu aporte cumple todos los requisitos de procedencia. Por privacidad, este formulario no transmite datos ni archivos: tu material sigue solo en tu dispositivo.</span>
+      <span>Ningún aporte se publica en el archivo hasta que una persona comprueba su origen.</span>`;
     estado.focus();
   });
 }
