@@ -4,15 +4,30 @@ import { PIEZAS } from "../data/contenido.js";
 
 const URL_CAMPANA = () => location.origin + location.pathname;
 
+/**
+ * Pieza en estilo collage: fotografía tramada, bloques rojos, rejilla,
+ * banda diagonal con la frase y microtextos técnicos.
+ */
 function piezaHTML(p, i, etiqueta = "button") {
   const attrs = etiqueta === "button" ? `type="button" data-pieza="${i}" aria-label="Ampliar pieza ${i + 1}: ${esc(p.frase)}"` : `role="img" aria-label="Pieza ${i + 1}: ${esc(p.frase)}"`;
+  const reg = registroPorId(p.registro);
+  const num = String(i + 1).padStart(2, "0");
   return `<${etiqueta} class="pieza pieza--${p.estilo}" ${attrs}>
-      <img src="${img(p.img, "sm")}" alt="" loading="lazy">
-      <span class="pieza__marco"></span>
+      <span class="pieza__bloque pieza__bloque--1"></span>
+      <img class="pieza__foto" src="${img(p.img, "sm")}" alt="" loading="lazy">
+      <span class="pieza__trama"></span>
+      <span class="pieza__rejilla"></span>
+      <span class="pieza__bloque pieza__bloque--2"></span>
+      <span class="pieza__bloque pieza__bloque--3"></span>
+      <span class="pieza__diagonal">
+        <span class="pieza__micro">MEMORIA / FUENTE / PROCEDENCIA // ${num}</span>
+        <span class="pieza__banda"><span class="pieza__frase">${esc(p.frase)}</span></span>
+        <span class="pieza__micro">REGISTRO ${esc(reg ? reg.anio ?? "S. F." : "")} // MSK 2050 // NO ES IA</span>
+      </span>
+      <span class="pieza__flecha">↗</span>
       <span class="pieza__hash">#NoEsIAEsHistoria</span>
-      <span class="pieza__num">${String(i + 1).padStart(2, "0")} / ${String(PIEZAS.length).padStart(2, "0")}</span>
-      <span class="pieza__frase">${esc(p.frase)}</span>
-      <span class="pieza__firma">No es IA. Es historia. · Moscú 2050</span>
+      <span class="pieza__num">${num} / ${String(PIEZAS.length).padStart(2, "0")}</span>
+      <span class="pieza__grano"></span>
     </${etiqueta}>`;
 }
 

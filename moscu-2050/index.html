@@ -89,6 +89,7 @@
         </div>
         <div class="hero__scan"></div>
         <div class="hero__sombra"></div>
+        <div class="hero__collage"><span class="hero__bloque hero__bloque--1"></span><span class="hero__bloque hero__bloque--2"></span><span class="hero__trama"></span><span class="hero__rejilla"></span></div>
       </div>
 
       <div class="hero__contenido">
@@ -113,11 +114,15 @@
       <a class="hero__scroll" href="#moscu-2050"><span class="mono">Desliza</span><span class="hero__flecha" aria-hidden="true"></span></a>
     </section>
 
+    <div class="cinta" aria-hidden="true">
+      <div class="cinta__banda cinta__banda--roja"><span>NO ES IA · ES HISTORIA · NO ES IA · ES HISTORIA · NO ES IA · ES HISTORIA · NO ES IA · ES HISTORIA ·</span></div>
+      <div class="cinta__banda cinta__banda--hueso"><span>REALIDAD FRAGMENTADA // IMAGEN SINTÉTICA // FUENTE PERDIDA // MOSCÚ 2050 // REALIDAD FRAGMENTADA // IMAGEN SINTÉTICA // FUENTE PERDIDA // MOSCÚ 2050 //</span></div>
+    </div>
+
     <!-- ===================== 2. EL PROBLEMA ===================== -->
     <section class="seccion seccion--oscura problema" id="moscu-2050" aria-labelledby="problema-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <p class="etiqueta mono"><span>02</span> El problema · Moscú 2050</p>
           <h2 class="titular" id="problema-titulo">¿Y si el pasado que recuerdas nunca existió?</h2>
           <div class="cabecera__texto">
             <p class="especulativo mono">Escenario hipotético</p>
@@ -141,11 +146,61 @@
       </div>
     </section>
 
+    <!-- ===================== 2B. ANTES Y DESPUÉS ===================== -->
+    <section class="seccion seccion--oscura comparador" id="antes-despues" aria-labelledby="comparador-titulo">
+      <div class="contenedor">
+        <header class="cabecera reveal">
+          <h2 class="titular" id="comparador-titulo">La imagen cambia. La fuente permanece.</h2>
+          <div class="cabecera__texto">
+            <p>Arrastra el control, o usa las flechas del teclado, para comparar cada documento con su versión intervenida. Ambas versiones comparten encuadre.</p>
+          </div>
+        </header>
+
+        <div class="comparador__pestanas" role="tablist" aria-label="Comparaciones" id="comparador-tabs"></div>
+
+        <div class="comparador__grid">
+          <div class="comparador__visor" id="visor">
+            <img class="visor__base" id="visor-original" alt="">
+            <div class="visor__intervenida" id="visor-capa-wrap">
+              <img id="visor-intervenida" alt="">
+              <svg class="visor__especulativa" id="visor-especulativa" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <g stroke="#F2F0E9" stroke-width="3" fill="none" stroke-opacity=".9">
+                  <path d="M120 1000 V260 L200 140 L280 260 V1000"/><path d="M200 140 V40"/>
+                  <path d="M1250 1000 V300 Q1350 210 1450 300 V1000"/>
+                  <path d="M0 520 C400 470 1200 470 1600 520"/>
+                </g>
+                <g stroke="#C52B32" stroke-width="4" fill="none" stroke-dasharray="10 8">
+                  <rect x="560" y="300" width="300" height="220"/>
+                  <rect x="100" y="120" width="200" height="880"/>
+                </g>
+                <g fill="#F2F0E9" font-family="IBM Plex Mono, monospace" font-size="30" letter-spacing="3">
+                  <text x="560" y="285">RECONOCIDO · 0,97</text>
+                  <text x="100" y="105">ELEMENTO AÑADIDO</text>
+                  <text x="1080" y="960">MSK · 2050</text>
+                </g>
+              </svg>
+            </div>
+            <span class="visor__etiqueta visor__etiqueta--izq mono">Documento original</span>
+            <span class="visor__etiqueta visor__etiqueta--der mono">Versión intervenida</span>
+            <div class="visor__linea" id="visor-linea" aria-hidden="true"><span></span></div>
+            <label class="sr-only" for="visor-rango">Posición del comparador: a la izquierda el documento original, a la derecha la versión intervenida</label>
+            <input type="range" id="visor-rango" class="visor__rango" min="0" max="100" value="50" step="1">
+          </div>
+          <div class="comparador__texto" id="comparador-texto" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cinta collage entre secciones (decorativa) -->
+    <div class="cinta" aria-hidden="true">
+      <div class="cinta__banda cinta__banda--roja"><span>VERIFICA · ANTES · DE · COMPARTIR · VERIFICA · ANTES · DE · COMPARTIR · VERIFICA · ANTES · DE · COMPARTIR ·</span></div>
+      <div class="cinta__banda cinta__banda--hueso"><span>MEMORIA / FUENTE / PROCEDENCIA // MSK 2050 // ARCHIVO CIUDADANO // MEMORIA / FUENTE / PROCEDENCIA // MSK 2050 // ARCHIVO CIUDADANO //</span></div>
+    </div>
+
     <!-- ===================== 3. ARCHIVO ===================== -->
     <section class="seccion seccion--clara archivo" id="archivo" aria-labelledby="archivo-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <p class="etiqueta mono"><span>03</span> El archivo de la memoria</p>
           <h2 class="titular" id="archivo-titulo">El pasado no se genera. Se documenta.</h2>
           <div class="cabecera__texto">
             <p>Fotografías y documentos reales de Moscú, con autor, fecha, institución y licencia. Todas las imágenes proceden de Wikimedia Commons y de los archivos que se citan en cada ficha.</p>
@@ -200,7 +255,6 @@
     <section class="seccion seccion--oscura quiz" id="explora" aria-labelledby="quiz-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <p class="etiqueta mono"><span>04</span> ¿Real o generado?</p>
           <h2 class="titular" id="quiz-titulo">Tus ojos pueden engañarte. Las fuentes importan.</h2>
           <div class="cabecera__texto">
             <p>Observa cada imagen y decide qué crees que es. Después verás su clasificación documentada y de dónde procede.</p>
@@ -222,7 +276,6 @@
     <section class="seccion seccion--clara historias" id="historias" aria-labelledby="historias-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <p class="etiqueta mono"><span>05</span> Historias que no se borran</p>
           <h2 class="titular" id="historias-titulo">Una imagen guarda más que un instante.</h2>
           <div class="cabecera__texto">
             <p>Relatos de Moscú contados a partir de sus registros. Pulsa una historia para ampliarla o recorre la línea de tiempo.</p>
@@ -239,57 +292,15 @@
       </div>
     </section>
 
-    <!-- ===================== 6. ANTES Y DESPUÉS ===================== -->
-    <section class="seccion seccion--oscura comparador" id="antes-despues" aria-labelledby="comparador-titulo">
-      <div class="contenedor">
-        <header class="cabecera reveal">
-          <p class="etiqueta mono"><span>06</span> Antes y después</p>
-          <h2 class="titular" id="comparador-titulo">La imagen cambia. La fuente permanece.</h2>
-          <div class="cabecera__texto">
-            <p>Arrastra el control, o usa las flechas del teclado, para comparar cada documento con su versión intervenida. Ambas versiones comparten encuadre.</p>
-          </div>
-        </header>
-
-        <div class="comparador__pestanas" role="tablist" aria-label="Comparaciones" id="comparador-tabs"></div>
-
-        <div class="comparador__grid">
-          <div class="comparador__visor" id="visor">
-            <img class="visor__base" id="visor-original" alt="">
-            <div class="visor__intervenida" id="visor-capa-wrap">
-              <img id="visor-intervenida" alt="">
-              <svg class="visor__especulativa" id="visor-especulativa" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <g stroke="#F2F0E9" stroke-width="3" fill="none" stroke-opacity=".9">
-                  <path d="M120 1000 V260 L200 140 L280 260 V1000"/><path d="M200 140 V40"/>
-                  <path d="M1250 1000 V300 Q1350 210 1450 300 V1000"/>
-                  <path d="M0 520 C400 470 1200 470 1600 520"/>
-                </g>
-                <g stroke="#C52B32" stroke-width="4" fill="none" stroke-dasharray="10 8">
-                  <rect x="560" y="300" width="300" height="220"/>
-                  <rect x="100" y="120" width="200" height="880"/>
-                </g>
-                <g fill="#F2F0E9" font-family="IBM Plex Mono, monospace" font-size="30" letter-spacing="3">
-                  <text x="560" y="285">RECONOCIDO · 0,97</text>
-                  <text x="100" y="105">ELEMENTO AÑADIDO</text>
-                  <text x="1080" y="960">MSK · 2050</text>
-                </g>
-              </svg>
-            </div>
-            <span class="visor__etiqueta visor__etiqueta--izq mono">Documento original</span>
-            <span class="visor__etiqueta visor__etiqueta--der mono">Versión intervenida</span>
-            <div class="visor__linea" id="visor-linea" aria-hidden="true"><span></span></div>
-            <label class="sr-only" for="visor-rango">Posición del comparador: a la izquierda el documento original, a la derecha la versión intervenida</label>
-            <input type="range" id="visor-rango" class="visor__rango" min="0" max="100" value="50" step="1">
-          </div>
-          <div class="comparador__texto" id="comparador-texto" aria-live="polite"></div>
-        </div>
-      </div>
-    </section>
+    <div class="cinta" aria-hidden="true">
+      <div class="cinta__banda cinta__banda--roja"><span>NO COMPARTAS · SIN · ORIGEN · NO COMPARTAS · SIN · ORIGEN · NO COMPARTAS · SIN · ORIGEN · NO COMPARTAS · SIN · ORIGEN ·</span></div>
+      <div class="cinta__banda cinta__banda--hueso"><span>#NOESIAESHISTORIA // CAMPAÑA DIGITAL // PIEZAS 01–05 // #NOESIAESHISTORIA // CAMPAÑA DIGITAL // PIEZAS 01–05 //</span></div>
+    </div>
 
     <!-- ===================== 7. CAMPAÑA ===================== -->
     <section class="seccion seccion--clara campana" id="campana" aria-labelledby="campana-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <p class="etiqueta mono"><span>07</span> Campaña digital</p>
           <h2 class="titular" id="campana-titulo">No compartas una historia sin conocer su origen.</h2>
           <div class="cabecera__texto">
             <p>Piezas para redes sociales construidas con fotografías del archivo. Pulsa una pieza para verla ampliada y llegar al registro del que procede.</p>
@@ -317,7 +328,6 @@
     <section class="seccion seccion--oscura participa" id="participa" aria-labelledby="participa-titulo">
       <div class="contenedor participa__grid">
         <header class="cabecera cabecera--col reveal">
-          <p class="etiqueta mono"><span>08</span> Preserva la memoria</p>
           <h2 class="titular" id="participa-titulo">El futuro también necesita recordar.</h2>
           <p>«Cada fotografía, documento y testimonio puede ayudar a preservar una parte de nuestra historia. La memoria no pertenece a un algoritmo. Nos pertenece a todos».</p>
           <ol class="pasos">
