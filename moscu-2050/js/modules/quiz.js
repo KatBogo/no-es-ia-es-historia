@@ -10,8 +10,7 @@ const OPCIONES = [
 
 export function iniciarQuiz(abrirRegistro) {
   const cuerpo = $("#quiz-cuerpo");
-  const paso = $("#quiz-paso");
-  const barra = $("#quiz-barra");
+  const panel = $("#quiz");
   let indice = 0;
   let respuestas = [];
 
@@ -26,12 +25,11 @@ export function iniciarQuiz(abrirRegistro) {
   function mostrarPaso() {
     const item = QUIZ[indice];
     const reg = registroPorId(item.registro);
-    paso.textContent = `Imagen ${indice + 1} de ${QUIZ.length}`;
-    barra.style.width = `${(indice / QUIZ.length) * 100}%`;
     cuerpo.innerHTML = `
       <div class="quiz__grid">
         <figure class="quiz__imagen" id="quiz-figura">
-          <img src="${img(reg.img)}" alt="Imagen ${indice + 1} del ejercicio. Su descripción aparece después de responder." id="quiz-img">
+          <img src="${img(reg.img)}" alt="Imagen del ejercicio. Su descripción aparece después de responder." id="quiz-img">
+          <span class="quiz__sello" id="quiz-sello" aria-hidden="true"></span>
         </figure>
         <div>
           <p class="quiz__pregunta" id="quiz-pregunta" tabindex="-1">¿Qué crees que es esta imagen?</p>
@@ -60,32 +58,45 @@ export function iniciarQuiz(abrirRegistro) {
     boton.querySelector("span").textContent = res.icono;
     const fig = $("#quiz-figura");
     fig.classList.add("revelando", `res--${res.clave}`);
+    const sello = $("#quiz-sello");
+    sello.textContent = res.icono;
+    sello.classList.add(`res--${res.clave}`, "visible");
     $("#quiz-img").alt = `${reg.titulo}. ${reg.fecha}.`;
-    barra.style.width = `${((indice + 1) / QUIZ.length) * 100}%`;
     const ultimo = indice === QUIZ.length - 1;
     const zona = $("#quiz-revelacion");
+    // Resultado breve y a la vista; la información completa está en la ficha del archivo
     zona.innerHTML = `
-      <div class="revelacion" style="animation-delay:${reducirMovimiento() ? 0 : 0.5}s">
+      <div class="revelacion">
         <div class="revelacion__resultado res--${res.clave}" role="status">
           <span class="revelacion__icono" aria-hidden="true">${res.icono}</span>
-          <span><strong>${esc(res.titular)}</strong><span>${esc(res.texto)}</span></span>
+          <span><strong>${esc(res.titular)}</strong><span>Es: ${esc(item.clasificacion)}</span></span>
         </div>
-        <p class="mono">Clasificación documentada</p>
-        <p class="revelacion__clase">${esc(item.clasificacion)}</p>
-        <dl>
-          <div><dt>Explicación</dt><dd>${esc(item.explicacion)}</dd></div>
-          <div><dt>Pistas que pueden engañar</dt><dd>${esc(item.pistas)}</dd></div>
-          <div><dt>Fuente disponible</dt><dd>${esc(item.fuente)} · <button class="btn-texto" type="button" data-ver="${esc(reg.id)}">Ver ficha</button></dd></div>
-          <div><dt>Por qué verificar</dt><dd>Mirar no basta: la procedencia —quién la hizo, cuándo y quién la conserva— es lo que permite clasificar una imagen.</dd></div>
-        </dl>
-        <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? "Ver resumen" : "Siguiente imagen"}</button>
+        <p class="revelacion__breve">${esc(item.breve)}</p>
+        <div class="revelacion__botones">
+          <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? "Ver resumen" : "Siguiente imagen"} →</button>
+          <button class="btn btn--linea" type="button" data-ver="${esc(reg.id)}">Ver en el archivo</button>
+        </div>
       </div>`;
     $("#quiz-siguiente").focus({ preventScroll: true });
+    mantenerALaVista();
+  }
+
+  /** Desplaza lo justo para que la imagen, la respuesta y los botones se vean enteros. */
+  function mantenerALaVista() {
+    const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 64;
+    const r = panel.getBoundingClientRect();
+    const rev = $("#quiz-revelacion").getBoundingClientRect();
+    const comportamiento = reducirMovimiento() ? "auto" : "smooth";
+    if (r.height <= window.innerHeight - nav) {
+      // Cabe entero: se alinea el ejercicio bajo el menú si hace falta
+      if (r.top < nav || r.bottom > window.innerHeight) window.scrollBy({ top: r.top - nav - 8, behavior: comportamiento });
+    } else if (rev.bottom > window.innerHeight) {
+      // No cabe (móvil): prioridad a que se vean el resultado y los botones
+      window.scrollBy({ top: rev.bottom - window.innerHeight + 16, behavior: comportamiento });
+    }
   }
 
   function resumen() {
-    paso.textContent = "Resumen";
-    barra.style.width = "100%";
     const cuenta = (k) => respuestas.filter((r) => r.res.clave === k).length;
     cuerpo.innerHTML = `
       <div class="resumen">
