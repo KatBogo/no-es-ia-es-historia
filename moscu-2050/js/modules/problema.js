@@ -1,6 +1,7 @@
 /** Sección «El problema»: tarjetas de riesgo expandibles y animación de fragmentación. */
 import { $, esc, reducirMovimiento } from "../utils.js";
-import { RIESGOS } from "../data/contenido.js";
+import { RIESGOS, ESCENARIO } from "../data/contenido.js";
+import { t } from "../i18n.js";
 
 const ICONOS = {
   scissors: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5 20 19M8.5 16.5 20 5"/></svg>',
@@ -11,6 +12,18 @@ const ICONOS = {
 };
 
 export function iniciarProblema(abrirRegistro) {
+  // Predicciones de Earth 2050 en las que se basa el escenario
+  const escenario = $("#escenario");
+  if (escenario) {
+    escenario.innerHTML = ESCENARIO.map((e, i) => `
+      <li class="prediccion ${e.clave ? "prediccion--clave" : ""} reveal" style="transition-delay:${i * 70}ms">
+        <span class="prediccion__num mono">${String(i + 1).padStart(2, "0")}</span>
+        <h3 class="prediccion__titulo">${esc(e.prediccion)}</h3>
+        <p class="prediccion__autor mono">Earth 2050 · ${esc(e.autor)}</p>
+        <p>${esc(e.texto)}</p>
+      </li>`).join("");
+  }
+
   const lista = $("#riesgos");
   lista.innerHTML = RIESGOS.map((r, i) => `
     <li class="riesgo reveal" style="transition-delay:${i * 80}ms">
@@ -19,10 +32,10 @@ export function iniciarProblema(abrirRegistro) {
         <span><span class="riesgo__titulo">${esc(r.titulo)}</span><span class="riesgo__texto">${esc(r.texto)}</span></span>
         <span class="riesgo__mas" aria-hidden="true">+</span>
       </button>
-      <div class="riesgo__ejemplo" id="ej-${r.id}" role="region" aria-label="Ejemplo: ${esc(r.titulo)}">
+      <div class="riesgo__ejemplo" id="ej-${r.id}" role="region" aria-label="${t("ejemplo")}: ${esc(r.titulo)}">
         <div>
           <p>${esc(r.ejemplo)}</p>
-          ${r.registro ? `<button class="btn-texto" type="button" data-registro="${esc(r.registro)}">Ver el registro en el archivo</button>` : ""}
+          ${r.registro ? `<button class="btn-texto" type="button" data-registro="${esc(r.registro)}">${t("verRegistro")}</button>` : ""}
         </div>
       </div>
     </li>`).join("");
@@ -62,7 +75,7 @@ export function iniciarProblema(abrirRegistro) {
   const boton = $("#fragmento-boton");
   const fijar = (roto) => {
     figura.classList.toggle("roto", roto);
-    boton.textContent = roto ? "Recomponer la imagen" : "Fragmentar de nuevo";
+    boton.textContent = roto ? t("recomponer") : t("fragmentar");
   };
   boton.addEventListener("click", () => fijar(!figura.classList.contains("roto")));
 

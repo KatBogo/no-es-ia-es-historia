@@ -3,6 +3,7 @@
  * Los datos viven en js/data/ y se pueden editar sin tocar la lógica.
  */
 import { prepararDialogos } from "./utils.js";
+import { iniciarIdioma } from "./i18n.js";
 import { iniciarNav, iniciarReveal } from "./modules/nav.js";
 import { iniciarHero } from "./modules/hero.js";
 import { iniciarProblema } from "./modules/problema.js";
@@ -15,6 +16,7 @@ import { iniciarCampana } from "./modules/campana.js";
 import { iniciarParticipa } from "./modules/participa.js";
 
 const pasos = [
+  ["idioma", () => iniciarIdioma()],
   ["diálogos", () => prepararDialogos()],
   ["navegación", () => iniciarNav()],
   ["portada", () => iniciarHero()],

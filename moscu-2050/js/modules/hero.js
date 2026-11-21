@@ -1,5 +1,6 @@
 /** Hero: parallax suave y transición de la capa especulativa a la fotografía histórica al hacer scroll. */
 import { $, reducirMovimiento } from "../utils.js";
+import { t } from "../i18n.js";
 
 export function iniciarHero() {
   const hero = $("#inicio");
@@ -16,9 +17,7 @@ export function iniciarHero() {
     const fase = p > 0.55 ? "historica" : "especulativa";
     if (fase !== ultimo) {
       ultimo = fase;
-      estado.textContent = fase === "historica"
-        ? "Ahora ves: fotografía histórica (fotocromo, c. 1890–1900)"
-        : "Ahora ves: capa sintética de 2050";
+      estado.textContent = fase === "historica" ? t("heroHistorica") : t("heroEspeculativa");
     }
   };
 

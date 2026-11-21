@@ -5,6 +5,7 @@
  */
 import { $, $$, esc, img } from "../utils.js";
 import { COMPARACIONES } from "../data/contenido.js";
+import { t } from "../i18n.js";
 
 export function iniciarComparador(abrirRegistro) {
   const tabs = $("#comparador-tabs");
@@ -19,7 +20,7 @@ export function iniciarComparador(abrirRegistro) {
 
   const posicion = (v) => {
     visor.style.setProperty("--pos", v + "%");
-    rango.setAttribute("aria-valuetext", `${100 - v} % de la versión intervenida visible`);
+    rango.setAttribute("aria-valuetext", t("valorRango", 100 - v));
   };
   rango.addEventListener("input", () => posicion(rango.value));
 
@@ -27,20 +28,20 @@ export function iniciarComparador(abrirRegistro) {
     const c = COMPARACIONES[i];
     $$(".pestana", tabs).forEach((t, j) => t.setAttribute("aria-selected", String(i === j)));
     original.src = img(c.original);
-    original.alt = `Documento original: ${c.titulo}`;
+    original.alt = t("docOriginal") + c.titulo;
     intervenida.src = img(c.intervenida);
-    intervenida.alt = `Versión intervenida: ${c.titulo}`;
+    intervenida.alt = t("versionInt") + c.titulo;
     intervenida.style.filter = c.filtro || "none";
     visor.classList.toggle("con-capa", c.capa);
     rango.value = 50; posicion(50);
     texto.innerHTML = `
       <h3>${esc(c.titulo)}</h3>
       <dl>
-        <div><dt>Qué cambió</dt><dd>${esc(c.explicacion)}</dd></div>
-        <div><dt>Por qué importa identificar la intervención</dt><dd>${esc(c.importancia)}</dd></div>
-        <div><dt>Fuentes</dt><dd>${esc(c.fuente)}</dd></div>
+        <div><dt>${t("queCambio")}</dt><dd>${esc(c.explicacion)}</dd></div>
+        <div><dt>${t("porQueImporta")}</dt><dd>${esc(c.importancia)}</dd></div>
+        <div><dt>${t("fuentes")}</dt><dd>${esc(c.fuente)}</dd></div>
       </dl>
-      <button class="btn-texto" type="button" data-registro="${esc(c.registro)}">Ver la ficha del documento original</button>`;
+      <button class="btn-texto" type="button" data-registro="${esc(c.registro)}">${t("verOriginal")}</button>`;
   };
 
   tabs.addEventListener("click", (e) => { const b = e.target.closest(".pestana"); if (b) mostrar(Number(b.dataset.i)); });

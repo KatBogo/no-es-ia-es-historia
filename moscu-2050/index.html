@@ -1,51 +1,55 @@
 <!doctype html>
-<html lang="es">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NO ES IA. ES HISTORIA. · Moscú 2050 · Archivo de la memoria</title>
-  <meta name="description" content="Moscú, 2050. Archivo ciudadano de la memoria: fotografías históricas reales de Moscú, con su procedencia, para distinguir lo documentado de lo fabricado.">
+  <title>ЭТО НЕ ИИ. ЭТО ИСТОРИЯ. · Москва 2050 · Архив памяти</title>
+  <meta name="description" content="Спекулятивный дизайн-проект: Москва, 2050 год. Архив подлинных исторических фотографий Москвы с указанием происхождения — чтобы отличать задокументированное от сфабрикованного.">
   <meta name="theme-color" content="#111111">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="NO ES IA. ES HISTORIA. · Moscú 2050">
-  <meta property="og:description" content="El futuro puede reescribirlo todo. Menos lo que realmente vivimos.">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="ЭТО НЕ ИИ. ЭТО ИСТОРИЯ. · Москва 2050">
+  <meta property="og:description" content="Будущее может переписать всё. Кроме того, что мы действительно пережили.">
   <meta property="og:image" content="https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/img/archivo/vista-general-1890-sm.jpg">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" hreflang="ru" href="https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/">
+  <link rel="alternate" hreflang="en" href="https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/en.html">
   <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,400..1000&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/archivo/vista-general-1890.jpg">
-  <link rel="stylesheet" href="css/styles.css?v=20501118e">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <a class="skip" href="#contenido">Перейти к содержанию</a>
   <div class="progress" aria-hidden="true"><span id="progreso"></span></div>
 
   <!-- ===================== NAVEGACIÓN ===================== -->
   <header class="nav" id="nav">
     <div class="nav__inner">
-      <a class="brand" href="#inicio" aria-label="NO ES IA. ES HISTORIA. Ir al inicio">
-        <span class="logo logo--neg brand__logo" aria-hidden="true">
-          <span class="logo__barra"></span>
-          <span class="logo__l1 bicolor">NO ES IA.</span>
-          <span class="logo__l2 bicolor">ES HISTORIA.</span>
-        </span>
+      <a class="brand" href="#inicio" aria-label="ЭТО НЕ ИИ. ЭТО ИСТОРИЯ. На главную">
+        <span class="brand__mark" aria-hidden="true">НЕ/ИИ</span>
+        <span class="brand__text">Это не ИИ. Это история.</span>
       </a>
+      <div class="idioma" role="group" aria-label="Язык">
+        <span class="idioma__actual" aria-current="true">RU</span>
+        <a class="idioma__otro" href="en.html" hreflang="en" lang="en" data-idioma>EN<span class="sr-only"> — English version</span></a>
+      </div>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu">
-        <span class="nav__bars" aria-hidden="true"></span><span class="sr-only">Abrir menú</span>
+        <span class="nav__bars" aria-hidden="true"></span><span class="sr-only">Открыть меню</span>
       </button>
-      <nav class="nav__menu" id="menu" aria-label="Principal">
+      <nav class="nav__menu" id="menu" aria-label="Основное меню">
         <ul>
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#moscu-2050">Moscú 2050</a></li>
-          <li><a href="#archivo">Archivo</a></li>
-          <li><a href="#explora">Explora</a></li>
-          <li><a href="#campana">Campaña</a></li>
-          <li><a href="#participa">Participa</a></li>
+          <li><a href="#inicio">Главная</a></li>
+          <li><a href="#moscu-2050">Москва 2050</a></li>
+          <li><a href="#archivo">Архив</a></li>
+          <li><a href="#explora">Исследуй</a></li>
+          <li><a href="#campana">Кампания</a></li>
+          <li><a href="#participa">Участвуй</a></li>
         </ul>
         <button class="nav__coleccion" type="button" data-abrir-coleccion>
-          Mi colección <span class="contador" data-contador-coleccion>0</span>
+          Моя подборка <span class="contador" data-contador-coleccion>0</span>
         </button>
       </nav>
     </div>
@@ -68,6 +72,7 @@
             <rect width="1600" height="1000" fill="#111" opacity=".55"/>
             <g stroke="#F2F0E9" stroke-opacity=".22" fill="none">
               <path d="M0 760 H1600 M0 820 H1600 M0 900 H1600 M0 1000 H1600"/>
+              <path d="M800 640 L-400 1000 M800 640 L0 1000 M800 640 L400 1000 M800 640 L800 1000 M800 640 L1200 1000 M800 640 L1600 1000 M800 640 L2000 1000"/>
             </g>
             <g stroke="#F2F0E9" stroke-width="2" fill="none" stroke-opacity=".85">
               <path d="M210 640 V250 L250 180 L290 250 V640"/>
@@ -82,66 +87,80 @@
               <rect x="990" y="30" width="140" height="620" stroke-dasharray="6 6"/>
             </g>
             <g fill="#F2F0E9" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="2">
-              <text x="196" y="150">OBJ-0217 · ¿ORIGEN?</text>
-              <text x="996" y="22">TORRE-SINT · 98,2 %</text>
-              <text x="1240" y="700">CAPA SINTÉTICA</text>
+              <text x="196" y="150">ОБЪЕКТ-0217 · ИСТОЧНИК?</text>
+              <text x="996" y="22">БАШНЯ-СИНТ · 98,2 %</text>
+              <text x="1220" y="700">СПЕКУЛЯТИВНЫЙ СЛОЙ</text>
             </g>
             <rect y="640" width="1600" height="360" fill="url(#hz)"/>
           </svg>
         </div>
+        <div class="hero__scan"></div>
         <div class="hero__sombra"></div>
         <div class="hero__collage"><span class="hero__bloque hero__bloque--1"></span><span class="hero__bloque hero__bloque--2"></span><span class="hero__trama"></span><span class="hero__rejilla"></span></div>
       </div>
 
       <div class="hero__contenido">
-        <p class="kicker"><span class="dot" aria-hidden="true"></span>Moscú · 2050 · Archivo ciudadano de la memoria</p>
-        <h1 class="hero__titulo logo logo--neg" id="hero-titulo">
-          <span class="logo__barra" aria-hidden="true"></span>
-          <span class="linea logo__l1 bicolor glitch" data-text="NO ES IA.">NO ES IA.</span>
-          <span class="linea logo__l2 bicolor">ES HISTORIA.</span>
+        <p class="kicker"><span class="dot" aria-hidden="true"></span>Москва · 2050 · Спекулятивный сценарий</p>
+        <h1 class="hero__titulo" id="hero-titulo">
+          <span class="linea glitch" data-text="ЭТО НЕ ИИ.">ЭТО НЕ ИИ.</span>
+          <span class="linea">ЭТО ИСТОРИЯ.</span>
         </h1>
-        <p class="hero__eslogan">El futuro puede reescribirlo todo. Menos lo que realmente vivimos.</p>
-        <p class="hero__lede">«En un mundo donde cualquier imagen puede ser creada, recordar se convierte en un acto de resistencia».</p>
+        <p class="hero__eslogan">Будущее может переписать всё. Кроме того, что мы действительно пережили.</p>
+        <p class="hero__lede">«В мире, где любое изображение можно создать, помнить — значит сопротивляться».</p>
         <div class="hero__acciones">
-          <a class="btn btn--rojo" href="#archivo">Explorar el archivo</a>
-          <a class="btn btn--linea" href="#explora" data-iniciar-quiz>Descubrir la verdad</a>
+          <a class="btn btn--rojo" href="#archivo">Открыть архив</a>
+          <a class="btn btn--linea" href="#explora" data-iniciar-quiz>Узнать правду</a>
         </div>
       </div>
 
       <div class="hero__leyenda mono" aria-live="polite">
-        <p><span class="hero__estado" id="hero-estado">Ahora ves: capa sintética de 2050</span></p>
-        <p class="hero__credito">Fondo: «General view, Moscow», fotocromo, c. 1890–1900. Library of Congress (dominio público). Capa sintética añadida por este archivo y declarada como tal.</p>
+        <p><span class="hero__estado" id="hero-estado">Сейчас вы видите: спекулятивная визуализация 2050 года</span></p>
+        <p class="hero__credito">Фон: «General view, Moscow», фотохром, ок. 1890–1900. Библиотека Конгресса США (общественное достояние). Графический слой создан для этого проекта.</p>
       </div>
 
-      <a class="hero__scroll" href="#moscu-2050"><span class="mono">Desliza</span><span class="hero__flecha" aria-hidden="true"></span></a>
+      <a class="hero__scroll" href="#moscu-2050"><span class="mono">Листайте</span><span class="hero__flecha" aria-hidden="true"></span></a>
     </section>
 
     <div class="cinta" aria-hidden="true">
-      <div class="cinta__banda cinta__banda--roja"><span class="bicolor">NO ES IA · ES HISTORIA · NO ES IA · ES HISTORIA · NO ES IA · ES HISTORIA · NO ES IA · ES HISTORIA ·</span></div>
-      <div class="cinta__banda cinta__banda--hueso"><span>REALIDAD FRAGMENTADA // IMAGEN SINTÉTICA // FUENTE PERDIDA // MOSCÚ 2050 // REALIDAD FRAGMENTADA // IMAGEN SINTÉTICA // FUENTE PERDIDA // MOSCÚ 2050 //</span></div>
+      <div class="cinta__banda cinta__banda--roja"><span>ЭТО НЕ ИИ · ЭТО ИСТОРИЯ · ЭТО НЕ ИИ · ЭТО ИСТОРИЯ · ЭТО НЕ ИИ · ЭТО ИСТОРИЯ · ЭТО НЕ ИИ · ЭТО ИСТОРИЯ ·</span></div>
+      <div class="cinta__banda cinta__banda--hueso"><span>РАЗДРОБЛЕННАЯ РЕАЛЬНОСТЬ // СИНТЕТИЧЕСКИЙ ОБРАЗ // ПОТЕРЯННЫЙ ИСТОЧНИК // МОСКВА 2050 // РАЗДРОБЛЕННАЯ РЕАЛЬНОСТЬ // СИНТЕТИЧЕСКИЙ ОБРАЗ // ПОТЕРЯННЫЙ ИСТОЧНИК // МОСКВА 2050 //</span></div>
     </div>
 
     <!-- ===================== 2. EL PROBLEMA ===================== -->
     <section class="seccion seccion--oscura problema" id="moscu-2050" aria-labelledby="problema-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <h2 class="titular" id="problema-titulo">¿Y si el pasado que recuerdas nunca existió?</h2>
+          <h2 class="titular" id="problema-titulo">А если прошлого, которое ты помнишь, никогда не было?</h2>
           <div class="cabecera__texto">
-            <p class="especulativo mono">Moscú · 2050</p>
-            <p>«Hoy los algoritmos no solo deciden qué información vemos. También fabrican imágenes de un pasado que nunca ocurrió, y las ponen a circular como si fueran recuerdos».</p>
-            <p>Nada de esto empezó ahora: cada riesgo tiene antecedentes documentados. Pulsa cada tarjeta para ver un caso.</p>
+            <p class="especulativo mono">Гипотетический сценарий</p>
+            <p>«Москва, 2050. В этом воображаемом будущем алгоритмы не только влияют на то, какую информацию мы получаем. Они могут создавать изображения прошлого, которого никогда не было».</p>
+            <p>В этом городе прошлое не рассказывают — его генерируют. Единой общей реальности нет: что человек знает о прошлом, зависит от его доступа к технологиям.</p>
           </div>
         </header>
+
+        <div class="escenario reveal" aria-labelledby="escenario-titulo">
+          <div class="escenario__cabeza">
+            <h3 class="mono" id="escenario-titulo">Сценарий · прогнозы Earth 2050 для Москвы</h3>
+            <p>Наш сценарий основан на 16 прогнозах о Москве 2050 года с платформы Earth 2050 (Kaspersky). Это предположения футурологов и пользователей, а не факты. Главные для нашей позиции:</p>
+          </div>
+          <ol class="escenario__lista" id="escenario"></ol>
+          <div class="escenario__postura">
+            <p><strong>Опосредованная реальность.</strong> Чтобы «пережить» место или узнать прошлое, больше не нужно быть там: решает экран, очки или алгоритм.</p>
+            <p><strong>Хрупкая реальность.</strong> Повседневная жизнь зависит от систем, которые мы не понимаем и не контролируем.</p>
+          </div>
+        </div>
+
+        <p class="subtitulo mono">Риски этого будущего уже имеют реальные прецеденты. Нажмите на карточку, чтобы увидеть пример.</p>
 
         <div class="problema__grid">
           <ul class="riesgos" id="riesgos"></ul>
 
           <figure class="fragmento reveal" id="fragmento">
-            <div class="fragmento__lienzo" id="fragmento-lienzo" role="img" aria-label="La catedral de Cristo Salvador en un fotocromo de 1890 se descompone en fragmentos para representar la pérdida de información."></div>
+            <div class="fragmento__lienzo" id="fragmento-lienzo" role="img" aria-label="Фотохром храма Христа Спасителя (ок. 1890) распадается на фрагменты — образ потери информации."></div>
             <figcaption>
-              <span class="mono">Pérdida de información</span>
-              Fotocromo de la catedral de Cristo Salvador (c. 1890), demolida en 1931. Library of Congress, dominio público. La fragmentación es un efecto visual de este archivo.
-              <button class="btn btn--linea fragmento__boton" type="button" id="fragmento-boton">Recomponer la imagen</button>
+              <span class="mono">Потеря информации</span>
+              Фотохром храма Христа Спасителя (ок. 1890), взорванного в 1931 году. Библиотека Конгресса США, общественное достояние. Фрагментация — визуальный эффект этого сайта.
+              <button class="btn-texto" type="button" id="fragmento-boton">Собрать изображение</button>
             </figcaption>
           </figure>
         </div>
@@ -152,13 +171,13 @@
     <section class="seccion seccion--oscura comparador" id="antes-despues" aria-labelledby="comparador-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <h2 class="titular" id="comparador-titulo">La imagen cambia. La fuente permanece.</h2>
+          <h2 class="titular" id="comparador-titulo">Изображение меняется. Источник остаётся.</h2>
           <div class="cabecera__texto">
-            <p>Arrastra el control, o usa las flechas del teclado, para comparar cada documento con su versión intervenida. Ambas versiones comparten encuadre.</p>
+            <p>Двигайте ползунок мышью, пальцем или стрелками клавиатуры, чтобы сравнить документ с его изменённой версией. Кадр у обеих версий одинаковый.</p>
           </div>
         </header>
 
-        <div class="comparador__pestanas" role="tablist" aria-label="Comparaciones" id="comparador-tabs"></div>
+        <div class="comparador__pestanas" role="tablist" aria-label="Сравнения" id="comparador-tabs"></div>
 
         <div class="comparador__grid">
           <div class="comparador__visor" id="visor">
@@ -176,16 +195,16 @@
                   <rect x="100" y="120" width="200" height="880"/>
                 </g>
                 <g fill="#F2F0E9" font-family="IBM Plex Mono, monospace" font-size="30" letter-spacing="3">
-                  <text x="560" y="285">RECONOCIDO · 0,97</text>
-                  <text x="100" y="105">ELEMENTO AÑADIDO</text>
+                  <text x="560" y="285">РАСПОЗНАНО · 0,97</text>
+                  <text x="100" y="105">ДОБАВЛЕННЫЙ ОБЪЕКТ</text>
                   <text x="1080" y="960">MSK · 2050</text>
                 </g>
               </svg>
             </div>
-            <span class="visor__etiqueta visor__etiqueta--izq mono">Documento original</span>
-            <span class="visor__etiqueta visor__etiqueta--der mono">Versión intervenida</span>
+            <span class="visor__etiqueta visor__etiqueta--izq mono">Исходный документ</span>
+            <span class="visor__etiqueta visor__etiqueta--der mono">Изменённая версия</span>
             <div class="visor__linea" id="visor-linea" aria-hidden="true"><span></span></div>
-            <label class="sr-only" for="visor-rango">Posición del comparador: a la izquierda el documento original, a la derecha la versión intervenida</label>
+            <label class="sr-only" for="visor-rango">Положение ползунка: слева исходный документ, справа изменённая версия</label>
             <input type="range" id="visor-rango" class="visor__rango" min="0" max="100" value="50" step="1">
           </div>
           <div class="comparador__texto" id="comparador-texto" aria-live="polite"></div>
@@ -193,62 +212,62 @@
       </div>
     </section>
 
-    <!-- Cinta collage entre secciones (decorativa) -->
     <div class="cinta" aria-hidden="true">
-      <div class="cinta__banda cinta__banda--roja"><span class="bicolor">VERIFICA · ANTES · DE · COMPARTIR · VERIFICA · ANTES · DE · COMPARTIR · VERIFICA · ANTES · DE · COMPARTIR ·</span></div>
-      <div class="cinta__banda cinta__banda--hueso"><span>MEMORIA / FUENTE / PROCEDENCIA // MSK 2050 // ARCHIVO CIUDADANO // MEMORIA / FUENTE / PROCEDENCIA // MSK 2050 // ARCHIVO CIUDADANO //</span></div>
+      <div class="cinta__banda cinta__banda--roja"><span>ПРОВЕРЬ · ПРЕЖДЕ · ЧЕМ · ДЕЛИТЬСЯ · ПРОВЕРЬ · ПРЕЖДЕ · ЧЕМ · ДЕЛИТЬСЯ · ПРОВЕРЬ · ПРЕЖДЕ · ЧЕМ · ДЕЛИТЬСЯ ·</span></div>
+      <div class="cinta__banda cinta__banda--hueso"><span>ПАМЯТЬ / ИСТОЧНИК / ПРОИСХОЖДЕНИЕ // MSK 2050 // ГРАЖДАНСКИЙ АРХИВ // ПАМЯТЬ / ИСТОЧНИК / ПРОИСХОЖДЕНИЕ // MSK 2050 // ГРАЖДАНСКИЙ АРХИВ //</span></div>
     </div>
 
     <!-- ===================== 3. ARCHIVO ===================== -->
     <section class="seccion seccion--clara archivo" id="archivo" aria-labelledby="archivo-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <h2 class="titular" id="archivo-titulo">El pasado no se genera. Se documenta.</h2>
+          <h2 class="titular" id="archivo-titulo">Прошлое не генерируют. Его документируют.</h2>
           <div class="cabecera__texto">
-            <p>Fotografías y documentos reales de Moscú, con autor, fecha, institución y licencia. Todas las imágenes proceden de Wikimedia Commons y de los archivos que se citan en cada ficha.</p>
+            <p>Подлинные фотографии и документы Москвы с указанием автора, даты, учреждения и лицензии. Все изображения взяты с Викисклада и из архивов, указанных в каждой карточке.</p>
+            <p class="nota">Учебный прототип: проверка состояла в изучении открытых метаданных каждого файла. Оригиналы в учреждениях не изучались.</p>
           </div>
         </header>
 
-        <ul class="leyenda-estados" aria-label="Estados de verificación">
-          <li><span class="estado estado--documentada"><i aria-hidden="true"></i>Procedencia documentada</span> Institución y número de catálogo identificables.</li>
-          <li><span class="estado estado--parcial"><i aria-hidden="true"></i>Procedencia parcial</span> Copia de fuente secundaria o sin autor.</li>
-          <li><span class="estado estado--conflicto"><i aria-hidden="true"></i>Información en conflicto</span> Los datos disponibles se contradicen.</li>
-          <li><span class="estado estado--reconstruccion"><i aria-hidden="true"></i>Reconstrucción</span> No es un registro histórico.</li>
+        <ul class="leyenda-estados" aria-label="Статусы проверки">
+          <li><span class="estado estado--documentada"><i aria-hidden="true"></i>Происхождение задокументировано</span> Известны учреждение и каталожный номер.</li>
+          <li><span class="estado estado--parcial"><i aria-hidden="true"></i>Происхождение установлено частично</span> Копия из вторичного источника или без автора.</li>
+          <li><span class="estado estado--conflicto"><i aria-hidden="true"></i>Противоречивые сведения</span> Доступные данные противоречат друг другу.</li>
+          <li><span class="estado estado--reconstruccion"><i aria-hidden="true"></i>Реконструкция</span> Не является документом эпохи.</li>
         </ul>
 
-        <form class="herramientas" id="filtros" role="search" aria-label="Buscar en el archivo" onsubmit="return false">
+        <form class="herramientas" id="filtros" role="search" aria-label="Поиск по архиву" onsubmit="return false">
           <div class="campo-buscar">
-            <label for="buscar" class="mono">Buscar por palabra clave</label>
-            <input type="search" id="buscar" placeholder="Metro, Plaza Roja, 1941, Gagarin…" autocomplete="off">
+            <label for="buscar" class="mono">Поиск по ключевым словам</label>
+            <input type="search" id="buscar" placeholder="Метро, Красная площадь, 1941, Гагарин…" autocomplete="off">
           </div>
           <div class="campo-estado">
-            <label for="estado" class="mono">Estado</label>
-            <select id="estado"><option value="">Todos los estados</option></select>
+            <label for="estado" class="mono">Статус</label>
+            <select id="estado"><option value="">Все статусы</option></select>
           </div>
           <fieldset class="categorias">
-            <legend class="mono">Categorías</legend>
+            <legend class="mono">Категории</legend>
             <div class="chips" id="categorias"></div>
           </fieldset>
         </form>
 
         <div class="linea-tiempo" aria-labelledby="lt-titulo">
-          <p class="mono" id="lt-titulo">Línea de tiempo · filtra por década</p>
+          <p class="mono" id="lt-titulo">Хронология · фильтр по десятилетиям</p>
           <div class="linea-tiempo__pista" id="linea-tiempo" role="group" aria-labelledby="lt-titulo"></div>
         </div>
 
         <div class="resultados-barra">
-          <p class="mono" id="resultados" role="status" aria-live="polite">Cargando el archivo…</p>
-          <button class="btn-texto" type="button" id="limpiar">Limpiar filtros</button>
+          <p class="mono" id="resultados" role="status" aria-live="polite">Загрузка архива…</p>
+          <button class="btn-texto" type="button" id="limpiar">Сбросить фильтры</button>
         </div>
 
-        <ul class="galeria" id="galeria" aria-label="Registros del archivo"></ul>
+        <ul class="galeria" id="galeria" aria-label="Записи архива"></ul>
 
         <div class="vacio" id="vacio" hidden>
-          <p class="titular titular--s">Sin registros</p>
-          <p>No hay registros que cumplan esos criterios. Prueba con otra palabra, otra década u otra categoría.</p>
-          <button class="btn btn--rojo" type="button" id="vacio-limpiar">Ver todo el archivo</button>
+          <p class="titular titular--s">Ничего не найдено</p>
+          <p>Нет записей, отвечающих этим условиям. Попробуйте другое слово, десятилетие или категорию.</p>
+          <button class="btn btn--rojo" type="button" id="vacio-limpiar">Показать весь архив</button>
         </div>
-        <p class="error-carga" id="error-archivo" hidden role="alert">No se pudo cargar el archivo. Recarga la página para intentarlo de nuevo.</p>
+        <p class="error-carga" id="error-archivo" hidden role="alert">Не удалось загрузить архив. Обновите страницу.</p>
       </div>
     </section>
 
@@ -256,14 +275,18 @@
     <section class="seccion seccion--oscura quiz" id="explora" aria-labelledby="quiz-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <h2 class="titular" id="quiz-titulo">Tus ojos pueden engañarte. Las fuentes importan.</h2>
+          <h2 class="titular" id="quiz-titulo">Глаза могут обмануть. Источники важны.</h2>
           <div class="cabecera__texto">
-            <p>Observa cada imagen y decide qué crees que es. Después verás su clasificación documentada y de dónde procede.</p>
-            <p class="nota">Entrena la mirada, pero no te fíes solo de ella: ninguna imagen se verifica a simple vista. La prueba está en la fuente.</p>
+            <p>Рассмотрите каждое изображение и решите, что это. Затем вы увидите его документированную классификацию и происхождение.</p>
+            <p class="nota">Учебное упражнение. Это не научный инструмент для распознавания изображений, созданных ИИ.</p>
           </div>
         </header>
 
         <div class="quiz__panel" id="quiz">
+          <div class="quiz__progreso">
+            <p class="mono" id="quiz-paso">Изображение 1 из 6</p>
+            <div class="barra" aria-hidden="true"><span id="quiz-barra"></span></div>
+          </div>
           <div class="quiz__cuerpo" id="quiz-cuerpo"></div>
         </div>
       </div>
@@ -273,54 +296,49 @@
     <section class="seccion seccion--clara historias" id="historias" aria-labelledby="historias-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <h2 class="titular" id="historias-titulo">Una imagen guarda más que un instante.</h2>
+          <h2 class="titular" id="historias-titulo">Снимок хранит больше, чем мгновение.</h2>
           <div class="cabecera__texto">
-            <p>Relatos de Moscú contados a partir de sus registros. Pulsa una historia para ampliarla o recorre la línea de tiempo.</p>
-            <p class="nota">Solo citamos testimonios o fragmentos cuando existe una fuente. Los relatos de este año, 2050, se identifican como tales.</p>
+            <p>Истории Москвы, рассказанные через её документы. Нажмите на историю, чтобы раскрыть её, или пройдите по хронологии.</p>
+            <p class="nota">Свидетельства и фрагменты приводятся только при наличии источника. История 2050 года — вымысел и отмечена как таковой.</p>
           </div>
         </header>
 
-        <div class="historias__tiempo" role="tablist" aria-label="Línea de tiempo de las historias" id="historias-tiempo"></div>
+        <div class="historias__tiempo" role="tablist" aria-label="Хронология историй" id="historias-tiempo"></div>
         <div class="historias__marco">
-          <button class="flecha flecha--izq" type="button" id="historias-prev" aria-label="Historia anterior">←</button>
+          <button class="flecha flecha--izq" type="button" id="historias-prev" aria-label="Предыдущая история">←</button>
           <ol class="historias__pista" id="historias-pista"></ol>
-          <button class="flecha flecha--der" type="button" id="historias-sig" aria-label="Historia siguiente">→</button>
+          <button class="flecha flecha--der" type="button" id="historias-sig" aria-label="Следующая история">→</button>
         </div>
       </div>
     </section>
 
     <div class="cinta" aria-hidden="true">
-      <div class="cinta__banda cinta__banda--roja"><span class="bicolor">NO COMPARTAS · SIN · ORIGEN · NO COMPARTAS · SIN · ORIGEN · NO COMPARTAS · SIN · ORIGEN · NO COMPARTAS · SIN · ORIGEN ·</span></div>
-      <div class="cinta__banda cinta__banda--hueso"><span>#NOESIAESHISTORIA // CAMPAÑA DIGITAL // PIEZAS 01–05 // #NOESIAESHISTORIA // CAMPAÑA DIGITAL // PIEZAS 01–05 //</span></div>
+      <div class="cinta__banda cinta__banda--roja"><span>НЕ ДЕЛИСЬ · БЕЗ · ИСТОЧНИКА · НЕ ДЕЛИСЬ · БЕЗ · ИСТОЧНИКА · НЕ ДЕЛИСЬ · БЕЗ · ИСТОЧНИКА · НЕ ДЕЛИСЬ · БЕЗ · ИСТОЧНИКА ·</span></div>
+      <div class="cinta__banda cinta__banda--hueso"><span>#ЭТОНЕИИЭТОИСТОРИЯ // ЦИФРОВАЯ КАМПАНИЯ // РАБОТЫ 01–05 // #ЭТОНЕИИЭТОИСТОРИЯ // ЦИФРОВАЯ КАМПАНИЯ // РАБОТЫ 01–05 //</span></div>
     </div>
 
     <!-- ===================== 7. CAMPAÑA ===================== -->
     <section class="seccion seccion--clara campana" id="campana" aria-labelledby="campana-titulo">
       <div class="contenedor">
         <header class="cabecera reveal">
-          <h2 class="titular" id="campana-titulo">No compartas una historia sin conocer su origen.</h2>
+          <h2 class="titular" id="campana-titulo">Не делись историей, не зная её источника.</h2>
           <div class="cabecera__texto">
-            <p>Piezas para redes sociales construidas con fotografías del archivo. Pulsa una pieza para verla ampliada y llegar al registro del que procede.</p>
-            <p class="nota">Descárgalas en alta resolución y publícalas siempre con su origen.</p>
+            <p>Работы для соцсетей, созданные на основе фотографий из архива. Нажмите на работу, чтобы увеличить её и перейти к исходной записи.</p>
+            <p class="nota">Прототип: кампания не публиковалась, данных о её охвате нет.</p>
           </div>
         </header>
 
         <div class="carrusel">
           <div class="carrusel__controles">
-            <button class="flecha" type="button" id="carrusel-prev" aria-label="Pieza anterior">←</button>
-            <button class="flecha" type="button" id="carrusel-sig" aria-label="Pieza siguiente">→</button>
+            <button class="flecha" type="button" id="carrusel-prev" aria-label="Предыдущая работа">←</button>
+            <button class="flecha" type="button" id="carrusel-sig" aria-label="Следующая работа">→</button>
           </div>
-          <ul class="carrusel__pista" id="carrusel" aria-label="Piezas de la campaña"></ul>
+          <ul class="carrusel__pista" id="carrusel" aria-label="Работы кампании"></ul>
           <div class="carrusel__puntos" id="carrusel-puntos" aria-hidden="true"></div>
         </div>
 
-        <div class="piezas-descarga">
-          <button class="btn btn--rojo" type="button" id="piezas-descargar">Descargar las 5 piezas (.zip)</button>
-          <p class="mono">PNG · 2160 × 2700 px · formato 4:5</p>
-        </div>
-
         <div class="compartir" aria-labelledby="compartir-titulo">
-          <p class="mono" id="compartir-titulo">Compartir la campaña</p>
+          <p class="mono" id="compartir-titulo">Поделиться кампанией</p>
           <div class="compartir__botones" id="compartir"></div>
         </div>
       </div>
@@ -330,70 +348,74 @@
     <section class="seccion seccion--oscura participa" id="participa" aria-labelledby="participa-titulo">
       <div class="contenedor participa__grid">
         <header class="cabecera cabecera--col reveal">
-          <h2 class="titular" id="participa-titulo">El futuro también necesita recordar.</h2>
-          <p>«Cada fotografía, documento y testimonio puede ayudar a preservar una parte de nuestra historia. La memoria no pertenece a un algoritmo. Nos pertenece a todos».</p>
+          <h2 class="titular" id="participa-titulo">Будущему тоже нужно помнить.</h2>
+          <p>«Каждая фотография, документ и свидетельство помогают сохранить часть нашей истории. Память не принадлежит алгоритму. Она принадлежит всем нам».</p>
+          <blockquote class="pregunta">
+            <span class="mono">Вопрос проекта</span>
+            <p>Если память — часть человека, которую мы не хотим автоматизировать, как с помощью графического дизайна вернуть людям контроль над тем, как рассказывается их собственное прошлое?</p>
+          </blockquote>
           <ol class="pasos">
-            <li>Envías el material con su procedencia.</li>
-            <li>Una persona revisa el origen y el contexto.</li>
-            <li>Solo se publica con su estado de verificación visible.</li>
+            <li>Вы присылаете материал и рассказываете о его происхождении.</li>
+            <li>Человек — не алгоритм — проверяет источник и контекст.</li>
+            <li>Материал публикуется только с видимым статусом проверки.</li>
           </ol>
         </header>
 
         <form class="formulario" id="formulario" novalidate>
-          <p class="aviso" role="note"><strong class="mono">Privacidad</strong> Este formulario prepara tu ficha en tu dispositivo. Ningún dato ni archivo se transmite desde aquí.</p>
+          <p class="aviso" role="note"><strong class="mono">Демонстрационная форма</strong> У этого прототипа нет системы для хранения материалов. Никакие данные и файлы не покидают ваш браузер.</p>
 
           <div class="campos">
             <div class="campo">
-              <label for="f-nombre">Nombre de quien aporta el material *</label>
+              <label for="f-nombre">Имя автора материала *</label>
               <input id="f-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="e-nombre">
               <p class="error" id="e-nombre" hidden></p>
             </div>
             <div class="campo">
-              <label for="f-correo">Correo electrónico *</label>
+              <label for="f-correo">Электронная почта *</label>
               <input id="f-correo" name="correo" type="email" autocomplete="email" required aria-describedby="e-correo">
               <p class="error" id="e-correo" hidden></p>
             </div>
             <div class="campo campo--ancho">
-              <label for="f-titulo">Título del registro *</label>
+              <label for="f-titulo">Название записи *</label>
               <input id="f-titulo" name="titulo" type="text" required aria-describedby="e-titulo">
               <p class="error" id="e-titulo" hidden></p>
             </div>
             <div class="campo">
-              <label for="f-anio">Año aproximado *</label>
-              <input id="f-anio" name="anio" type="text" inputmode="numeric" placeholder="Ej.: 1987 o «década de 1970»" required aria-describedby="e-anio">
+              <label for="f-anio">Примерный год *</label>
+              <input id="f-anio" name="anio" type="text" inputmode="numeric" placeholder="Напр.: 1987 или «1970-е»" required aria-describedby="e-anio">
               <p class="error" id="e-anio" hidden></p>
             </div>
             <div class="campo">
-              <label for="f-lugar">Lugar *</label>
-              <input id="f-lugar" name="lugar" type="text" placeholder="Barrio, calle o estación" required aria-describedby="e-lugar">
+              <label for="f-lugar">Место *</label>
+              <input id="f-lugar" name="lugar" type="text" placeholder="Район, улица или станция" required aria-describedby="e-lugar">
               <p class="error" id="e-lugar" hidden></p>
             </div>
             <div class="campo campo--ancho">
-              <label for="f-descripcion">Descripción *</label>
+              <label for="f-descripcion">Описание *</label>
               <textarea id="f-descripcion" name="descripcion" rows="4" required aria-describedby="e-descripcion"></textarea>
               <p class="error" id="e-descripcion" hidden></p>
             </div>
             <div class="campo campo--ancho">
-              <label for="f-fuente">Fuente o procedencia conocida *</label>
-              <textarea id="f-fuente" name="fuente" rows="3" placeholder="¿Quién lo creó? ¿Cómo llegó a ti? ¿Dónde está el original?" required aria-describedby="e-fuente"></textarea>
+              <label for="f-fuente">Известный источник или происхождение *</label>
+              <textarea id="f-fuente" name="fuente" rows="3" placeholder="Кто это создал? Как это попало к вам? Где хранится оригинал?" required aria-describedby="e-fuente"></textarea>
               <p class="error" id="e-fuente" hidden></p>
             </div>
             <div class="campo campo--ancho">
-              <label for="f-archivo">Imagen o documento *</label>
+              <label for="f-archivo">Изображение или документ *</label>
               <input id="f-archivo" name="archivo" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" required aria-describedby="h-archivo e-archivo">
-              <p class="ayuda" id="h-archivo">JPG, PNG, WEBP o PDF, máximo 10 MB. No se sube a ningún servidor.</p>
+              <p class="ayuda" id="h-archivo">JPG, PNG, WEBP или PDF, не больше 10 МБ. Файл никуда не загружается.</p>
               <div class="vista-previa" id="vista-previa" hidden></div>
               <p class="error" id="e-archivo" hidden></p>
             </div>
             <div class="campo campo--ancho">
-              <label class="casilla"><input id="f-autorizo" name="autorizo" type="checkbox" required aria-describedby="e-autorizo"> Tengo derecho a compartir este material y autorizo su uso en el archivo tras su revisión. *</label>
+              <label class="casilla"><input id="f-autorizo" name="autorizo" type="checkbox" required aria-describedby="e-autorizo"> У меня есть право делиться этим материалом, и я разрешаю использовать его в архиве после проверки. *</label>
               <p class="error" id="e-autorizo" hidden></p>
             </div>
           </div>
 
           <div class="formulario__acciones">
-            <button class="btn btn--rojo" type="submit">Enviar aporte</button>
-            <p class="ayuda">* Campos obligatorios</p>
+            <button class="btn btn--rojo" type="submit">Отправить материал</button>
+            <p class="ayuda">* Обязательные поля</p>
           </div>
           <div class="estado-envio" id="estado-envio" role="status" aria-live="polite" tabindex="-1" hidden></div>
         </form>
@@ -405,27 +427,25 @@
   <footer class="pie">
     <div class="contenedor pie__grid">
       <div>
-        <p class="pie__titulo logo logo--neg">
-          <span class="logo__barra" aria-hidden="true"></span>
-          <span class="logo__l1 bicolor">NO ES IA.</span>
-          <span class="logo__l2 bicolor">ES HISTORIA.</span>
-        </p>
-        <p>«Una iniciativa ciudadana de preservación de la memoria histórica. Moscú, 2050».</p>
+        <p class="pie__titulo">ЭТО НЕ ИИ.<br>ЭТО ИСТОРИЯ.</p>
+        <p>«Спекулятивная инициатива по сохранению исторической памяти в Москве 2050 года».</p>
       </div>
-      <nav aria-label="Pie de página">
+      <nav aria-label="Нижнее меню">
         <ul class="pie__enlaces">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#moscu-2050">El problema</a></li>
-          <li><a href="#archivo">Archivo</a></li>
-          <li><a href="#explora">Experiencia interactiva</a></li>
-          <li><a href="#historias">Historias</a></li>
-          <li><a href="#campana">Campaña</a></li>
-          <li><a href="#participa">Participa</a></li>
+          <li><a href="#inicio">Главная</a></li>
+          <li><a href="#moscu-2050">Проблема</a></li>
+          <li><a href="#archivo">Архив</a></li>
+          <li><a href="#explora">Интерактивное упражнение</a></li>
+          <li><a href="#historias">Истории</a></li>
+          <li><a href="#campana">Кампания</a></li>
+          <li><a href="#participa">Участвуй</a></li>
         </ul>
       </nav>
       <div class="pie__aviso">
-        <p><strong>Archivo ciudadano de la memoria · Moscú, 2050.</strong></p>
-        <p>Las fotografías y documentos históricos proceden de Wikimedia Commons y de las instituciones citadas en cada ficha (Library of Congress, Rijksmuseum, Archivo Principal de Moscú, archivo de RIA Novosti y otras), con licencias de dominio público, CC0, CC BY y CC BY-SA. Las capas sintéticas de 2050 son intervenciones de este archivo y se declaran en cada caso. No es un sitio oficial de ninguna de esas instituciones.</p>
+        <p><strong>Учебный проект спекулятивного дизайна. Москва 2050 — гипотетический сценарий.</strong></p>
+        <p>Сценарий основан на прогнозах для Москвы 2050 года с платформы <a href="https://2050.earth/" target="_blank" rel="noopener">Earth 2050</a> (Kaspersky). Это не официальный сайт Kaspersky, и Earth 2050 не утверждает, что такой архив существует.</p>
+        <p>Исторические фотографии и документы взяты с Викисклада и из учреждений, указанных в каждой карточке (Библиотека Конгресса США, Рейксмузеум, Главархив Москвы, архив РИА Новости и др.), по лицензиям общественного достояния, CC0, CC BY и CC BY-SA. Графические слои 2050 года — визуализации, созданные для проекта.</p>
+        <p><a href="en.html" hreflang="en" lang="en" data-idioma>English version</a></p>
       </div>
     </div>
   </footer>
@@ -435,9 +455,9 @@
     <div class="modal__barra">
       <p class="mono" id="mr-codigo"></p>
       <div class="modal__acciones">
-        <button class="btn-texto" type="button" id="mr-prev">← Anterior</button>
-        <button class="btn-texto" type="button" id="mr-sig">Siguiente →</button>
-        <button class="cerrar" type="button" data-cerrar aria-label="Cerrar ficha">✕</button>
+        <button class="btn-texto" type="button" id="mr-prev">← Назад</button>
+        <button class="btn-texto" type="button" id="mr-sig">Далее →</button>
+        <button class="cerrar" type="button" data-cerrar aria-label="Закрыть карточку">✕</button>
       </div>
     </div>
     <div class="modal__cuerpo" id="mr-cuerpo"></div>
@@ -445,51 +465,27 @@
 
   <dialog class="modal modal--lateral" id="modal-coleccion" aria-labelledby="mc-titulo">
     <div class="modal__barra">
-      <h2 class="mono" id="mc-titulo">Mi colección</h2>
-      <button class="cerrar" type="button" data-cerrar aria-label="Cerrar colección">✕</button>
+      <h2 class="mono" id="mc-titulo">Моя подборка</h2>
+      <button class="cerrar" type="button" data-cerrar aria-label="Закрыть подборку">✕</button>
     </div>
     <div class="modal__cuerpo">
-      <p class="nota">Las imágenes se descargan desde su archivo de origen, en la mayor resolución disponible y con sus créditos. Tu selección se guarda en esta pestaña.</p>
+      <p class="nota">Временная подборка: хранится только в этой вкладке и удаляется при её закрытии.</p>
       <ul class="coleccion" id="coleccion-lista"></ul>
-      <p class="coleccion__vacia" id="coleccion-vacia">Todavía no has guardado registros. Usa «Guardar» en cualquier ficha del archivo.</p>
-      <div class="coleccion__acciones">
-        <button class="btn btn--rojo" type="button" id="coleccion-descargar">Descargar todo (.zip)</button>
-        <button class="btn btn--linea" type="button" id="coleccion-vaciar">Vaciar colección</button>
-      </div>
+      <p class="coleccion__vacia" id="coleccion-vacia">Вы ещё ничего не сохранили. Нажмите «Сохранить» в любой карточке архива.</p>
+      <button class="btn btn--linea" type="button" id="coleccion-vaciar">Очистить подборку</button>
     </div>
   </dialog>
 
   <dialog class="modal modal--pieza" id="modal-pieza" aria-labelledby="mp-titulo">
     <div class="modal__barra">
-      <p class="mono">Pieza de campaña</p>
-      <button class="cerrar" type="button" data-cerrar aria-label="Cerrar pieza">✕</button>
+      <p class="mono">Работа кампании</p>
+      <button class="cerrar" type="button" data-cerrar aria-label="Закрыть работу">✕</button>
     </div>
     <div class="modal__cuerpo" id="mp-cuerpo"></div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Versión de los archivos: al publicar cambios, sube el número (aquí, en main.js y en styles.css)
-       para que ningún navegador mezcle archivos nuevos con otros guardados en caché. -->
-  <script type="importmap">
-  {
-    "imports": {
-      "./js/utils.js": "./js/utils.js?v=20501118e",
-      "./js/data/registros.js": "./js/data/registros.js?v=20501118e",
-      "./js/data/contenido.js": "./js/data/contenido.js?v=20501118e",
-      "./js/modules/archivo.js": "./js/modules/archivo.js?v=20501118e",
-      "./js/modules/campana.js": "./js/modules/campana.js?v=20501118e",
-      "./js/modules/coleccion.js": "./js/modules/coleccion.js?v=20501118e",
-      "./js/modules/comparador.js": "./js/modules/comparador.js?v=20501118e",
-      "./js/modules/hero.js": "./js/modules/hero.js?v=20501118e",
-      "./js/modules/historias.js": "./js/modules/historias.js?v=20501118e",
-      "./js/modules/nav.js": "./js/modules/nav.js?v=20501118e",
-      "./js/modules/participa.js": "./js/modules/participa.js?v=20501118e",
-      "./js/modules/problema.js": "./js/modules/problema.js?v=20501118e",
-      "./js/modules/quiz.js": "./js/modules/quiz.js?v=20501118e"
-    }
-  }
-  </script>
-  <script type="module" src="js/main.js?v=20501118e"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>

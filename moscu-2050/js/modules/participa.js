@@ -1,9 +1,10 @@
 /**
- * Formulario «Preserva la memoria».
- * Valida en el navegador y muestra una vista previa local del archivo.
- * No hay servidor: ningún dato se transmite, y el texto de la página lo dice.
+ * Formulario «Сохрани память» / “Preserve memory”.
+ * No hay backend: valida en el navegador, muestra una vista previa local del archivo
+ * y deja claro que el envío NO se recibe ni se guarda.
  */
 import { $, esc } from "../utils.js";
+import { t } from "../i18n.js";
 
 const MAX_MB = 10;
 const TIPOS = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
@@ -13,30 +14,31 @@ export function iniciarParticipa() {
   const estado = $("#estado-envio");
   const archivo = $("#f-archivo");
   const previa = $("#vista-previa");
+  const anioMax = new Date().getFullYear();
   let urlPrevia = null;
 
   const reglas = {
-    nombre: (v) => (v.trim().length >= 2 ? "" : "Escribe tu nombre (al menos 2 letras)."),
-    correo: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "Escribe un correo válido, por ejemplo nombre@dominio.com."),
-    titulo: (v) => (v.trim().length >= 3 ? "" : "Pon un título breve al registro."),
+    nombre: (v) => (v.trim().length >= 2 ? "" : t("errNombre")),
+    correo: (v) => (/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : t("errCorreo")),
+    titulo: (v) => (v.trim().length >= 3 ? "" : t("errTitulo")),
     anio: (v) => {
-      const t = v.trim();
-      if (!t) return "Indica un año, aunque sea aproximado.";
-      const n = t.match(/\d{4}/);
-      if (n && (Number(n[0]) < 1800 || Number(n[0]) > new Date().getFullYear())) return `El año debe estar entre 1800 y ${new Date().getFullYear()}.`;
+      const s = v.trim();
+      if (!s) return t("errAnio");
+      const n = s.match(/\d{4}/);
+      if (n && (Number(n[0]) < 1800 || Number(n[0]) > anioMax)) return t("errAnioRango", anioMax);
       return "";
     },
-    lugar: (v) => (v.trim().length >= 2 ? "" : "Indica dónde se tomó o se creó el material."),
-    descripcion: (v) => (v.trim().length >= 20 ? "" : "Describe el material con al menos 20 caracteres."),
-    fuente: (v) => (v.trim().length >= 10 ? "" : "Cuéntanos de dónde procede: quién lo creó y cómo llegó a ti."),
+    lugar: (v) => (v.trim().length >= 2 ? "" : t("errLugar")),
+    descripcion: (v) => (v.trim().length >= 20 ? "" : t("errDescripcion")),
+    fuente: (v) => (v.trim().length >= 10 ? "" : t("errFuente")),
     archivo: () => {
       const f = archivo.files[0];
-      if (!f) return "Adjunta una imagen o un documento.";
-      if (!TIPOS.includes(f.type)) return "Formato no admitido. Usa JPG, PNG, WEBP o PDF.";
-      if (f.size > MAX_MB * 1024 * 1024) return `El archivo pesa más de ${MAX_MB} MB.`;
+      if (!f) return t("errArchivo");
+      if (!TIPOS.includes(f.type)) return t("errFormato");
+      if (f.size > MAX_MB * 1024 * 1024) return t("errTamano", MAX_MB);
       return "";
     },
-    autorizo: () => ($("#f-autorizo").checked ? "" : "Necesitamos tu autorización para revisar y usar el material.")
+    autorizo: () => ($("#f-autorizo").checked ? "" : t("errAutorizo"))
   };
 
   const validar = (nombre) => {
@@ -56,12 +58,12 @@ export function iniciarParticipa() {
     const f = archivo.files[0];
     const valido = validar("archivo");
     if (!f) { previa.hidden = true; previa.innerHTML = ""; return; }
-    const tam = f.size < 1024 * 1024 ? `${Math.round(f.size / 1024)} KB` : `${(f.size / 1048576).toFixed(1)} MB`;
+    const tam = f.size < 1024 * 1024 ? `${Math.round(f.size / 1024)} ${t("kb")}` : `${(f.size / 1048576).toFixed(1)} ${t("mb")}`;
     if (valido && f.type.startsWith("image/")) {
       urlPrevia = URL.createObjectURL(f);
-      previa.innerHTML = `<img src="${urlPrevia}" alt="Vista previa de ${esc(f.name)}"><p><strong>${esc(f.name)}</strong><br>${tam} · Vista previa local, no se ha subido.</p>`;
+      previa.innerHTML = `<img src="${urlPrevia}" alt="${esc(t("previaAlt", f.name))}"><p><strong>${esc(f.name)}</strong><br>${tam}${t("previaLocal")}</p>`;
     } else {
-      previa.innerHTML = `<span class="doc" aria-hidden="true">${f.type === "application/pdf" ? "PDF" : "?"}</span><p><strong>${esc(f.name)}</strong><br>${tam}${valido ? " · Vista previa local, no se ha subido." : ""}</p>`;
+      previa.innerHTML = `<span class="doc" aria-hidden="true">${f.type === "application/pdf" ? "PDF" : "?"}</span><p><strong>${esc(f.name)}</strong><br>${tam}${valido ? t("previaLocal") : ""}</p>`;
     }
     previa.hidden = false;
   });
@@ -77,19 +79,16 @@ export function iniciarParticipa() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const nombres = Object.keys(reglas);
-    const fallos = nombres.filter((n) => !validar(n));
+    const fallos = Object.keys(reglas).filter((n) => !validar(n));
     estado.hidden = false;
     if (fallos.length) {
       estado.className = "estado-envio error-estado";
-      estado.innerHTML = `<strong>Revisa ${fallos.length === 1 ? "1 campo" : fallos.length + " campos"}</strong><span>Los mensajes junto a cada campo explican qué falta.</span>`;
+      estado.innerHTML = `<strong>${esc(t("revisa", fallos.length))}</strong><span>${t("revisaDet")}</span>`;
       form.elements[fallos[0]].focus();
       return;
     }
     estado.className = "estado-envio";
-    estado.innerHTML = `<strong>Ficha completa</strong>
-      <span>Tu aporte cumple todos los requisitos de procedencia. Por privacidad, este formulario no transmite datos ni archivos: tu material sigue solo en tu dispositivo.</span>
-      <span>Ningún aporte se publica en el archivo hasta que una persona comprueba su origen.</span>`;
+    estado.innerHTML = `<strong>${t("noEnviado")}</strong><span>${t("noEnviado1")}</span><span>${t("noEnviado2")}</span>`;
     estado.focus();
   });
 }

@@ -1,13 +1,16 @@
 <!doctype html>
-<html lang="es">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Exportar pieza · NO ES IA. ES HISTORIA.</title>
+  <title>Exportar pieza</title>
   <!-- Herramienta interna: muestra una sola pieza de campaña a pantalla completa
-       para exportarla como imagen. Uso: exportar-pieza.html?i=0 (de 0 a 4). -->
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400&display=block" rel="stylesheet">
+       para exportarla como imagen. Uso: exportar-pieza.html?i=0&lang=ru (i de 0 a 4; lang ru o en). -->
+  <script>
+    document.documentElement.lang = new URLSearchParams(location.search).get("lang") === "en" ? "en" : "ru";
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wdth,wght@8..144,25..151,400..1000&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=block" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <style>
     html, body { margin: 0; background: #111; overflow: hidden; }
@@ -19,13 +22,13 @@
 <body>
   <div id="lienzo"></div>
   <script type="module">
-    import { piezaHTML } from "./js/modules/campana.js";
-    import { PIEZAS } from "./js/data/contenido.js";
+    const { piezaHTML } = await import("./js/modules/campana.js");
+    const { PIEZAS } = await import("./js/data/contenido.js");
     const i = Number(new URLSearchParams(location.search).get("i") || 0);
     document.getElementById("lienzo").innerHTML = piezaHTML(PIEZAS[i], i, "div", "");
     const foto = document.querySelector(".pieza__foto");
-    Promise.all([document.fonts.ready, foto.decode().catch(() => {})])
-      .then(() => document.body.setAttribute("data-listo", "1"));
+    await Promise.all([document.fonts.ready, foto.decode().catch(() => {})]);
+    document.body.setAttribute("data-listo", "1");
   </script>
 </body>
 </html>

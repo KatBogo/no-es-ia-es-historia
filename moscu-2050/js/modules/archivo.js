@@ -4,13 +4,14 @@
  */
 import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast, etiquetaEstado } from "../utils.js";
 import { REGISTROS, CATEGORIAS, ESTADOS, urlCommons } from "../data/registros.js";
+import { t, LANG } from "../i18n.js";
 import { coleccion } from "./coleccion.js";
 
 const filtro = { q: "", categoria: "", estado: "", decada: "" };
 let visibles = [];
 
 const decadaDe = (r) => (r.anio == null ? "sin-fecha" : String(Math.floor(r.anio / 10) * 10));
-const etiquetaDecada = (d) => (d === "sin-fecha" ? "Sin fecha" : `${d}s`);
+const etiquetaDecada = (d) => (d === "sin-fecha" ? t("sinFecha") : LANG === "ru" ? `${d}-е` : `${d}s`);
 const categoriaLabel = (id) => (CATEGORIAS.find((c) => c.id === id) || {}).label || id;
 
 function coincide(r) {
@@ -19,7 +20,7 @@ function coincide(r) {
   if (filtro.decada && decadaDe(r) !== filtro.decada) return false;
   if (filtro.q) {
     const texto = normalizar([r.id, r.titulo, r.descripcion, r.ubicacion, r.fecha, r.anio, r.autor, r.institucion, r.tipo, categoriaLabel(r.categoria)].join(" "));
-    return normalizar(filtro.q).split(/\s+/).filter(Boolean).every((t) => texto.includes(t));
+    return normalizar(filtro.q).split(/\s+/).filter(Boolean).every((p) => texto.includes(p));
   }
   return true;
 }
@@ -29,22 +30,22 @@ function tarjeta(r, i) {
   const nombreArchivo = r.commons.replace(/^File:/, "");
   return `<li>
     <article class="tarjeta cargando" style="--delay:${Math.min(i, 8) * 60}ms" data-id="${esc(r.id)}">
-      <button class="tarjeta__media" type="button" data-accion="ampliar" aria-label="Ampliar: ${esc(r.titulo)}">
+      <button class="tarjeta__media" type="button" data-accion="ampliar" aria-label="${t("ampliarDe")}${esc(r.titulo)}">
         <img src="${img(r.img, "sm")}" alt="${esc(r.titulo)}. ${esc(r.fecha)}." loading="lazy" decoding="async">
         <span class="tarjeta__tipo">${esc(r.tipo)}</span>
         <span class="tarjeta__hover" aria-hidden="true">${esc(r.fecha)}<br>${esc(nombreArchivo)}</span>
       </button>
       <div class="tarjeta__cuerpo">
-        <p class="tarjeta__meta"><span>${esc(categoriaLabel(r.categoria))}</span><span>${r.anio ?? "s. f."}</span></p>
+        <p class="tarjeta__meta"><span>${esc(categoriaLabel(r.categoria))}</span><span>${r.anio ?? t("sf")}</span></p>
         <h3 class="tarjeta__titulo">${esc(r.titulo)}</h3>
         <p class="tarjeta__lugar">${esc(r.ubicacion)}</p>
         <p class="tarjeta__fuente">${esc(r.institucion)}</p>
         <div class="tarjeta__pie">
           ${etiquetaEstado(r.estado, ESTADOS)}
           <div class="tarjeta__botones">
-            <button class="btn-texto" type="button" data-accion="ampliar">Ampliar</button>
-            <button class="btn-texto" type="button" data-accion="procedencia">Ver procedencia</button>
-            <button class="btn-texto guardar" type="button" data-accion="guardar" aria-pressed="${guardado}">${guardado ? "Guardado" : "Guardar"}</button>
+            <button class="btn-texto" type="button" data-accion="ampliar">${t("ampliar")}</button>
+            <button class="btn-texto" type="button" data-accion="procedencia">${t("verProcedencia")}</button>
+            <button class="btn-texto guardar" type="button" data-accion="guardar" aria-pressed="${guardado}">${guardado ? t("guardado") : t("guardar")}</button>
           </div>
         </div>
       </div>
@@ -62,20 +63,20 @@ export function iniciarArchivo() {
   const tiempo = $("#linea-tiempo");
 
   // Controles
-  cats.innerHTML = [{ id: "", label: "Todas" }, ...CATEGORIAS]
+  cats.innerHTML = [{ id: "", label: t("todas") }, ...CATEGORIAS]
     .map((c) => `<button type="button" class="chip" data-cat="${c.id}" aria-pressed="${c.id === ""}">${esc(c.label)}</button>`).join("");
   selEstado.insertAdjacentHTML("beforeend", Object.entries(ESTADOS).map(([k, v]) => `<option value="${k}">${esc(v.label)}</option>`).join(""));
 
   const decadas = [...new Set(REGISTROS.map(decadaDe))].sort((a, b) => (a === "sin-fecha" ? 1 : b === "sin-fecha" ? -1 : a - b));
   const conteo = (d) => REGISTROS.filter((r) => decadaDe(r) === d).length;
-  tiempo.innerHTML = `<button type="button" class="decada" data-decada="" aria-pressed="true">Todas<span class="decada__barra" style="--n:4" aria-hidden="true"></span></button>` +
-    decadas.map((d) => `<button type="button" class="decada" data-decada="${d}" aria-pressed="false" aria-label="${etiquetaDecada(d)}: ${conteo(d)} registros">${etiquetaDecada(d)}<span class="decada__barra" style="--n:${conteo(d)}" aria-hidden="true"></span></button>`).join("");
+  tiempo.innerHTML = `<button type="button" class="decada" data-decada="" aria-pressed="true">${t("todas")}<span class="decada__barra" style="--n:4" aria-hidden="true"></span></button>` +
+    decadas.map((d) => `<button type="button" class="decada" data-decada="${d}" aria-pressed="false" aria-label="${t("decadaAria", etiquetaDecada(d), conteo(d))}">${etiquetaDecada(d)}<span class="decada__barra" style="--n:${conteo(d)}" aria-hidden="true"></span></button>`).join("");
 
   const pintar = () => {
     visibles = REGISTROS.filter(coincide);
     galeria.innerHTML = visibles.map(tarjeta).join("");
     const n = visibles.length;
-    resultados.textContent = n === REGISTROS.length ? `${n} registros en el archivo` : `${n} de ${REGISTROS.length} registros`;
+    resultados.textContent = n === REGISTROS.length ? t("nRegistros", n) : t("nDeTotal", n, REGISTROS.length);
     vacio.hidden = n > 0;
     galeria.hidden = n === 0;
     prepararImagenes();
@@ -86,15 +87,15 @@ export function iniciarArchivo() {
     if (en.isIntersecting) { en.target.classList.add("visible"); io.unobserve(en.target); }
   }), { threshold: 0.08 });
   function prepararImagenes() {
-    $$(".tarjeta", galeria).forEach((t) => {
-      const im = $("img", t);
-      const listo = () => t.classList.remove("cargando");
+    $$(".tarjeta", galeria).forEach((tj) => {
+      const im = $("img", tj);
+      const listo = () => tj.classList.remove("cargando");
       if (im.complete && im.naturalWidth) listo();
       else {
         im.addEventListener("load", listo, { once: true });
-        im.addEventListener("error", () => { t.classList.remove("cargando"); t.classList.add("error"); }, { once: true });
+        im.addEventListener("error", () => { tj.classList.remove("cargando"); tj.classList.add("error"); }, { once: true });
       }
-      io.observe(t);
+      io.observe(tj);
     });
   }
 
@@ -129,9 +130,9 @@ export function iniciarArchivo() {
   });
 
   coleccion.alCambiar(() => {
-    $$(".tarjeta", galeria).forEach((t) => {
-      const g = $(".guardar", t), on = coleccion.tiene(t.dataset.id);
-      g.setAttribute("aria-pressed", String(on)); g.textContent = on ? "Guardado" : "Guardar";
+    $$(".tarjeta", galeria).forEach((tj) => {
+      const g = $(".guardar", tj), on = coleccion.tiene(tj.dataset.id);
+      g.setAttribute("aria-pressed", String(on)); g.textContent = on ? t("guardado") : t("guardar");
     });
     if (actual) {
       // Repinta la ficha abierta sin perder la posición ni el foco
@@ -144,7 +145,7 @@ export function iniciarArchivo() {
   });
 
   try { pintar(); }
-  catch (err) { console.error(err); $("#error-archivo").hidden = false; resultados.textContent = "Error al cargar el archivo"; }
+  catch (err) { console.error(err); $("#error-archivo").hidden = false; resultados.textContent = t("errorArchivo"); }
 
   iniciarFicha();
 }
@@ -159,12 +160,12 @@ function pintarFicha(id, verProcedencia = false) {
   actual = id;
   const lista = visibles.length ? visibles : REGISTROS;
   const pos = lista.findIndex((x) => x.id === id);
-  $("#mr-codigo").textContent = `${r.id} · ${pos >= 0 ? `${pos + 1} / ${lista.length}` : "fuera del filtro actual"}`;
+  $("#mr-codigo").textContent = `${r.id} · ${pos >= 0 ? `${pos + 1} / ${lista.length}` : t("fueraFiltro")}`;
   $("#mr-prev").disabled = pos <= 0;
   $("#mr-sig").disabled = pos < 0 || pos >= lista.length - 1;
   const guardado = coleccion.tiene(id);
   const licencia = r.licencia.url ? `<a href="${r.licencia.url}" target="_blank" rel="noopener">${esc(r.licencia.nombre)}</a>` : esc(r.licencia.nombre);
-  const li = (arr) => (arr && arr.length ? arr.map((t) => `<li>${esc(t)}</li>`).join("") : "<li>Nada pendiente en los datos consultados.</li>");
+  const li = (arr) => (arr && arr.length ? arr.map((x) => `<li>${esc(x)}</li>`).join("") : `<li>${t("nadaPendiente")}</li>`);
 
   $("#mr-cuerpo").innerHTML = `
     <div class="ficha">
@@ -177,25 +178,25 @@ function pintarFicha(id, verProcedencia = false) {
         <h2 class="ficha__titulo" id="mr-titulo">${esc(r.titulo)}</h2>
         <p>${esc(r.descripcion)}</p>
         <dl class="ficha__datos">
-          <div><dt>Fecha</dt><dd>${esc(r.fecha)}</dd></div>
-          <div><dt>Ubicación</dt><dd>${esc(r.ubicacion)}</dd></div>
-          <div class="ancho"><dt>Autor o autora</dt><dd>${esc(r.autor)}</dd></div>
-          <div class="ancho"><dt>Institución o procedencia</dt><dd>${esc(r.institucion)}</dd></div>
-          <div class="ancho"><dt>Licencia</dt><dd>${licencia}</dd></div>
+          <div><dt>${t("fecha")}</dt><dd>${esc(r.fecha)}</dd></div>
+          <div><dt>${t("ubicacion")}</dt><dd>${esc(r.ubicacion)}</dd></div>
+          <div class="ancho"><dt>${t("autor")}</dt><dd>${esc(r.autor)}</dd></div>
+          <div class="ancho"><dt>${t("institucion")}</dt><dd>${esc(r.institucion)}</dd></div>
+          <div class="ancho"><dt>${t("licencia")}</dt><dd>${licencia}</dd></div>
         </dl>
         <section class="procedencia" id="mr-procedencia" tabindex="-1" aria-labelledby="mr-proc-t">
-          <h3 id="mr-proc-t">Procedencia y fuentes consultables</h3>
+          <h3 id="mr-proc-t">${t("procedenciaTitulo")}</h3>
           <ul class="lista lista--ok">${li(r.verificado)}</ul>
           <div class="procedencia__enlaces">
-            <a href="${urlCommons(r.commons)}" target="_blank" rel="noopener">Ficha en Wikimedia Commons ↗</a>
-            ${r.original ? `<a href="${esc(r.original)}" target="_blank" rel="noopener">Catálogo de origen ↗</a>` : ""}
+            <a href="${urlCommons(r.commons)}" target="_blank" rel="noopener">${t("fichaCommons")}</a>
+            ${r.original ? `<a href="${esc(r.original)}" target="_blank" rel="noopener">${t("catalogo")}</a>` : ""}
           </div>
         </section>
-        <section><h3>Información pendiente</h3><ul class="lista lista--pend">${li(r.pendiente)}</ul></section>
-        <section><h3>Intervenciones conocidas</h3><p class="intervencion">${esc(r.intervenciones)}</p></section>
+        <section><h3>${t("pendiente")}</h3><ul class="lista lista--pend">${li(r.pendiente)}</ul></section>
+        <section><h3>${t("intervenciones")}</h3><p class="intervencion">${esc(r.intervenciones)}</p></section>
         <div class="ficha__acciones">
-          <button class="btn ${guardado ? "btn--linea" : "btn--rojo"}" type="button" data-ficha="guardar" aria-pressed="${guardado}">${guardado ? "Quitar de mi colección" : "Guardar en mi colección"}</button>
-          <button class="btn btn--linea" type="button" data-ficha="copiar">Copiar enlace</button>
+          <button class="btn ${guardado ? "btn--linea" : "btn--rojo"}" type="button" data-ficha="guardar" aria-pressed="${guardado}">${guardado ? t("quitarColeccion") : t("guardarColeccion")}</button>
+          <button class="btn btn--linea" type="button" data-ficha="copiar">${t("copiarEnlace")}</button>
         </div>
       </div>
     </div>`;
@@ -225,7 +226,7 @@ function iniciarFicha() {
   dialogo.addEventListener("click", async (e) => {
     const b = e.target.closest("[data-ficha]"); if (!b) return;
     if (b.dataset.ficha === "guardar") coleccion.alternar(actual);
-    if (b.dataset.ficha === "copiar") toast((await copiar(location.href)) ? "Enlace de la ficha copiado" : "No se pudo copiar el enlace");
+    if (b.dataset.ficha === "copiar") toast((await copiar(location.href)) ? t("enlaceFicha") : t("noCopiado"));
   });
   dialogo.addEventListener("cerrado", () => {
     actual = null;

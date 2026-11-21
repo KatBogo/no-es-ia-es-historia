@@ -1,40 +1,42 @@
-/** «¿Real o generado?»: ejercicio educativo paso a paso con revelación y resumen final. */
+/** «Реальное или сгенерированное?» / “Real or generated?”: ejercicio educativo paso a paso. */
 import { $, esc, img, registroPorId, reducirMovimiento } from "../utils.js";
 import { QUIZ } from "../data/contenido.js";
+import { t } from "../i18n.js";
 
 const OPCIONES = [
-  { id: "registro", label: "Registro histórico" },
-  { id: "alterada", label: "Imagen generada o alterada" },
-  { id: "duda", label: "No estoy seguro" }
+  { id: "registro", label: () => t("opRegistro") },
+  { id: "alterada", label: () => t("opAlterada") },
+  { id: "duda", label: () => t("opDuda") }
 ];
 
 export function iniciarQuiz(abrirRegistro) {
   const cuerpo = $("#quiz-cuerpo");
-  const panel = $("#quiz");
+  const paso = $("#quiz-paso");
+  const barra = $("#quiz-barra");
   let indice = 0;
   let respuestas = [];
 
-  // Cada resultado tiene un color (ver .res--*), un icono y un titular corto para que se entienda de un vistazo.
   const resultado = (item, r) => {
-    if (r === "duda") return { clave: "duda", icono: "?", titular: "Sin respuesta", texto: "Está bien dudar: sin fuente no se puede saber" };
-    if (r === item.clase) return { clave: "ok", icono: "✓", titular: "¡Correcto!", texto: "Tu respuesta coincide con la clasificación documentada" };
-    if (r === item.parcial) return { clave: "parcial", icono: "≈", titular: "Casi", texto: "Tu respuesta tiene parte de razón" };
-    return { clave: "no", icono: "✕", titular: "Incorrecto", texto: "Tu respuesta no coincide con la clasificación documentada" };
+    if (r === "duda") return { clave: "duda", texto: t("resDuda") };
+    if (r === item.clase) return { clave: "ok", texto: t("resOk") };
+    if (r === item.parcial) return { clave: "parcial", texto: t("resParcial") };
+    return { clave: "no", texto: t("resNo") };
   };
 
   function mostrarPaso() {
     const item = QUIZ[indice];
     const reg = registroPorId(item.registro);
+    paso.textContent = t("pasoN", indice + 1, QUIZ.length);
+    barra.style.width = `${(indice / QUIZ.length) * 100}%`;
     cuerpo.innerHTML = `
       <div class="quiz__grid">
         <figure class="quiz__imagen" id="quiz-figura">
-          <img src="${img(reg.img)}" alt="Imagen del ejercicio. Su descripción aparece después de responder." id="quiz-img">
-          <span class="quiz__sello" id="quiz-sello" aria-hidden="true"></span>
+          <img src="${img(reg.img)}" alt="${esc(t("altQuiz", indice + 1))}" id="quiz-img">
         </figure>
         <div>
-          <p class="quiz__pregunta" id="quiz-pregunta" tabindex="-1">¿Qué crees que es esta imagen?</p>
+          <p class="quiz__pregunta" id="quiz-pregunta" tabindex="-1">${t("pregunta")}</p>
           <div class="opciones" role="group" aria-labelledby="quiz-pregunta">
-            ${OPCIONES.map((o) => `<button class="opcion" type="button" data-op="${o.id}">${o.label}<span aria-hidden="true">→</span></button>`).join("")}
+            ${OPCIONES.map((o) => `<button class="opcion" type="button" data-op="${o.id}">${o.label()}<span aria-hidden="true">→</span></button>`).join("")}
           </div>
           <div id="quiz-revelacion"></div>
         </div>
@@ -46,78 +48,46 @@ export function iniciarQuiz(abrirRegistro) {
     const reg = registroPorId(item.registro);
     const res = resultado(item, op);
     respuestas.push({ item, op, res });
-    cuerpo.querySelectorAll(".opcion").forEach((b) => {
-      b.disabled = true;
-      // Si fallaste o dudaste, se marca en verde cuál era la respuesta documentada
-      if (b !== boton && b.dataset.op === item.clase) {
-        b.classList.add("opcion--correcta");
-        b.querySelector("span").textContent = "✓ Correcta";
-      }
-    });
-    boton.classList.add("elegida", `res--${res.clave}`);
-    boton.querySelector("span").textContent = res.icono;
-    const fig = $("#quiz-figura");
-    fig.classList.add("revelando", `res--${res.clave}`);
-    const sello = $("#quiz-sello");
-    sello.textContent = res.icono;
-    sello.classList.add(`res--${res.clave}`, "visible");
+    cuerpo.querySelectorAll(".opcion").forEach((b) => { b.disabled = true; });
+    boton.classList.add("elegida");
+    $("#quiz-figura").classList.add("revelando");
     $("#quiz-img").alt = `${reg.titulo}. ${reg.fecha}.`;
+    barra.style.width = `${((indice + 1) / QUIZ.length) * 100}%`;
     const ultimo = indice === QUIZ.length - 1;
-    const zona = $("#quiz-revelacion");
-    // Resultado breve y a la vista; la información completa está en la ficha del archivo
-    zona.innerHTML = `
-      <div class="revelacion">
-        <div class="revelacion__resultado res--${res.clave}" role="status">
-          <span class="revelacion__icono" aria-hidden="true">${res.icono}</span>
-          <span><strong>${esc(res.titular)}</strong><span>Es: ${esc(item.clasificacion)}</span></span>
-        </div>
-        <p class="revelacion__breve">${esc(item.breve)}</p>
-        <div class="revelacion__botones">
-          <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? "Ver resumen" : "Siguiente imagen"} →</button>
-          <button class="btn btn--linea" type="button" data-ver="${esc(reg.id)}">Ver en el archivo</button>
-        </div>
+    $("#quiz-revelacion").innerHTML = `
+      <div class="revelacion" style="animation-delay:${reducirMovimiento() ? 0 : 0.5}s">
+        <p class="revelacion__resultado ${res.clave === "no" ? "no" : ""}">${esc(res.texto)}</p>
+        <p class="mono">${t("clasificacion")}</p>
+        <p class="revelacion__clase">${esc(item.clasificacion)}</p>
+        <dl>
+          <div><dt>${t("explicacion")}</dt><dd>${esc(item.explicacion)}</dd></div>
+          <div><dt>${t("pistas")}</dt><dd>${esc(item.pistas)}</dd></div>
+          <div><dt>${t("fuenteDisponible")}</dt><dd>${esc(item.fuente)} · <button class="btn-texto" type="button" data-ver="${esc(reg.id)}">${t("verFicha")}</button></dd></div>
+          <div><dt>${t("porQue")}</dt><dd>${t("porQueTexto")}</dd></div>
+        </dl>
+        <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? t("verResumen") : t("siguiente")}</button>
       </div>`;
     $("#quiz-siguiente").focus({ preventScroll: true });
-    mantenerALaVista();
-  }
-
-  /** Desplaza lo justo para que la imagen, la respuesta y los botones se vean enteros. */
-  function mantenerALaVista() {
-    const nav = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 64;
-    const r = panel.getBoundingClientRect();
-    const rev = $("#quiz-revelacion").getBoundingClientRect();
-    const comportamiento = reducirMovimiento() ? "auto" : "smooth";
-    if (r.height <= window.innerHeight - nav) {
-      // Cabe entero: se alinea el ejercicio bajo el menú si hace falta
-      if (r.top < nav || r.bottom > window.innerHeight) window.scrollBy({ top: r.top - nav - 8, behavior: comportamiento });
-    } else if (rev.bottom > window.innerHeight) {
-      // No cabe (móvil): prioridad a que se vean el resultado y los botones
-      window.scrollBy({ top: rev.bottom - window.innerHeight + 16, behavior: comportamiento });
-    }
   }
 
   function resumen() {
+    paso.textContent = t("resumen");
+    barra.style.width = "100%";
     const cuenta = (k) => respuestas.filter((r) => r.res.clave === k).length;
     cuerpo.innerHTML = `
       <div class="resumen">
-        <p class="resumen__frase" tabindex="-1" id="quiz-final">No basta con mirar. <span>Hay que investigar.</span></p>
-        <ul class="marcador" aria-label="Tu resultado">
-          <li class="res--ok"><span aria-hidden="true">✓</span><strong>${cuenta("ok")}</strong> correctas</li>
-          <li class="res--parcial"><span aria-hidden="true">≈</span><strong>${cuenta("parcial")}</strong> casi</li>
-          <li class="res--no"><span aria-hidden="true">✕</span><strong>${cuenta("no")}</strong> incorrectas</li>
-          <li class="res--duda"><span aria-hidden="true">?</span><strong>${cuenta("duda")}</strong> dudas</li>
-        </ul>
-        <p>El resultado no mide tu capacidad para detectar falsificaciones: muestra lo difícil que es clasificar una imagen sin conocer su origen.</p>
+        <p class="resumen__frase" tabindex="-1" id="quiz-final">${t("fraseA")} <span>${t("fraseB")}</span></p>
+        <p>${t("conteo", cuenta("ok"), cuenta("parcial"), cuenta("no"), cuenta("duda"))}</p>
         <ol>
           ${respuestas.map(({ item, op, res }) => {
             const reg = registroPorId(item.registro);
-            const elegida = OPCIONES.find((o) => o.id === op).label;
-            return `<li class="res--${res.clave}"><img src="${img(reg.img, "sm")}" alt=""><div><span class="mono resumen__estado"><span aria-hidden="true">${res.icono}</span> ${esc(res.titular)}</span>${esc(item.clasificacion)}<br><small>Tu respuesta: ${esc(elegida)}</small></div></li>`;
+            const elegida = OPCIONES.find((o) => o.id === op).label();
+            return `<li><img src="${img(reg.img, "sm")}" alt=""><div><span class="mono">${esc(res.texto)}</span>${esc(item.clasificacion)}<br><small>${t("tuRespuesta")} ${esc(elegida)}</small></div></li>`;
           }).join("")}
         </ol>
         <div class="resumen__acciones">
-          <button class="btn btn--rojo" type="button" id="quiz-reiniciar">Repetir el ejercicio</button>
-          <a class="btn btn--linea" href="#archivo">Investigar en el archivo</a>
+          <button class="btn btn--rojo" type="button" id="quiz-reiniciar">${t("repetir")}</button>
+          <a class="btn btn--linea" href="#archivo">${t("investigar")}</a>
         </div>
       </div>`;
     $("#quiz-final").focus({ preventScroll: true });
@@ -144,9 +114,9 @@ export function iniciarQuiz(abrirRegistro) {
   }
   reiniciar(false);
 
-  // «Descubrir la verdad» lleva al ejercicio y lo deja listo
+  // El botón de la portada lleva al ejercicio y lo deja listo
   document.querySelectorAll("[data-iniciar-quiz]").forEach((a) => a.addEventListener("click", () => {
-    if (indice >= QUIZ.length || respuestas.length === QUIZ.length) reiniciar(false);
+    if (respuestas.length === QUIZ.length) reiniciar(false);
     setTimeout(() => $("#quiz-pregunta")?.focus({ preventScroll: true }), reducirMovimiento() ? 0 : 700);
   }));
 }

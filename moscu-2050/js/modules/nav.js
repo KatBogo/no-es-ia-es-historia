@@ -1,5 +1,6 @@
 /** Navegación: menú fijo que cambia al hacer scroll, menú móvil, enlace activo y progreso de lectura. */
 import { $, $$ } from "../utils.js";
+import { t } from "../i18n.js";
 
 export function iniciarNav() {
   const nav = $("#nav");
@@ -9,7 +10,7 @@ export function iniciarNav() {
 
   const abrir = (estado) => {
     boton.setAttribute("aria-expanded", String(estado));
-    boton.querySelector(".sr-only").textContent = estado ? "Cerrar menú" : "Abrir menú";
+    boton.querySelector(".sr-only").textContent = estado ? t("menuCerrar") : t("menuAbrir");
     menu.classList.toggle("abierto", estado);
     nav.classList.toggle("menu-abierto", estado);
     document.body.style.overflow = estado ? "hidden" : "";
@@ -19,7 +20,7 @@ export function iniciarNav() {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && menu.classList.contains("abierto")) { abrir(false); boton.focus(); }
   });
-  window.matchMedia("(min-width: 1101px)").addEventListener("change", (m) => { if (m.matches) abrir(false); });
+  window.matchMedia("(min-width: 1201px)").addEventListener("change", (m) => { if (m.matches) abrir(false); });
 
   // Apariencia compacta y barra de progreso
   let pendiente = false;
