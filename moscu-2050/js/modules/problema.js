@@ -19,7 +19,7 @@ export function iniciarProblema(abrirRegistro) {
       <li class="prediccion ${e.clave ? "prediccion--clave" : ""} reveal" style="transition-delay:${i * 70}ms">
         <span class="prediccion__num mono">${String(i + 1).padStart(2, "0")}</span>
         <h3 class="prediccion__titulo">${esc(e.prediccion)}</h3>
-        <p class="prediccion__autor mono">Earth 2050 · ${esc(e.autor)}</p>
+        <p class="prediccion__autor mono">Earth 2050 · ${esc(e.autor)}${e.prediccion !== e.original ? ` · ${t("original")} «${esc(e.original)}»` : ""}</p>
         <p>${esc(e.texto)}</p>
       </li>`).join("");
   }

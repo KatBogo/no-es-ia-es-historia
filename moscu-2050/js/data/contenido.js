@@ -11,27 +11,27 @@ import { localizar } from "../i18n.js";
 /** Predicciones de Earth 2050 usadas en el escenario (selección). */
 export const ESCENARIO = localizar([
   {
-    prediccion: "3D reconstruction of the human history", autor: "Andrey Chemezov", clave: true,
+    prediccion: { ru: "3D-реконструкция истории человечества", en: "3D reconstruction of the human history" }, original: "3D reconstruction of the human history", autor: "Andrey Chemezov", clave: true,
     texto: { ru: "Виртуальный глобус воссоздаёт в 3D любые события прошлого. Добавить событие может кто угодно, как в Википедии, а ИИ генерирует изображения по описаниям, хроникам и документальным фильмам — не только «то, что было», но и «то, что могло быть».", en: "A virtual globe recreates any past event in 3D. Anyone can add events, as on Wikipedia, and an AI generates images from descriptions, chronicles and documentaries — not only “what was” but also “what could have been”." }
   },
   {
-    prediccion: "Moscow 2050", autor: "Earthman / Vodogreev",
+    prediccion: { ru: "Москва 2050", en: "Moscow 2050" }, original: "Moscow 2050", autor: "Earthman / Vodogreev",
     texto: { ru: "Москва растёт вверх: воздушный и канатный транспорт, зелёные крыши, подвесные парки. Город разделён по уровням — и по доступу.", en: "Moscow grows upwards: air and cable transport, green roofs, suspended parks. The city is divided into levels — and by access." }
   },
   {
-    prediccion: "The world in 2050", autor: "Earthman",
+    prediccion: { ru: "Мир в 2050 году", en: "The world in 2050" }, original: "The world in 2050", autor: "Earthman",
     texto: { ru: "Перемены постепенны, а социальное и экономическое неравенство растёт. Те, у кого есть доступ к технологиям, наполняют историю; память остальных остаётся за бортом.", en: "Change is gradual while social and economic inequality grows. Those with access to technology feed history; everyone else's memory is left out." }
   },
   {
-    prediccion: "Neuromorphic official", autor: "Andrey Lavrentyev",
+    prediccion: { ru: "Нейроморфный чиновник", en: "Neuromorphic official" }, original: "Neuromorphic official", autor: "Andrey Lavrentyev",
     texto: { ru: "Машины, имитирующие работу мозга, занимают должности в госуправлении. Решения принимает «чёрный ящик», логику которого никто не понимает.", en: "Machines that imitate the brain take over public-administration posts. Decisions come from a “black box” nobody understands." }
   },
   {
-    prediccion: "Smart machines will make humankind more stupid", autor: "Oleg Gorobets",
+    prediccion: { ru: "Умные машины сделают человечество глупее", en: "Smart machines will make humankind more stupid" }, original: "Smart machines will make humankind more stupid", autor: "Oleg Gorobets",
     texto: { ru: "Зависимость от машин лишает людей базовых навыков. Реальность становится хрупкой: жизнь держится на системах, которые мы не контролируем.", en: "Dependence on machines erodes basic skills. Reality becomes fragile: daily life hangs on systems we do not control." }
   },
   {
-    prediccion: "The first ever museum of “human” relations", autor: "Julia Nikishkina",
+    prediccion: { ru: "Первый музей «человеческих» отношений", en: "The first ever museum of “human” relations" }, original: "The first ever museum of “human” relations", autor: "Julia Nikishkina",
     texto: { ru: "Роботы решают все бюрократические вопросы, и город открывает музей очередей и грубых чиновников 2010–2020-х: люди скучают по живому общению.", en: "Robots handle all paperwork, so the city opens a museum of 2010s–2020s queues and rude clerks: people miss human friction." }
   }
 ]);
