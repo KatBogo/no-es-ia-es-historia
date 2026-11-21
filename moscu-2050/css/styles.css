@@ -661,15 +661,16 @@ body:has(dialog[open]) { overflow: hidden; }
 .pieza--d::after { content: ""; position: absolute; inset: 0; z-index: 3; background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(17,17,17,.16) 3px 4px); pointer-events: none; }
 
 /* Cinta collage entre secciones */
-.cinta { position: relative; height: clamp(120px, 14vw, 180px); overflow: hidden; background: var(--carbon); }
-.cinta__banda { position: absolute; left: -10%; right: -10%; white-space: nowrap; overflow: hidden; }
+/* Dos franjas rectas y horizontales, una debajo de la otra */
+.cinta { position: relative; overflow: hidden; background: var(--carbon); display: grid; }
+.cinta__banda { white-space: nowrap; overflow: hidden; }
 .cinta__banda span { display: inline-block; animation: cinta 40s linear infinite; }
 .cinta__banda--roja {
-  top: 22%; transform: rotate(-4deg); background: var(--rojo); color: var(--carbon); padding: 6px 0;
-  font-family: var(--f-titular); font-weight: 900; font-stretch: 62%; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1; letter-spacing: .02em;
+  background: var(--rojo); color: var(--carbon); padding: 10px 0 8px;
+  font-family: var(--f-titular); font-weight: 900; font-size: clamp(2rem, 5vw, 3.6rem); line-height: 1; letter-spacing: .02em;
 }
 .cinta__banda--hueso {
-  top: 60%; transform: rotate(3deg); background: var(--hueso); color: var(--carbon); padding: 8px 0;
+  background: var(--hueso); color: var(--carbon); padding: 10px 0;
   font-family: var(--f-mono); font-weight: 500; font-size: .85rem; letter-spacing: .14em;
 }
 .cinta__banda--hueso span { animation-direction: reverse; animation-duration: 55s; }

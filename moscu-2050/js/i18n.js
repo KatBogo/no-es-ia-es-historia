@@ -1,18 +1,18 @@
 /**
  * Idioma de la interfaz.
  * - index.html está en ruso (idioma por defecto del escenario Moscú 2050).
- * - en.html es la versión en inglés.
- * El idioma se lee de <html lang="…">. Los datos se escriben como { ru, en }
+ * - es.html es la versión en español.
+ * El idioma se lee de <html lang="…">. Los datos se escriben como { ru, es }
  * y se convierten al idioma activo con localizar().
  */
-export const LANG = (document.documentElement.lang || "ru").toLowerCase().startsWith("en") ? "en" : "ru";
+export const LANG = (document.documentElement.lang || "ru").toLowerCase().startsWith("es") ? "es" : "ru";
 
-/** Convierte recursivamente los objetos { ru, en } al idioma activo. */
+/** Convierte recursivamente los objetos { ru, es } al idioma activo. */
 export function localizar(valor) {
   if (Array.isArray(valor)) return valor.map(localizar);
   if (valor && typeof valor === "object") {
     const claves = Object.keys(valor);
-    if (claves.length && claves.every((k) => k === "ru" || k === "en")) return valor[LANG] ?? valor.ru;
+    if (claves.length && claves.every((k) => k === "ru" || k === "es")) return valor[LANG] ?? valor.ru;
     const out = {};
     for (const k of claves) out[k] = localizar(valor[k]);
     return out;
@@ -42,7 +42,7 @@ const UI = {
     nadaPendiente: "В изученных данных невыясненных сведений нет.",
     quitarColeccion: "Убрать из подборки", guardarColeccion: "Сохранить в подборку",
     copiarEnlace: "Скопировать ссылку", enlaceFicha: "Ссылка на карточку скопирована", noCopiado: "Не удалось скопировать ссылку",
-    toastQuitado: "Удалено из подборки", toastGuardado: (t) => `Сохранено в подборку: ${t}`, toastVaciada: "Подборка очищена",
+    toastQuitado: "Удалено из подборки", toastGuardado: (x) => `Сохранено в подборку: ${x}`, toastVaciada: "Подборка очищена",
     verFicha: "Открыть карточку", quitar: "Убрать",
     opRegistro: "Исторический документ", opAlterada: "Сгенерированное или изменённое изображение", opDuda: "Не уверен(а)",
     resDuda: "Без ответа: сомневаться — нормально",
@@ -87,70 +87,70 @@ const UI = {
     noEnviado2: "В реальной версии материал ожидал бы проверки и публиковался бы только после подтверждения его происхождения.",
     kb: "КБ", mb: "МБ"
   },
-  en: {
-    menuAbrir: "Open menu", menuCerrar: "Close menu",
-    heroEspeculativa: "You are seeing: speculative visualisation of 2050",
-    heroHistorica: "You are seeing: historical photograph (photochrom, c. 1890–1900)",
-    ejemplo: "Example", verRegistro: "See the record in the archive", original: "original:",
-    recomponer: "Rebuild the image", fragmentar: "Fragment again",
-    todas: "All", sinFecha: "Undated", sf: "n.d.",
-    nRegistros: (n) => `${n} records in the archive`,
-    nDeTotal: (n, t) => `${n} of ${t} records`,
-    decadaAria: (d, n) => `${d}: ${n} records`,
-    errorArchivo: "Error loading the archive",
-    ampliarDe: "Enlarge: ", ampliar: "Enlarge", verProcedencia: "View provenance",
-    guardar: "Save", guardado: "Saved",
-    fueraFiltro: "outside the current filter",
-    fecha: "Date", ubicacion: "Location", autor: "Author", institucion: "Institution or provenance", licencia: "Licence",
-    procedenciaTitulo: "Provenance and sources you can check",
-    fichaCommons: "Wikimedia Commons page ↗", catalogo: "Original catalogue ↗",
-    pendiente: "Open questions", intervenciones: "Known interventions",
-    nadaPendiente: "Nothing pending in the data consulted.",
-    quitarColeccion: "Remove from my collection", guardarColeccion: "Save to my collection",
-    copiarEnlace: "Copy link", enlaceFicha: "Record link copied", noCopiado: "Could not copy the link",
-    toastQuitado: "Removed from your collection", toastGuardado: (t) => `Saved to your collection: ${t}`, toastVaciada: "Collection cleared",
-    verFicha: "Open record", quitar: "Remove",
-    opRegistro: "Historical record", opAlterada: "Generated or altered image", opDuda: "I'm not sure",
-    resDuda: "No answer: doubting is fine",
-    resOk: "Your answer matches the documented classification",
-    resParcial: "Your answer is partly right",
-    resNo: "Your answer does not match the documented classification",
-    pasoN: (i, n) => `Image ${i} of ${n}`,
-    altQuiz: (i) => `Exercise image ${i}. Its description appears after you answer.`,
-    pregunta: "What do you think this image is?",
-    clasificacion: "Documented classification", explicacion: "Explanation", pistas: "Clues that can mislead",
-    fuenteDisponible: "Available source", porQue: "Why verify",
-    porQueTexto: "Looking is not enough: provenance — who made it, when, and who keeps it — is what lets us classify an image.",
-    verResumen: "See summary", siguiente: "Next image", resumen: "Summary",
-    fraseA: "Looking is not enough.", fraseB: "You have to investigate.",
-    conteo: (ok, p, no, d) => `Matches: <strong>${ok}</strong> · Partly right: <strong>${p}</strong> · No match: <strong>${no}</strong> · Unsure: <strong>${d}</strong>. The result does not measure your ability to spot fakes: it shows how hard it is to classify an image without knowing where it comes from.`,
-    tuRespuesta: "Your answer:", repetir: "Try again", investigar: "Investigate the archive",
-    especulativa: " (speculative)", escenarioEsp: " · SPECULATIVE SCENARIO",
-    leer: "Read the story", cerrarHistoria: "Close the story",
-    sello: "Fiction · Moscow 2050 is a hypothetical scenario",
-    valorRango: (v) => `${v}% of the altered version visible`,
-    docOriginal: "Original document: ", versionInt: "Altered version: ",
-    queCambio: "What changed", porQueImporta: "Why it matters to identify the intervention", fuentes: "Sources",
-    verOriginal: "Open the original document's record",
-    ampliarPieza: (i, f) => `Enlarge piece ${i}: ${f}`, pieza: (i, f) => `Piece ${i}: ${f}`,
-    microPieza: "MEMORY / SOURCE / PROVENANCE", hashtag: "#ItsNotAIItsHistory",
-    copiadoCampana: "Campaign link copied", noCopiadoCampana: "Could not copy. Copy the address from your browser.",
-    copiadoBoton: "✓ Link copied", compartir: "Share…",
-    textoCompartir: "IT'S NOT AI. IT'S HISTORY. Verify before you share.", tituloCompartir: "IT'S NOT AI. IT'S HISTORY.",
-    piezaDe: (i, n) => `Piece ${i} of ${n}`,
-    imagenBase: (t, f, a, inst, l) => `Base image: “${t}” (${f}). ${a} · ${inst} · ${l}. The graphic treatment is part of the campaign.`,
-    errNombre: "Enter your name (at least 2 letters).", errCorreo: "Enter a valid email, e.g. name@domain.com.",
-    errTitulo: "Give the record a short title.", errAnio: "Enter a year, even an approximate one.",
-    errAnioRango: (max) => `The year must be between 1800 and ${max}.`,
-    errLugar: "Say where the material was taken or made.", errDescripcion: "Describe the material in at least 20 characters.",
-    errFuente: "Tell us where it comes from: who made it and how it reached you.",
-    errArchivo: "Attach an image or a document.", errFormato: "Unsupported format. Use JPG, PNG, WEBP or PDF.",
-    errTamano: (mb) => `The file is larger than ${mb} MB.`, errAutorizo: "We need your permission to review and use the material.",
-    previaLocal: " · Local preview, not uploaded anywhere.", previaAlt: (n) => `Preview of ${n}`,
-    revisa: (n) => `Check ${n} ${n === 1 ? "field" : "fields"}`, revisaDet: "The messages next to each field explain what is missing.",
-    noEnviado: "Submission not sent: this is a demo",
-    noEnviado1: "All fields are valid, but this prototype has no system to receive or store submissions. Your material never left your browser.",
-    noEnviado2: "In a real version, the submission would wait for review and would only be published after its provenance was checked.",
+  es: {
+    menuAbrir: "Abrir menú", menuCerrar: "Cerrar menú",
+    heroEspeculativa: "Ahora ves: visualización especulativa de 2050",
+    heroHistorica: "Ahora ves: fotografía histórica (fotocromo, c. 1890–1900)",
+    ejemplo: "Ejemplo", verRegistro: "Ver el registro en el archivo", original: "original:",
+    recomponer: "Recomponer la imagen", fragmentar: "Fragmentar de nuevo",
+    todas: "Todas", sinFecha: "Sin fecha", sf: "s. f.",
+    nRegistros: (n) => `${n} registros en el archivo`,
+    nDeTotal: (n, t) => `${n} de ${t} registros`,
+    decadaAria: (d, n) => `${d}: ${n} registros`,
+    errorArchivo: "Error al cargar el archivo",
+    ampliarDe: "Ampliar: ", ampliar: "Ampliar", verProcedencia: "Ver procedencia",
+    guardar: "Guardar", guardado: "Guardado",
+    fueraFiltro: "fuera del filtro actual",
+    fecha: "Fecha", ubicacion: "Ubicación", autor: "Autor o autora", institucion: "Institución o procedencia", licencia: "Licencia",
+    procedenciaTitulo: "Procedencia y fuentes consultables",
+    fichaCommons: "Ficha en Wikimedia Commons ↗", catalogo: "Catálogo de origen ↗",
+    pendiente: "Información pendiente", intervenciones: "Intervenciones conocidas",
+    nadaPendiente: "Nada pendiente en los datos consultados.",
+    quitarColeccion: "Quitar de mi colección", guardarColeccion: "Guardar en mi colección",
+    copiarEnlace: "Copiar enlace", enlaceFicha: "Enlace de la ficha copiado", noCopiado: "No se pudo copiar el enlace",
+    toastQuitado: "Quitado de tu colección", toastGuardado: (x) => `Guardado en tu colección: ${x}`, toastVaciada: "Colección vaciada",
+    verFicha: "Ver ficha", quitar: "Quitar",
+    opRegistro: "Registro histórico", opAlterada: "Imagen generada o alterada", opDuda: "No estoy seguro",
+    resDuda: "Sin respuesta: está bien dudar",
+    resOk: "Tu respuesta coincide con la clasificación documentada",
+    resParcial: "Tu respuesta tiene parte de razón",
+    resNo: "Tu respuesta no coincide con la clasificación documentada",
+    pasoN: (i, n) => `Imagen ${i} de ${n}`,
+    altQuiz: (i) => `Imagen ${i} del ejercicio. Su descripción aparece después de responder.`,
+    pregunta: "¿Qué crees que es esta imagen?",
+    clasificacion: "Clasificación documentada", explicacion: "Explicación", pistas: "Pistas que pueden engañar",
+    fuenteDisponible: "Fuente disponible", porQue: "Por qué verificar",
+    porQueTexto: "Mirar no basta: la procedencia —quién la hizo, cuándo y quién la conserva— es lo que permite clasificar una imagen.",
+    verResumen: "Ver resumen", siguiente: "Siguiente imagen", resumen: "Resumen",
+    fraseA: "No basta con mirar.", fraseB: "Hay que investigar.",
+    conteo: (ok, p, no, d) => `Coincidencias: <strong>${ok}</strong> · Parcialmente correctas: <strong>${p}</strong> · No coincidentes: <strong>${no}</strong> · Dudas: <strong>${d}</strong>. El resultado no mide tu capacidad para detectar falsificaciones: muestra lo difícil que es clasificar una imagen sin conocer su origen.`,
+    tuRespuesta: "Tu respuesta:", repetir: "Repetir el ejercicio", investigar: "Investigar en el archivo",
+    especulativa: " (especulativa)", escenarioEsp: " · ESCENARIO ESPECULATIVO",
+    leer: "Leer la historia", cerrarHistoria: "Cerrar la historia",
+    sello: "Ficción · Moscú 2050 es un escenario hipotético",
+    valorRango: (v) => `${v} % de la versión intervenida visible`,
+    docOriginal: "Documento original: ", versionInt: "Versión intervenida: ",
+    queCambio: "Qué cambió", porQueImporta: "Por qué importa identificar la intervención", fuentes: "Fuentes",
+    verOriginal: "Ver la ficha del documento original",
+    ampliarPieza: (i, f) => `Ampliar pieza ${i}: ${f}`, pieza: (i, f) => `Pieza ${i}: ${f}`,
+    microPieza: "MEMORIA / FUENTE / PROCEDENCIA", hashtag: "#NoEsIAEsHistoria",
+    copiadoCampana: "Enlace de la campaña copiado", noCopiadoCampana: "No se pudo copiar. Copia la dirección desde el navegador.",
+    copiadoBoton: "✓ Enlace copiado", compartir: "Compartir…",
+    textoCompartir: "NO ES IA. ES HISTORIA. Antes de compartir, verifica.", tituloCompartir: "NO ES IA. ES HISTORIA.",
+    piezaDe: (i, n) => `Pieza ${i} de ${n}`,
+    imagenBase: (t, f, a, inst, l) => `Imagen de base: «${t}» (${f}). ${a} · ${inst} · ${l}. El tratamiento gráfico es parte de la campaña.`,
+    errNombre: "Escribe tu nombre (al menos 2 letras).", errCorreo: "Escribe un correo válido, por ejemplo nombre@dominio.com.",
+    errTitulo: "Pon un título breve al registro.", errAnio: "Indica un año, aunque sea aproximado.",
+    errAnioRango: (max) => `El año debe estar entre 1800 y ${max}.`,
+    errLugar: "Indica dónde se tomó o se creó el material.", errDescripcion: "Describe el material con al menos 20 caracteres.",
+    errFuente: "Cuéntanos de dónde procede: quién lo creó y cómo llegó a ti.",
+    errArchivo: "Adjunta una imagen o un documento.", errFormato: "Formato no admitido. Usa JPG, PNG, WEBP o PDF.",
+    errTamano: (mb) => `El archivo pesa más de ${mb} MB.`, errAutorizo: "Necesitamos tu autorización para revisar y usar el material.",
+    previaLocal: " · Vista previa local, no se ha subido.", previaAlt: (n) => `Vista previa de ${n}`,
+    revisa: (n) => `Revisa ${n === 1 ? "1 campo" : n + " campos"}`, revisaDet: "Los mensajes junto a cada campo explican qué falta.",
+    noEnviado: "Aporte no enviado: esto es una demostración",
+    noEnviado1: "Todos los campos son válidos, pero este prototipo no tiene un sistema para recibir ni guardar envíos. Tu material no ha salido de tu navegador.",
+    noEnviado2: "En una versión real, el aporte quedaría pendiente de revisión y solo se publicaría después de comprobar su procedencia.",
     kb: "KB", mb: "MB"
   }
 };
@@ -169,7 +169,7 @@ export function t(clave, ...args) {
   return typeof v === "function" ? v(...args) : v;
 }
 
-/** El selector RU / EN conserva la sección (#ancla) en la que está la persona. */
+/** El selector RU / ES conserva la sección (#ancla) en la que está la persona. */
 export function iniciarIdioma() {
   document.querySelectorAll("[data-idioma]").forEach((a) => {
     a.addEventListener("click", () => {

@@ -11,7 +11,7 @@ const filtro = { q: "", categoria: "", estado: "", decada: "" };
 let visibles = [];
 
 const decadaDe = (r) => (r.anio == null ? "sin-fecha" : String(Math.floor(r.anio / 10) * 10));
-const etiquetaDecada = (d) => (d === "sin-fecha" ? t("sinFecha") : LANG === "ru" ? `${d}-е` : `${d}s`);
+const etiquetaDecada = (d) => (d === "sin-fecha" ? t("sinFecha") : LANG === "ru" ? `${d}-е` : `${d}`);
 const categoriaLabel = (id) => (CATEGORIAS.find((c) => c.id === id) || {}).label || id;
 
 function coincide(r) {

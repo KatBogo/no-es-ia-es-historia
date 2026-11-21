@@ -6,11 +6,11 @@ Experiencia web de diseño gráfico especulativo. Moscú 2050 es un **escenario 
 
 Publicada en:
 - Ruso (idioma por defecto): https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/
-- Inglés: https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/en.html
+- Español: https://katbogo.github.io/no-es-ia-es-historia/moscu-2050/es.html
 
 ## Idiomas
 
-El escenario está en Moscú, así que la página está en **ruso** por defecto, con un botón **RU / EN** para pasarla a inglés. `index.html` es la versión rusa y `en.html` la inglesa; los textos de los datos están en `{ ru, en }` (ver `js/i18n.js`). Tipografías con cirílico: Fira Sans Extra Condensed (títulos y logo), Literata (textos) e IBM Plex Mono (etiquetas). Para los títulos se usa una fuente estática porque las variables pueden dibujar trazos internos en letras cirílicas como la «Ы».
+El escenario está en Moscú, así que la página está en **ruso** por defecto, con un botón **RU / ES** para pasarla a español. `index.html` es la versión rusa y `es.html` la española; los textos de los datos están en `{ ru, es }` (ver `js/i18n.js`). Tipografías con cirílico: Fira Sans Extra Condensed (títulos y logo), Literata (textos) e IBM Plex Mono (etiquetas). Para los títulos se usa una fuente estática porque las variables pueden dibujar trazos internos en letras cirílicas como la «Ы».
 
 ## Escenario
 
