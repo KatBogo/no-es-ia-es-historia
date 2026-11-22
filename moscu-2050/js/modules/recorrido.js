@@ -3,9 +3,9 @@
  * registro compartido con su contexto. Cada etapa es un botón que muestra su
  * detalle y lleva a la sección de la página donde ocurre ese paso.
  */
-import { $, $$, esc } from "../utils.js?v=20261122b";
-import { RECORRIDO } from "../data/contenido.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, $$, esc } from "../utils.js?v=20261122c";
+import { RECORRIDO } from "../data/contenido.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 export function iniciarRecorrido() {
   const lista = $("#recorrido");
@@ -15,7 +15,6 @@ export function iniciarRecorrido() {
   lista.innerHTML = RECORRIDO.map((e, i) => `
     <li class="etapa" style="--i:${i}">
       <button class="etapa__boton" type="button" aria-pressed="${i === 0}" aria-controls="recorrido-detalle" data-i="${i}">
-        <span class="etapa__num mono">${t("etapa")} ${e.num}</span>
         <span class="etapa__nombre">${esc(e.etapa)}</span>
       </button>
     </li>`).join("");
@@ -28,7 +27,7 @@ export function iniciarRecorrido() {
     });
     lista.style.setProperty("--avance", `${(i / (RECORRIDO.length - 1)) * 100}%`);
     detalle.innerHTML = `
-      <p class="mono">${t("etapa")} ${e.num} · ${esc(e.etapa)}</p>
+      <p class="mono">${esc(e.etapa)}</p>
       <p class="recorrido__texto">${esc(e.texto)}</p>
       <a class="btn btn--linea" href="${e.destino}">${esc(e.accion)} →</a>`;
   };

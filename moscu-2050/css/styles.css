@@ -501,6 +501,15 @@ body:has(dialog[open]) { overflow: hidden; }
 .revelacion__resultado { display: inline-flex; justify-self: start; padding: 6px 12px; font-family: var(--f-mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; background: var(--hueso); color: var(--carbon); }
 .revelacion__resultado.no { background: transparent; color: var(--hueso); border: 1.5px dashed var(--hueso); }
 .revelacion__clase { font-family: var(--f-titular); font-weight: 900; font-stretch: 80%; font-size: 2rem; line-height: 1; text-transform: uppercase; }
+.veredicto { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+.veredicto__icono { width: 76px; height: 76px; display: grid; place-items: center; border-radius: 50%; background: var(--hueso); color: var(--carbon); font-family: var(--f-titular); font-weight: 900; font-size: 2.8rem; line-height: 1; }
+.veredicto--ok .veredicto__icono { background: var(--hueso); color: var(--carbon); }
+.veredicto--no .veredicto__icono { background: var(--rojo); color: #fff; }
+.veredicto--parcial .veredicto__icono, .veredicto--duda .veredicto__icono { background: transparent; color: var(--hueso); border: 2px dashed var(--hueso); }
+.veredicto__titulo { font-family: var(--f-titular); font-weight: 900; font-size: 2rem; line-height: 1.05; text-transform: uppercase; }
+.veredicto__texto { font-size: .98rem; color: #CFCBC1; line-height: 1.5; }
+.revelacion__resumen { font-size: 1.02rem; line-height: 1.65; color: #DAD7CE; }
+.revelacion__acciones { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 20px; margin-top: 4px; }
 .revelacion dl { display: grid; gap: 12px; }
 .revelacion dt { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gris-cla); }
 .revelacion dd { font-size: 1.02rem; }
@@ -897,8 +906,10 @@ body:has(dialog[open]) { overflow: hidden; }
 .participa__lado p { color: #DAD7CE; font-size: 1.05rem; }
 
 /* Paginación del archivo */
-.paginacion { margin-top: clamp(36px, 5vw, 56px); padding-top: 24px; border-top: 2px solid var(--carbon); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
-.pagina__numeros { display: flex; gap: 8px; }
+.paginacion { margin-top: clamp(36px, 5vw, 56px); padding-top: 24px; border-top: 2px solid var(--carbon); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.paginacion > .btn-texto:first-child { justify-self: start; }
+.paginacion > .btn-texto:last-child { justify-self: end; }
+.pagina__numeros { display: flex; gap: 8px; justify-content: center; }
 .pagina__num { min-width: 48px; height: 48px; display: grid; place-items: center; border: 2px solid var(--carbon); background: transparent; cursor: pointer; font-family: var(--f-titular); font-weight: 800; font-size: 1.2rem; transition: background-color var(--t), color var(--t); }
 .pagina__num:hover { background: var(--carbon); color: var(--hueso); }
 .pagina__num[aria-current="page"] { background: var(--rojo); border-color: var(--rojo); color: #fff; }
@@ -919,6 +930,18 @@ body:has(dialog[open]) { overflow: hidden; }
 .tarjeta__cuerpo { gap: 12px; }
 .riesgo__texto { line-height: 1.6; }
 .recorrido__texto { line-height: 1.6; }
+
+/* Interlineado de títulos: las tildes, la Ñ y la Й no deben tocar la línea de arriba */
+.titular { line-height: 1.04; }
+.hero__titulo { line-height: .95; }
+.manifiesto__titulo { line-height: .98; }
+.resumen__frase, .pie__titulo, .pieza-ampliada__info p.frase { line-height: 1.02; }
+.contexto__pregunta { line-height: 1.12; }
+.ficha__titulo, .revelacion__clase, .historia__titulo, .comparador__texto h3, .mv-titulo,
+.participa__titulo, .veredicto__titulo { line-height: 1.08; }
+.vpaso__titulo, .etapa__nombre, .proceso-v__pasos strong { line-height: 1.12; }
+.tarjeta__titulo, .riesgo__titulo, .humana__item h3, .quiz__pregunta, .manifiesto__texto .destacado,
+.comparador__pregunta p { line-height: 1.15; }
 
 /* 16. Responsive ----------------------------------------------------------- */
 @media (max-width: 1100px) {

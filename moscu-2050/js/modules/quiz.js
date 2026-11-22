@@ -1,7 +1,7 @@
 /** «Реальное или сгенерированное?» / “Real or generated?”: ejercicio educativo paso a paso. */
-import { $, esc, img, registroPorId, reducirMovimiento } from "../utils.js?v=20261122b";
-import { QUIZ } from "../data/contenido.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, esc, img, registroPorId, reducirMovimiento } from "../utils.js?v=20261122c";
+import { QUIZ } from "../data/contenido.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 const OPCIONES = [
   { id: "registro", label: () => t("opRegistro") },
@@ -54,18 +54,23 @@ export function iniciarQuiz(abrirRegistro) {
     $("#quiz-img").alt = `${reg.titulo}. ${reg.fecha}.`;
     barra.style.width = `${((indice + 1) / QUIZ.length) * 100}%`;
     const ultimo = indice === QUIZ.length - 1;
+    const ICONO = { ok: "✓", parcial: "≈", no: "✕", duda: "?" };
+    const TITULO = { ok: "titOk", parcial: "titParcial", no: "titNo", duda: "titDuda" };
     $("#quiz-revelacion").innerHTML = `
       <div class="revelacion" style="animation-delay:${reducirMovimiento() ? 0 : 0.5}s">
-        <p class="revelacion__resultado ${res.clave === "no" ? "no" : ""}">${esc(res.texto)}</p>
-        <p class="mono">${t("clasificacion")}</p>
+        <div class="veredicto veredicto--${res.clave}">
+          <span class="veredicto__icono" aria-hidden="true">${ICONO[res.clave]}</span>
+          <div>
+            <p class="veredicto__titulo">${t(TITULO[res.clave])}</p>
+            <p class="veredicto__texto">${esc(res.texto)}</p>
+          </div>
+        </div>
         <p class="revelacion__clase">${esc(item.clasificacion)}</p>
-        <dl>
-          <div><dt>${t("explicacion")}</dt><dd>${esc(item.explicacion)}</dd></div>
-          <div><dt>${t("pistas")}</dt><dd>${esc(item.pistas)}</dd></div>
-          <div><dt>${t("fuenteDisponible")}</dt><dd>${esc(item.fuente)} · <button class="btn-texto" type="button" data-ver="${esc(reg.id)}">${t("verFicha")}</button></dd></div>
-          <div><dt>${t("porQue")}</dt><dd>${t("porQueTexto")}</dd></div>
-        </dl>
-        <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? t("verResumen") : t("siguiente")}</button>
+        <p class="revelacion__resumen">${esc(item.explicacion)}</p>
+        <div class="revelacion__acciones">
+          <button class="btn-texto" type="button" data-ver="${esc(reg.id)}">${t("verMas")}</button>
+          <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? t("verResumen") : t("siguiente")}</button>
+        </div>
       </div>`;
     $("#quiz-siguiente").focus({ preventScroll: true });
   }

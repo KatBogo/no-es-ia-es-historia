@@ -1,7 +1,7 @@
 /** «Historias que no se borran»: tarjetas narrativas expandibles y línea de tiempo. */
-import { $, $$, esc, img, reducirMovimiento } from "../utils.js?v=20261122b";
-import { HISTORIAS } from "../data/contenido.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, $$, esc, img, reducirMovimiento } from "../utils.js?v=20261122c";
+import { HISTORIAS } from "../data/contenido.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 export function iniciarHistorias(abrirRegistro) {
   const pista = $("#historias-pista");

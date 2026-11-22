@@ -1,6 +1,6 @@
 /** Navegación: menú fijo que cambia al hacer scroll, menú móvil, enlace activo y progreso de lectura. */
-import { $, $$ } from "../utils.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, $$ } from "../utils.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 export function iniciarNav() {
   const nav = $("#nav");

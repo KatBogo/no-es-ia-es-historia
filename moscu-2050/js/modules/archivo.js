@@ -5,11 +5,11 @@
  * galería; solo se abren desde el ejercicio, el comparador o la campaña, y su
  * ficha lo indica de forma visible.
  */
-import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast } from "../utils.js?v=20261122b";
-import { ARCHIVO, CATEGORIAS, urlCommons } from "../data/registros.js?v=20261122b";
-import { CONTRASTE, CASOS } from "../data/verificacion.js?v=20261122b";
-import { t, LANG } from "../i18n.js?v=20261122b";
-import { coleccion } from "./coleccion.js?v=20261122b";
+import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast } from "../utils.js?v=20261122c";
+import { ARCHIVO, CATEGORIAS, urlCommons } from "../data/registros.js?v=20261122c";
+import { CONTRASTE, CASOS } from "../data/verificacion.js?v=20261122c";
+import { t, LANG } from "../i18n.js?v=20261122c";
+import { coleccion } from "./coleccion.js?v=20261122c";
 
 const filtro = { q: "", categoria: "", decada: "" };
 const POR_PAGINA = 12; // 4 × 3
@@ -106,7 +106,7 @@ export function iniciarArchivo() {
     paginador.innerHTML = `
       <button type="button" class="btn-texto" data-pagina="${pagina - 1}" ${pagina === 1 ? "disabled" : ""}>${t("pagAnterior")}</button>
       <div class="pagina__numeros">${numeros}</div>
-      <p class="mono pagina__estado" aria-live="polite">${t("pagina", pagina, paginas)}</p>
+      <p class="sr-only" aria-live="polite">${t("pagina", pagina, paginas)}</p>
       <button type="button" class="btn-texto" data-pagina="${pagina + 1}" ${pagina === paginas ? "disabled" : ""}>${t("pagSiguiente")}</button>`;
   }
 

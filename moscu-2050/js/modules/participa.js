@@ -3,8 +3,8 @@
  * No hay backend: valida en el navegador, muestra una vista previa local del archivo
  * y deja claro que el envío NO se recibe ni se guarda.
  */
-import { $, esc } from "../utils.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, esc } from "../utils.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 const MAX_MB = 10;
 const TIPOS = ["image/jpeg", "image/png", "image/webp", "application/pdf"];

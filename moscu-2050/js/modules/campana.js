@@ -1,7 +1,7 @@
 /** Campaña digital: carrusel de piezas, vista ampliada y botones para compartir la URL. */
-import { $, $$, esc, img, registroPorId, abrirDialogo, cerrarDialogo, copiar, toast } from "../utils.js?v=20261122b";
-import { PIEZAS } from "../data/contenido.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, $$, esc, img, registroPorId, abrirDialogo, cerrarDialogo, copiar, toast } from "../utils.js?v=20261122c";
+import { PIEZAS } from "../data/contenido.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 const URL_CAMPANA = () => location.origin + location.pathname;
 
@@ -29,7 +29,6 @@ export function piezaHTML(p, i, etiqueta = "button", tam = "sm") {
       </span>
       <span class="pieza__flecha">↗</span>
       <span class="pieza__hash">${t("hashtag")}</span>
-      <span class="pieza__num">${num} / ${String(PIEZAS.length).padStart(2, "0")}</span>
       <span class="pieza__grano"></span>
     </${etiqueta}>`;
 }

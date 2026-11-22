@@ -1,7 +1,7 @@
 /** Sección «El problema»: tarjetas de riesgo expandibles y animación de fragmentación. */
-import { $, esc, reducirMovimiento } from "../utils.js?v=20261122b";
-import { RIESGOS } from "../data/contenido.js?v=20261122b";
-import { t } from "../i18n.js?v=20261122b";
+import { $, esc, reducirMovimiento } from "../utils.js?v=20261122c";
+import { RIESGOS } from "../data/contenido.js?v=20261122c";
+import { t } from "../i18n.js?v=20261122c";
 
 const ICONOS = {
   scissors: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5 20 19M8.5 16.5 20 5"/></svg>',

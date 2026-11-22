@@ -10,8 +10,8 @@
  *
  * Estados: documentada · parcial · conflicto · reconstruccion
  */
-import { localizar } from "../i18n.js?v=20261122b";
-import { CASOS } from "./verificacion.js?v=20261122b";
+import { localizar } from "../i18n.js?v=20261122c";
+import { CASOS } from "./verificacion.js?v=20261122c";
 
 export const CATEGORIAS = localizar([
   { id: "arquitectura", label: { ru: "Архитектура и облик города", es: "Arquitectura y transformación urbana" } },

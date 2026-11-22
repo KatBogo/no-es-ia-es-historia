@@ -3,7 +3,7 @@
  * historias, recorrido de la memoria y piezas de campaña.
  * Las imágenes se referencian por el campo "img" de registros.js.
  */
-import { localizar } from "../i18n.js?v=20261122b";
+import { localizar } from "../i18n.js?v=20261122c";
 
 export const RIESGOS = localizar([
   {
