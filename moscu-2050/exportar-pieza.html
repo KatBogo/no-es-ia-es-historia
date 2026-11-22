@@ -11,7 +11,7 @@
     document.documentElement.lang = new URLSearchParams(location.search).get("lang") === "es" ? "es" : "ru";
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400&display=block" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/styles.css?v=20261122b">
   <style>
     html, body { margin: 0; background: #111; overflow: hidden; }
     #lienzo { width: 100vw; height: 125vw; }
@@ -22,8 +22,8 @@
 <body>
   <div id="lienzo"></div>
   <script type="module">
-    const { piezaHTML } = await import("./js/modules/campana.js");
-    const { PIEZAS } = await import("./js/data/contenido.js");
+    const { piezaHTML } = await import("./js/modules/campana.js?v=20261122b");
+    const { PIEZAS } = await import("./js/data/contenido.js?v=20261122b");
     const i = Number(new URLSearchParams(location.search).get("i") || 0);
     document.getElementById("lienzo").innerHTML = piezaHTML(PIEZAS[i], i, "div", "");
     const foto = document.querySelector(".pieza__foto");

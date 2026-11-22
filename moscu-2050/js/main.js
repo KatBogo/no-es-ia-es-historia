@@ -2,19 +2,19 @@
  * Punto de entrada. Cada sección es un módulo independiente en js/modules/.
  * Los datos viven en js/data/ y se pueden editar sin tocar la lógica.
  */
-import { prepararDialogos } from "./utils.js";
-import { iniciarIdioma } from "./i18n.js";
-import { iniciarNav, iniciarReveal } from "./modules/nav.js";
-import { iniciarHero } from "./modules/hero.js";
-import { iniciarProblema } from "./modules/problema.js";
-import { iniciarArchivo, abrirRegistro } from "./modules/archivo.js";
-import { iniciarColeccion } from "./modules/coleccion.js";
-import { iniciarQuiz } from "./modules/quiz.js";
-import { iniciarHistorias } from "./modules/historias.js";
-import { iniciarComparador } from "./modules/comparador.js";
-import { iniciarCampana } from "./modules/campana.js";
-import { iniciarParticipa } from "./modules/participa.js";
-import { iniciarRecorrido } from "./modules/recorrido.js";
+import { prepararDialogos } from "./utils.js?v=20261122b";
+import { iniciarIdioma } from "./i18n.js?v=20261122b";
+import { iniciarNav, iniciarReveal } from "./modules/nav.js?v=20261122b";
+import { iniciarHero } from "./modules/hero.js?v=20261122b";
+import { iniciarProblema } from "./modules/problema.js?v=20261122b";
+import { iniciarArchivo, abrirRegistro } from "./modules/archivo.js?v=20261122b";
+import { iniciarColeccion } from "./modules/coleccion.js?v=20261122b";
+import { iniciarQuiz } from "./modules/quiz.js?v=20261122b";
+import { iniciarHistorias } from "./modules/historias.js?v=20261122b";
+import { iniciarComparador } from "./modules/comparador.js?v=20261122b";
+import { iniciarCampana } from "./modules/campana.js?v=20261122b";
+import { iniciarParticipa } from "./modules/participa.js?v=20261122b";
+import { iniciarRecorrido } from "./modules/recorrido.js?v=20261122b";
 
 const pasos = [
   ["idioma", () => iniciarIdioma()],

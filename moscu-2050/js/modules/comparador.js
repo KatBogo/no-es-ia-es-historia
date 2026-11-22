@@ -6,9 +6,9 @@
  * intervención histórica o demostrativa) y cómo cambia la lectura del hecho.
  * Tras usar el control aparece la pregunta de reflexión.
  */
-import { $, $$, esc, img } from "../utils.js";
-import { COMPARACIONES } from "../data/contenido.js";
-import { t } from "../i18n.js";
+import { $, $$, esc, img } from "../utils.js?v=20261122b";
+import { COMPARACIONES } from "../data/contenido.js?v=20261122b";
+import { t } from "../i18n.js?v=20261122b";
 
 export function iniciarComparador(abrirRegistro) {
   const tabs = $("#comparador-tabs");

@@ -1,7 +1,7 @@
 /** «Реальное или сгенерированное?» / “Real or generated?”: ejercicio educativo paso a paso. */
-import { $, esc, img, registroPorId, reducirMovimiento } from "../utils.js";
-import { QUIZ } from "../data/contenido.js";
-import { t } from "../i18n.js";
+import { $, esc, img, registroPorId, reducirMovimiento } from "../utils.js?v=20261122b";
+import { QUIZ } from "../data/contenido.js?v=20261122b";
+import { t } from "../i18n.js?v=20261122b";
 
 const OPCIONES = [
   { id: "registro", label: () => t("opRegistro") },
@@ -57,12 +57,13 @@ export function iniciarQuiz(abrirRegistro) {
     $("#quiz-revelacion").innerHTML = `
       <div class="revelacion" style="animation-delay:${reducirMovimiento() ? 0 : 0.5}s">
         <p class="revelacion__resultado ${res.clave === "no" ? "no" : ""}">${esc(res.texto)}</p>
-        <p class="mono">${t("tipoImagen")}</p>
-        <p class="revelacion__clase">${esc(item.tipo)}</p>
+        <p class="mono">${t("clasificacion")}</p>
+        <p class="revelacion__clase">${esc(item.clasificacion)}</p>
         <dl>
-          <div><dt>${t("procedencia")}</dt><dd>${esc(item.procedencia)} <button class="btn-texto" type="button" data-ver="${esc(reg.id)}">${reg.caso ? t("verCaso") : t("verFicha")}</button></dd></div>
-          <div><dt>${t("evidencias")}</dt><dd><ul class="evidencias">${item.evidencias.map((e) => `<li>${esc(e)}</li>`).join("")}</ul></dd></div>
-          <div class="revelacion__riesgo"><dt>${t("riesgoConfundir")}</dt><dd>${esc(item.riesgo)}</dd></div>
+          <div><dt>${t("explicacion")}</dt><dd>${esc(item.explicacion)}</dd></div>
+          <div><dt>${t("pistas")}</dt><dd>${esc(item.pistas)}</dd></div>
+          <div><dt>${t("fuenteDisponible")}</dt><dd>${esc(item.fuente)} · <button class="btn-texto" type="button" data-ver="${esc(reg.id)}">${t("verFicha")}</button></dd></div>
+          <div><dt>${t("porQue")}</dt><dd>${t("porQueTexto")}</dd></div>
         </dl>
         <button class="btn btn--rojo" type="button" id="quiz-siguiente">${ultimo ? t("verResumen") : t("siguiente")}</button>
       </div>`;
@@ -76,13 +77,12 @@ export function iniciarQuiz(abrirRegistro) {
     cuerpo.innerHTML = `
       <div class="resumen">
         <p class="resumen__frase" tabindex="-1" id="quiz-final">${t("fraseA")} <span>${t("fraseB")}</span></p>
-        <p class="resumen__nota">${t("porQueTexto2")} ${t("porQueTexto")}</p>
         <p>${t("conteo", cuenta("ok"), cuenta("parcial"), cuenta("no"), cuenta("duda"))}</p>
         <ol>
           ${respuestas.map(({ item, op, res }) => {
             const reg = registroPorId(item.registro);
             const elegida = OPCIONES.find((o) => o.id === op).label();
-            return `<li><img src="${img(reg.img, "sm")}" alt=""><div><span class="mono">${esc(res.texto)}</span>${esc(item.tipo)}<br><small>${t("tuRespuesta")} ${esc(elegida)}</small></div></li>`;
+            return `<li><img src="${img(reg.img, "sm")}" alt=""><div><span class="mono">${esc(res.texto)}</span>${esc(item.clasificacion)}<br><small>${t("tuRespuesta")} ${esc(elegida)}</small></div></li>`;
           }).join("")}
         </ol>
         <div class="resumen__acciones">

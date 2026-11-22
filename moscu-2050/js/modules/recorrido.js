@@ -3,9 +3,9 @@
  * registro compartido con su contexto. Cada etapa es un botón que muestra su
  * detalle y lleva a la sección de la página donde ocurre ese paso.
  */
-import { $, $$, esc } from "../utils.js";
-import { RECORRIDO } from "../data/contenido.js";
-import { t } from "../i18n.js";
+import { $, $$, esc } from "../utils.js?v=20261122b";
+import { RECORRIDO } from "../data/contenido.js?v=20261122b";
+import { t } from "../i18n.js?v=20261122b";
 
 export function iniciarRecorrido() {
   const lista = $("#recorrido");

@@ -1,6 +1,6 @@
 /** Hero: parallax suave y transición de la capa especulativa a la fotografía histórica al hacer scroll. */
-import { $, reducirMovimiento } from "../utils.js";
-import { t } from "../i18n.js";
+import { $, reducirMovimiento } from "../utils.js?v=20261122b";
+import { t } from "../i18n.js?v=20261122b";
 
 export function iniciarHero() {
   const hero = $("#inicio");

@@ -2,8 +2,8 @@
  * «Mi colección»: selección temporal de registros.
  * Se guarda en sessionStorage (solo esta pestaña); si no está disponible, solo en memoria.
  */
-import { $, $$, esc, img, registroPorId, abrirDialogo, toast } from "../utils.js";
-import { t } from "../i18n.js";
+import { $, $$, esc, img, registroPorId, abrirDialogo, toast } from "../utils.js?v=20261122b";
+import { t } from "../i18n.js?v=20261122b";
 
 const CLAVE = "msk2050-coleccion";
 let ids = leer();

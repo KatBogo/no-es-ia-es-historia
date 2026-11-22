@@ -5,19 +5,26 @@
  * galería; solo se abren desde el ejercicio, el comparador o la campaña, y su
  * ficha lo indica de forma visible.
  */
-import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast } from "../utils.js";
-import { ARCHIVO, CATEGORIAS, urlCommons } from "../data/registros.js";
-import { CONTRASTE, CASOS, FECHA_REVISION } from "../data/verificacion.js";
-import { t, LANG } from "../i18n.js";
-import { coleccion } from "./coleccion.js";
+import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast } from "../utils.js?v=20261122b";
+import { ARCHIVO, CATEGORIAS, urlCommons } from "../data/registros.js?v=20261122b";
+import { CONTRASTE, CASOS } from "../data/verificacion.js?v=20261122b";
+import { t, LANG } from "../i18n.js?v=20261122b";
+import { coleccion } from "./coleccion.js?v=20261122b";
 
 const filtro = { q: "", categoria: "", decada: "" };
+const POR_PAGINA = 12; // 4 × 3
 let visibles = [];
+let pagina = 1;
 
-const decadaDe = (r) => String(Math.floor(r.anio / 10) * 10);
-const etiquetaDecada = (d) => (LANG === "ru" ? `${d}-е` : d);
+const decadaDe = (r) => (r.anio == null ? "sin-fecha" : String(Math.floor(r.anio / 10) * 10));
+const etiquetaDecada = (d) => (d === "sin-fecha" ? t("sinFecha") : LANG === "ru" ? `${d}-е` : d);
 const categoriaLabel = (id) => (CATEGORIAS.find((c) => c.id === id) || {}).label || id;
-const sello = () => `<span class="estado estado--documentada"><i aria-hidden="true"></i>${t("verificado")}</span>`;
+/** Sello visible del estado: verificado, reconstrucción o no verificado. */
+const sello = (r) => {
+  if (!r.caso) return `<span class="estado estado--documentada"><i aria-hidden="true"></i>${t("verificado")}</span>`;
+  if (r.estado === "reconstruccion") return `<span class="estado estado--reconstruccion"><i aria-hidden="true"></i>${t("reconstruccionCorto")}</span>`;
+  return `<span class="estado estado--conflicto"><i aria-hidden="true"></i>${t("noVerificadoCorto")}</span>`;
+};
 
 function coincide(r) {
   if (filtro.categoria && r.categoria !== filtro.categoria) return false;
@@ -40,12 +47,12 @@ function tarjeta(r, i) {
         <span class="tarjeta__hover" aria-hidden="true">${esc(r.fecha)}<br>${esc(nombreArchivo)}</span>
       </button>
       <div class="tarjeta__cuerpo">
-        <p class="tarjeta__meta"><span>${esc(categoriaLabel(r.categoria))}</span><span>${r.anio}</span></p>
+        <p class="tarjeta__meta"><span>${esc(categoriaLabel(r.categoria))}</span><span>${r.anio ?? t("sf")}</span></p>
         <h3 class="tarjeta__titulo">${esc(r.titulo)}</h3>
         <p class="tarjeta__lugar">${esc(r.ubicacion)}</p>
         <p class="tarjeta__fuente">${esc(r.institucion)}</p>
         <div class="tarjeta__pie">
-          ${sello()}
+          ${sello(r)}
           <div class="tarjeta__botones">
             <button class="btn-texto" type="button" data-accion="ampliar">${t("ampliar")}</button>
             <button class="btn-texto" type="button" data-accion="verificacion">${t("comoVerifico")}</button>
@@ -68,20 +75,48 @@ export function iniciarArchivo() {
   cats.innerHTML = [{ id: "", label: t("todas") }, ...CATEGORIAS]
     .map((c) => `<button type="button" class="chip" data-cat="${c.id}" aria-pressed="${c.id === ""}">${esc(c.label)}</button>`).join("");
 
-  const decadas = [...new Set(ARCHIVO.map(decadaDe))].sort((a, b) => a - b);
+  const decadas = [...new Set(ARCHIVO.map(decadaDe))].sort((a, b) => (a === "sin-fecha" ? 1 : b === "sin-fecha" ? -1 : a - b));
   const conteo = (d) => ARCHIVO.filter((r) => decadaDe(r) === d).length;
   tiempo.innerHTML = `<button type="button" class="decada" data-decada="" aria-pressed="true">${t("todas")}<span class="decada__barra" style="--n:4" aria-hidden="true"></span></button>` +
     decadas.map((d) => `<button type="button" class="decada" data-decada="${d}" aria-pressed="false" aria-label="${t("decadaAria", etiquetaDecada(d), conteo(d))}">${etiquetaDecada(d)}<span class="decada__barra" style="--n:${conteo(d)}" aria-hidden="true"></span></button>`).join("");
 
-  const pintar = () => {
-    visibles = ARCHIVO.filter(coincide);
-    galeria.innerHTML = visibles.map(tarjeta).join("");
+  const paginador = $("#paginacion");
+
+  // nuevaBusqueda = true cuando cambia un filtro: vuelve a la página 1
+  const pintar = (nuevaBusqueda = true) => {
+    if (nuevaBusqueda) { visibles = ARCHIVO.filter(coincide); pagina = 1; }
     const n = visibles.length;
+    const paginas = Math.max(1, Math.ceil(n / POR_PAGINA));
+    pagina = Math.min(pagina, paginas);
+    const desde = (pagina - 1) * POR_PAGINA;
+    galeria.innerHTML = visibles.slice(desde, desde + POR_PAGINA).map(tarjeta).join("");
     resultados.textContent = n === ARCHIVO.length ? t("nRegistros", n) : t("nDeTotal", n, ARCHIVO.length);
     vacio.hidden = n > 0;
     galeria.hidden = n === 0;
+    pintarPaginador(paginas);
     prepararImagenes();
   };
+
+  function pintarPaginador(paginas) {
+    if (!paginador) return;
+    paginador.hidden = paginas <= 1;
+    if (paginas <= 1) { paginador.innerHTML = ""; return; }
+    const numeros = Array.from({ length: paginas }, (_, i) => i + 1).map((i) =>
+      `<button type="button" class="pagina__num" data-pagina="${i}" aria-label="${t("irPagina", i)}" ${i === pagina ? 'aria-current="page"' : ""}>${i}</button>`).join("");
+    paginador.innerHTML = `
+      <button type="button" class="btn-texto" data-pagina="${pagina - 1}" ${pagina === 1 ? "disabled" : ""}>${t("pagAnterior")}</button>
+      <div class="pagina__numeros">${numeros}</div>
+      <p class="mono pagina__estado" aria-live="polite">${t("pagina", pagina, paginas)}</p>
+      <button type="button" class="btn-texto" data-pagina="${pagina + 1}" ${pagina === paginas ? "disabled" : ""}>${t("pagSiguiente")}</button>`;
+  }
+
+  paginador?.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-pagina]"); if (!b || b.disabled) return;
+    pagina = Number(b.dataset.pagina);
+    pintar(false);
+    $(".resultados-barra").scrollIntoView({ block: "start" });
+    $("#galeria .tarjeta__media")?.focus({ preventScroll: true });
+  });
 
   // Estado de carga y error de cada imagen + animación de aparición
   const io = new IntersectionObserver((ents) => ents.forEach((en) => {
@@ -167,8 +202,7 @@ function pintarFicha(id) {
   if (!r) return;
   actual = id;
   const pos = visibles.findIndex((x) => x.id === id);
-  $("#mr-codigo").textContent = r.caso ? `${t("casoCodigo")} · ${r.id}` : `${r.id} · ${pos >= 0 ? `${pos + 1} / ${visibles.length}` : t("fueraFiltro")}`;
-  $("#mr-prev").hidden = r.caso; $("#mr-sig").hidden = r.caso;
+  $("#mr-codigo").textContent = `${r.id} · ${pos >= 0 ? `${pos + 1} / ${visibles.length}` : t("fueraFiltro")}`;
   $("#mr-prev").disabled = pos <= 0;
   $("#mr-sig").disabled = pos < 0 || pos >= visibles.length - 1;
   const guardado = coleccion.tiene(id);
@@ -182,7 +216,7 @@ function pintarFicha(id) {
         <figcaption>${esc(r.autor)} · ${esc(r.institucion)} · ${licencia}</figcaption>
       </figure>
       <div class="ficha__info">
-        <div class="ficha__tags">${r.caso ? `<span class="estado estado--caso"><i aria-hidden="true"></i>${t("casoCodigo")}</span>` : sello()}<span class="mono">${esc(categoriaLabel(r.categoria))}</span><span class="mono">${esc(r.tipo)}</span></div>
+        <div class="ficha__tags">${sello(r)}<span class="mono">${esc(categoriaLabel(r.categoria))}</span><span class="mono">${esc(r.tipo)}</span></div>
         <h2 class="ficha__titulo" id="mr-titulo">${esc(r.titulo)}</h2>
         <p>${esc(r.descripcion)}</p>
         <dl class="ficha__datos">
@@ -197,10 +231,10 @@ function pintarFicha(id) {
           <span class="btn__icono" aria-hidden="true">${r.caso ? "!" : "✓"}</span>${r.caso ? t("porQueNo") : t("comoVerifico")}
         </button>
         ${enlacesFuente(r)}
-        ${r.caso ? "" : `<div class="ficha__acciones">
+        <div class="ficha__acciones">
           <button class="btn ${guardado ? "btn--linea" : "btn--rojo"}" type="button" data-ficha="guardar" aria-pressed="${guardado}">${guardado ? t("quitarColeccion") : t("guardarColeccion")}</button>
           <button class="btn btn--linea" type="button" data-ficha="copiar">${t("copiarEnlace")}</button>
-        </div>`}
+        </div>
       </div>
     </div>`;
   dialogo.scrollTop = 0;
@@ -278,7 +312,7 @@ function pintarVerificacion(id) {
       paso(2, t("v2"), contexto) +
       paso(3, t("v3"), `<p>${esc(CONTRASTE[r.id] || "")}</p>${r.pendiente.length ? `<p class="vsub">${t("discrepancias")}</p>${lista(r.pendiente)}` : ""}`) +
       paso(4, t("v4"), `<p class="vsub">${t("comprobaciones")}</p>${lista(r.verificado)}<p class="vnota">${t("alcance")}</p>`) +
-      paso(5, t("v5"), `<p class="vresultado">${t("verificadoMayus")}</p><p class="vnota">${t("verificadoDoc")} · ${t("revisadoEl", FECHA_REVISION)}</p>`, "vpaso--resultado");
+      paso(5, t("v5"), `<p class="vresultado">${t("verificadoMayus")}</p><p class="vnota">${t("verificadoDoc")}</p>`, "vpaso--resultado");
   }
   $("#mv-pasos").innerHTML = html;
   panel.scrollTop = 0;

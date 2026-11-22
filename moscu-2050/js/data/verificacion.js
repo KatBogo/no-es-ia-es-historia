@@ -12,7 +12,7 @@
  * como casos de estudio (ejercicio, comparador, historias, campaña) y su ficha
  * lo dice de forma visible.
  */
-import { localizar } from "../i18n.js";
+import { localizar } from "../i18n.js?v=20261122b";
 
 export const FECHA_REVISION = localizar({ ru: "22 ноября 2026", es: "22 de noviembre de 2026" });
 

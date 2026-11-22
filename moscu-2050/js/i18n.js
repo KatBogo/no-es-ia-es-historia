@@ -23,7 +23,7 @@ export function localizar(valor) {
 const UI = {
   ru: {
     menuAbrir: "Открыть меню", menuCerrar: "Закрыть меню",
-    heroEspeculativa: "Сейчас вы видите: спекулятивная визуализация 2050 года",
+    heroEspeculativa: "Сейчас вы видите: слой реконструкции, а не документ",
     heroHistorica: "Сейчас вы видите: историческая фотография (фотохром, ок. 1890–1900)",
     ejemplo: "Пример", verRegistro: "Открыть запись в архиве", original: "оригинал:",
     recomponer: "Собрать изображение", fragmentar: "Снова раздробить",
@@ -56,7 +56,7 @@ const UI = {
     fuenteDisponible: "Доступный источник", porQue: "Зачем проверять",
     porQueTexto: "Смотреть недостаточно: классифицировать изображение позволяет только его происхождение — кто его создал, когда и кто его хранит.",
     verResumen: "Итоги", siguiente: "Следующее изображение", resumen: "Итоги",
-    fraseA: "Недостаточно посмотреть на изображение, чтобы узнать его историю.", fraseB: "Нужно понять, откуда оно.",
+    fraseA: "Смотреть недостаточно.", fraseB: "Нужно исследовать.",
     conteo: (ok, p, no, d) => `Совпадения: <strong>${ok}</strong> · Частично верные: <strong>${p}</strong> · Несовпадения: <strong>${no}</strong> · Сомнения: <strong>${d}</strong>. Результат не измеряет вашу способность распознавать подделки: он показывает, как трудно классифицировать изображение, не зная его происхождения.`,
     tuRespuesta: "Ваш ответ:", repetir: "Пройти ещё раз", investigar: "Исследовать архив",
     especulativa: " (спекулятивная)", escenarioEsp: " · СПЕКУЛЯТИВНЫЙ СЦЕНАРИЙ",
@@ -82,35 +82,37 @@ const UI = {
     errTamano: (mb) => `Файл больше ${mb} МБ.`, errAutorizo: "Нам нужно ваше разрешение на проверку и использование материала.",
     previaLocal: " · Локальный предпросмотр, файл никуда не загружен.", previaAlt: (n) => `Предпросмотр ${n}`,
     revisa: (n) => `Проверьте ${n} ${plural(n, "поле", "поля", "полей")}`, revisaDet: "Сообщения рядом с полями объясняют, чего не хватает.",
-    noEnviado: "Материал не отправлен: это демонстрация",
-    noEnviado1: "Все поля заполнены верно, но у этого прототипа нет системы для приёма и хранения материалов. Ваш файл не покинул браузер.",
-    noEnviado2: "В реальной версии материал ожидал бы проверки и публиковался бы только после подтверждения его происхождения.",
+    noEnviado: "Материал не отправлен",
+    noEnviado1: "Все поля заполнены верно, но онлайн-приём материалов сейчас приостановлен. Ваш файл не покинул браузер и нигде не сохранён.",
+    noEnviado2: "Когда приём откроется, материал будет ждать проверки и опубликуется только после подтверждения его происхождения.",
     kb: "КБ", mb: "МБ",
     // Verificación
     verificado: "Проверено", verificadoMayus: "ПРОВЕРЕНО", noVerificado: "НЕ ПРОВЕРЕНО",
     comoVerifico: "Как проверяли это изображение?", porQueNo: "Почему этого нет в проверенном архиве?",
-    casoBanner: "Учебный кейс · не входит в проверенный архив", casoCodigo: "УЧЕБНЫЙ КЕЙС",
+    casoBanner: "Не проверено · учебный материал архива", casoCodigo: "НЕ ПРОВЕРЕНО",
     v1: "Исходный источник", v2: "Исторический контекст", v3: "Сверка документов", v4: "Проверка человеком", v5: "Результат",
     discrepancias: "Расхождения и невыясненное", comprobaciones: "Зафиксированные проверки",
     alcance: "Объём проверки: изучены открытые метаданные и онлайн-каталог учреждения. Оригинал в учреждении не изучался.",
     revisadoEl: (f) => `Проверка зафиксирована: ${f}`,
-    verificadoDoc: "Документальная проверка · учебный прототип",
-    motivo: "Причина", usoCaso: "Используется на сайте только как учебный пример: в упражнении, сравнении или кампании.",
+    verificadoDoc: "Документальная проверка",
+    motivo: "Причина", usoCaso: "Хранится в архиве как учебный материал, а не как проверенная запись.",
+    noVerificadoCorto: "Не проверено", reconstruccionCorto: "Реконструкция",
+    pagAnterior: "← Назад", pagSiguiente: "Далее →", pagina: (i, n) => `Страница ${i} из ${n}`, irPagina: (i) => `Страница ${i}`,
     fuentesOriginales: "Исходные источники", panelTitulo: "Процесс проверки",
     // Ejercicio
     tipoImagen: "Тип изображения", procedencia: "Происхождение", evidencias: "Что позволяет определить происхождение",
     riesgoConfundir: "Чем опасно перепутать", porQueTexto2: "Подлинность не всегда видна глазами.",
     // Comparador
     origenCada: "Происхождение каждого изображения", evidenciaDoc: "Документальное свидетельство",
-    intHistorica: "Историческое вмешательство", intDemostrativa: "Демонстрационное вмешательство прототипа",
+    intHistorica: "Историческое вмешательство", intDemostrativa: "Демонстрационное вмешательство архива",
     comoCambia: "Как меняется прочтение", leeOriginal: "Что показывает оригинал", leeIntervenida: "Что внушает изменённая версия",
     pistaComparar: "Сдвиньте ползунок, чтобы сравнить.", preguntaLbl: "Вопрос",
     // Campaña y recorrido
-    verCaso: "Открыть учебный кейс", etapa: "Этап"
+    verCaso: "Открыть карточку в архиве", etapa: "Этап"
   },
   es: {
     menuAbrir: "Abrir menú", menuCerrar: "Cerrar menú",
-    heroEspeculativa: "Ahora ves: visualización especulativa de 2050",
+    heroEspeculativa: "Ahora ves: una capa de reconstrucción, no un documento",
     heroHistorica: "Ahora ves: fotografía histórica (fotocromo, c. 1890–1900)",
     ejemplo: "Ejemplo", verRegistro: "Ver el registro en el archivo", original: "original:",
     recomponer: "Recomponer la imagen", fragmentar: "Fragmentar de nuevo",
@@ -143,7 +145,7 @@ const UI = {
     fuenteDisponible: "Fuente disponible", porQue: "Por qué verificar",
     porQueTexto: "Mirar no basta: la procedencia —quién la hizo, cuándo y quién la conserva— es lo que permite clasificar una imagen.",
     verResumen: "Ver resumen", siguiente: "Siguiente imagen", resumen: "Resumen",
-    fraseA: "No basta con mirar una imagen para conocer su historia.", fraseB: "Necesitamos comprender de dónde viene.",
+    fraseA: "No basta con mirar.", fraseB: "Hay que investigar.",
     conteo: (ok, p, no, d) => `Coincidencias: <strong>${ok}</strong> · Parcialmente correctas: <strong>${p}</strong> · No coincidentes: <strong>${no}</strong> · Dudas: <strong>${d}</strong>. El resultado no mide tu capacidad para detectar falsificaciones: muestra lo difícil que es clasificar una imagen sin conocer su origen.`,
     tuRespuesta: "Tu respuesta:", repetir: "Repetir el ejercicio", investigar: "Investigar en el archivo",
     especulativa: " (especulativa)", escenarioEsp: " · ESCENARIO ESPECULATIVO",
@@ -169,31 +171,33 @@ const UI = {
     errTamano: (mb) => `El archivo pesa más de ${mb} MB.`, errAutorizo: "Necesitamos tu autorización para revisar y usar el material.",
     previaLocal: " · Vista previa local, no se ha subido.", previaAlt: (n) => `Vista previa de ${n}`,
     revisa: (n) => `Revisa ${n === 1 ? "1 campo" : n + " campos"}`, revisaDet: "Los mensajes junto a cada campo explican qué falta.",
-    noEnviado: "Aporte no enviado: esto es una demostración",
-    noEnviado1: "Todos los campos son válidos, pero este prototipo no tiene un sistema para recibir ni guardar envíos. Tu material no ha salido de tu navegador.",
-    noEnviado2: "En una versión real, el aporte quedaría pendiente de revisión y solo se publicaría después de comprobar su procedencia.",
+    noEnviado: "Aporte no enviado",
+    noEnviado1: "Todos los campos son válidos, pero la recepción en línea está suspendida en este momento. Tu material no ha salido de tu navegador ni se ha guardado.",
+    noEnviado2: "Cuando la recepción se reabra, el aporte quedará pendiente de revisión y solo se publicará después de comprobar su procedencia.",
     kb: "KB", mb: "MB",
     // Verificación
     verificado: "Verificado", verificadoMayus: "VERIFICADO", noVerificado: "NO VERIFICADO",
     comoVerifico: "¿Cómo se verificó esta imagen?", porQueNo: "¿Por qué no está en el archivo verificado?",
-    casoBanner: "Caso de estudio · no forma parte del archivo verificado", casoCodigo: "CASO DE ESTUDIO",
+    casoBanner: "No verificado · material de estudio del archivo", casoCodigo: "NO VERIFICADO",
     v1: "Fuente original", v2: "Contexto histórico", v3: "Contraste documental", v4: "Revisión humana", v5: "Resultado",
     discrepancias: "Discrepancias y datos pendientes", comprobaciones: "Comprobaciones registradas",
     alcance: "Alcance: se revisaron los metadatos públicos y el catálogo en línea de la institución. El original no se consultó en la institución.",
     revisadoEl: (f) => `Revisión documentada el ${f}`,
-    verificadoDoc: "Verificación documental · prototipo académico",
-    motivo: "Motivo", usoCaso: "En esta web solo se usa como caso de estudio: en el ejercicio, el comparador o la campaña.",
+    verificadoDoc: "Verificación documental",
+    motivo: "Motivo", usoCaso: "Se conserva en el archivo como material de estudio, no como registro verificado.",
+    noVerificadoCorto: "No verificado", reconstruccionCorto: "Reconstrucción",
+    pagAnterior: "← Anterior", pagSiguiente: "Siguiente →", pagina: (i, n) => `Página ${i} de ${n}`, irPagina: (i) => `Página ${i}`,
     fuentesOriginales: "Fuentes originales", panelTitulo: "Proceso de verificación",
     // Ejercicio
     tipoImagen: "Tipo de imagen", procedencia: "Procedencia", evidencias: "Evidencias que permiten determinar su origen",
     riesgoConfundir: "El riesgo de confundirla", porQueTexto2: "La autenticidad no siempre se ve a simple vista.",
     // Comparador
     origenCada: "Origen de cada imagen", evidenciaDoc: "Evidencia documental",
-    intHistorica: "Intervención histórica", intDemostrativa: "Intervención demostrativa del prototipo",
+    intHistorica: "Intervención histórica", intDemostrativa: "Intervención demostrativa del archivo",
     comoCambia: "Cómo cambia la lectura", leeOriginal: "Lo que muestra el original", leeIntervenida: "Lo que sugiere la versión intervenida",
     pistaComparar: "Mueve el control para comparar.", preguntaLbl: "Pregunta",
     // Campaña y recorrido
-    verCaso: "Ver el caso de estudio", etapa: "Etapa"
+    verCaso: "Ver la ficha en el archivo", etapa: "Etapa"
   }
 };
 

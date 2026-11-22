@@ -10,8 +10,8 @@
  *
  * Estados: documentada · parcial · conflicto · reconstruccion
  */
-import { localizar } from "../i18n.js";
-import { CASOS } from "./verificacion.js";
+import { localizar } from "../i18n.js?v=20261122b";
+import { CASOS } from "./verificacion.js?v=20261122b";
 
 export const CATEGORIAS = localizar([
   { id: "arquitectura", label: { ru: "Архитектура и облик города", es: "Arquitectura y transformación urbana" } },
@@ -65,7 +65,7 @@ const RAW = [
     commons: "File:1867 Moscow panorama 1.jpg", original: null, licencia: L.pd, estado: "parcial",
     verificado: [{ ru: "Файл есть на Викискладе в общественном достоянии.", es: "El archivo existe en Wikimedia Commons con licencia de dominio público." }, { ru: "Другая копия той же панорамы приписывает её «Шерер, Набгольц и К°» и датирует 1867 годом (опубликована в 1886).", es: "Otra copia del mismo panorama lo atribuye a Scherer, Nabholz y Cía. y lo fecha en 1867 (publicado en 1886)." }],
     pendiente: [{ ru: "Использованная копия взята из блога, а не из учреждения.", es: "La copia usada procede de un blog, no de una institución." }, { ru: "Сверить атрибуцию с оригинальным альбомом 1886 года.", es: "Confirmar la atribución con el álbum original de 1886." }],
-    intervenciones: { ru: "Уменьшено до 1920 px для веба. Других известных вмешательств в этом прототипе нет.", es: "Miniatura reducida a 1920 px para la web. Sin otras intervenciones conocidas en este prototipo." }
+    intervenciones: { ru: "Уменьшено до 1920 px для веба. Других известных вмешательств нет.", es: "Miniatura reducida a 1920 px para la web. Sin otras intervenciones conocidas." }
   },
   {
     id: "MSK-1890-02", img: "vista-general-1890", anio: 1895, categoria: "arquitectura",
@@ -79,7 +79,7 @@ const RAW = [
     commons: "File:General view, Moscow, Russia-LCCN2001697450.jpg", original: "https://lccn.loc.gov/2001697450", licencia: L.pd, estado: "documentada",
     verificado: [{ ru: "Каталожный номер Библиотеки Конгресса указан на Викискладе.", es: "Número de catálogo de la Biblioteca del Congreso indicado en Commons." }, { ru: "Примерная дата (1890–1900) по каталогу.", es: "Fecha aproximada (1890–1900) según el catálogo." }],
     pendiente: [{ ru: "Точное место съёмки.", es: "Punto exacto desde el que se tomó la vista." }],
-    intervenciones: { ru: "Цвета не фотографические: их добавили при печати фотохрома. На главном экране сайта поверх снимка лежит спекулятивный графический слой, отмеченный как таковой.", es: "Los colores no son fotográficos: se añadieron al imprimir el fotocromo. En la portada de esta web se superpone además una capa gráfica especulativa, identificada como tal." }
+    intervenciones: { ru: "Цвета не фотографические: их добавили при печати фотохрома. На главном экране поверх снимка лежит графический слой реконструкции, отмеченный как таковой.", es: "Los colores no son fotográficos: se añadieron al imprimir el fotocromo. En la portada se superpone además una capa gráfica de reconstrucción, identificada como tal." }
   },
   {
     id: "MSK-1890-03", img: "catedral-1890", anio: 1890, categoria: "arquitectura",
@@ -107,7 +107,7 @@ const RAW = [
     commons: "File:Christ saviour explosion.jpg", original: null, licencia: L.pd, estado: "parcial",
     verificado: [{ ru: "Дата сноса (5 декабря 1931) совпадает с общей литературой.", es: "La fecha de la demolición (5 de diciembre de 1931) coincide con la bibliografía general." }, { ru: "Файл на Викискладе в общественном достоянии.", es: "Archivo en Commons con licencia de dominio público." }],
     pendiente: [{ ru: "Автор и исходный архив снимка.", es: "Autor y archivo de origen de la fotografía." }, { ru: "Доступная копия низкого разрешения (800 px).", es: "La copia disponible es de baja resolución (800 px)." }],
-    intervenciones: { ru: "В этом прототипе нет. Неизвестно, ретушировалась ли исходная копия.", es: "Ninguna en este prototipo. Se desconoce si la copia de origen fue retocada." }
+    intervenciones: { ru: "Архив не вносил изменений. Неизвестно, ретушировалась ли исходная копия.", es: "El archivo no la intervino. Se desconoce si la copia de origen fue retocada." }
   },
   {
     id: "MSK-1890-05", img: "san-basilio-1890", anio: 1890, categoria: "cultura",
@@ -246,7 +246,7 @@ const RAW = [
     commons: "File:Gorkogo street 1950-60s.jpg", original: "https://www.mos.ru/news/item/95942073/", licencia: L.by4, estado: "documentada",
     verificado: [GLAV_OK({ ru: "Автор и период", es: "Autor y periodo" })],
     pendiente: [{ ru: "Точный год съёмки.", es: "Año exacto de la toma." }],
-    intervenciones: { ru: "Уменьшенная копия для веба. В разделе «До и после» используется как основа спекулятивной визуализации, отмеченной как таковая.", es: "Miniatura reducida para la web. En «Antes y después» se usa como base de una visualización especulativa declarada." }
+    intervenciones: { ru: "Уменьшенная копия для веба. В разделе «До и после» используется как основа сгенерированной реконструкции, отмеченной как таковая.", es: "Miniatura reducida para la web. En «Antes y después» se usa como base de una reconstrucción generada, identificada como tal." }
   },
   {
     id: "MSK-1960-16", img: "luzhniki-1960", anio: 1960, categoria: "cotidiana",
@@ -444,8 +444,8 @@ const RAW = [
 /** Todos los materiales (archivo verificado + casos de estudio). */
 export const REGISTROS = localizar(RAW).map((r) => ({ ...r, caso: Boolean(CASOS[r.id]) }));
 
-/** Archivo público: solo registros verificados. Los casos de estudio NO aparecen aquí. */
-export const ARCHIVO = REGISTROS.filter((r) => !r.caso);
+/** Archivo público: todos los materiales. Los no verificados llevan su marca visible. */
+export const ARCHIVO = REGISTROS;
 
 /** URL de la página del archivo en Wikimedia Commons. */
 export function urlCommons(titulo) {

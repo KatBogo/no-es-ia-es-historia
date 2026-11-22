@@ -1,6 +1,6 @@
 /** Navegación: menú fijo que cambia al hacer scroll, menú móvil, enlace activo y progreso de lectura. */
-import { $, $$ } from "../utils.js";
-import { t } from "../i18n.js";
+import { $, $$ } from "../utils.js?v=20261122b";
+import { t } from "../i18n.js?v=20261122b";
 
 export function iniciarNav() {
   const nav = $("#nav");
@@ -39,7 +39,7 @@ export function iniciarNav() {
   const mapa = {
     inicio: null, "moscu-2050": "moscu-2050", problema: "moscu-2050", manifiesto: "moscu-2050",
     archivo: "archivo", explora: "explora", "antes-despues": "explora", historias: "explora",
-    campana: "campana", participa: "participa", resistencia: "proyecto", proyecto: "proyecto"
+    campana: "campana", participa: "participa"
   };
   const io = new IntersectionObserver((entradas) => {
     entradas.forEach((en) => {

@@ -42,7 +42,7 @@ body {
   color: var(--hueso);
   font-family: var(--f-texto);
   font-size: 1.125rem;
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
 }
 img { display: block; max-width: 100%; height: auto; }
@@ -367,7 +367,10 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .resultados-barra { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 28px 0 18px; padding-bottom: 12px; border-bottom: 1px solid var(--linea-cla); }
 .resultados-barra .mono { color: var(--gris-osc); }
 
-.galeria { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 28px 24px; }
+.galeria { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 24px; }
+@media (max-width: 1100px) { .galeria { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .galeria { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 18px; } }
+@media (max-width: 560px) { .galeria { grid-template-columns: minmax(0, 1fr); } }
 .tarjeta {
   height: 100%; display: flex; flex-direction: column; background: #FAF9F5; border: 1.5px solid var(--carbon);
   opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1), box-shadow var(--t);
@@ -893,32 +896,29 @@ body:has(dialog[open]) { overflow: hidden; }
 .participa__lado h3 { color: var(--hueso); }
 .participa__lado p { color: #DAD7CE; font-size: 1.05rem; }
 
-/* El diseño como resistencia */
-.autores { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 2px solid var(--carbon); }
-.autor { padding: 22px 20px 26px; border-right: 1px solid var(--linea-cla); display: grid; gap: 10px; align-content: start; }
-.autor:last-child { border-right: 0; }
-.autor__nombre { color: var(--rojo); font-weight: 500; }
-.autor h3 { font-family: var(--f-titular); font-weight: 900; font-size: 1.7rem; line-height: 1; text-transform: uppercase; }
-.autor p:not(.mono) { font-size: 1rem; color: var(--gris-osc); }
-.autor__enlace { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--carbon); text-underline-offset: 4px; }
-.autor__enlace:hover { color: var(--rojo); }
+/* Paginación del archivo */
+.paginacion { margin-top: clamp(36px, 5vw, 56px); padding-top: 24px; border-top: 2px solid var(--carbon); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; }
+.pagina__numeros { display: flex; gap: 8px; }
+.pagina__num { min-width: 48px; height: 48px; display: grid; place-items: center; border: 2px solid var(--carbon); background: transparent; cursor: pointer; font-family: var(--f-titular); font-weight: 800; font-size: 1.2rem; transition: background-color var(--t), color var(--t); }
+.pagina__num:hover { background: var(--carbon); color: var(--hueso); }
+.pagina__num[aria-current="page"] { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+.pagina__estado { color: var(--gris-osc); }
+.paginacion > .btn-texto { padding: 12px 0; }
 
-/* Documentación del prototipo */
-.proyecto { border-top: 4px solid var(--rojo); }
-.titular--s2 { font-size: clamp(2.2rem, 5vw, 4rem); }
-.doc { display: grid; gap: 0; border-top: 1px solid var(--linea-osc); }
-.doc__item { border-bottom: 1px solid var(--linea-osc); }
-.doc__item summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 16px; padding: 18px 4px; font-family: var(--f-titular); font-weight: 800; font-size: 1.4rem; text-transform: uppercase; }
-.doc__item summary::-webkit-details-marker { display: none; }
-.doc__item summary::after { content: "+"; margin-left: auto; font-family: var(--f-mono); font-size: 1.3rem; transition: transform var(--t); }
-.doc__item[open] summary::after { transform: rotate(45deg); }
-.doc__item summary:hover { color: #FF8A8F; }
-.doc__item summary .mono { color: var(--rojo); font-size: .8rem; }
-.doc__item > p, .doc__item > ul { margin: 0 4px 18px 46px; max-width: 72ch; color: #DAD7CE; font-size: 1.02rem; }
-.doc__pregunta { padding: 14px 16px; border-left: 4px solid var(--rojo); background: #1B1B1B; font-style: italic; }
-.doc__lista { list-style: none; display: grid; gap: 6px; }
-.doc__lista li { position: relative; padding-left: 20px; }
-.doc__lista li::before { content: "—"; position: absolute; left: 0; color: var(--gris-cla); }
+/* Aire en los textos */
+.cabecera__texto { gap: 20px; line-height: 1.7; }
+.contexto__grid--uno { grid-template-columns: minmax(0, 1fr); max-width: 72ch; }
+.contexto__cita { gap: 22px; line-height: 1.75; }
+.manifiesto__texto { gap: 22px; line-height: 1.7; }
+.distincion__item { padding: 20px 22px; gap: 10px; line-height: 1.6; }
+.humana__item { padding: 28px 24px 32px; gap: 14px; line-height: 1.65; }
+.participa__lado { gap: 18px; }
+.participa__titulo { font-family: var(--f-titular); font-weight: 900; font-size: clamp(1.8rem, 3vw, 2.4rem); line-height: 1; text-transform: uppercase; }
+.proceso-v__pasos li { gap: 8px; padding: 20px 18px 22px; line-height: 1.55; }
+.proceso-v__nota { padding: 16px 18px; }
+.tarjeta__cuerpo { gap: 12px; }
+.riesgo__texto { line-height: 1.6; }
+.recorrido__texto { line-height: 1.6; }
 
 /* 16. Responsive ----------------------------------------------------------- */
 @media (max-width: 1100px) {
