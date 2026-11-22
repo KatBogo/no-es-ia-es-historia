@@ -11,6 +11,7 @@
  * Estados: documentada · parcial · conflicto · reconstruccion
  */
 import { localizar } from "../i18n.js";
+import { CASOS } from "./verificacion.js";
 
 export const CATEGORIAS = localizar([
   { id: "arquitectura", label: { ru: "Архитектура и облик города", es: "Arquitectura y transformación urbana" } },
@@ -117,7 +118,7 @@ const RAW = [
     descripcion: { ru: "Храм Василия Блаженного на Красной площади, фотохром из собрания Библиотеки Конгресса.", es: "La catedral de San Basilio en la Plaza Roja, en un fotocromo de la colección de la Biblioteca del Congreso." },
     autor: "Photochrom Print Collection",
     institucion: { ru: "Библиотека Конгресса США, LCCN 2017660946", es: "Biblioteca del Congreso de EE. UU., LCCN 2017660946" },
-    commons: "File:Church of St. Basil, Red Square Moscow LCCN2017660946.jpg", original: "https://www.loc.gov/pictures/item/2017660946/", licencia: L.pd, estado: "documentada",
+    commons: "File:Church of St. Basil, Red Square Moscow LCCN2017660946.jpg", original: "https://lccn.loc.gov/2017660946", licencia: L.pd, estado: "documentada",
     verificado: [{ ru: "Каталожный номер и ссылка на карточку Библиотеки Конгресса.", es: "Número de catálogo y enlace a la ficha de la Biblioteca del Congreso." }, { ru: "Техника: фотохром, лист 17 × 23 см.", es: "Técnica: fotocromo, hoja de 17 × 23 cm." }],
     pendiente: [{ ru: "Точная дата исходной съёмки.", es: "Fecha exacta de la toma original." }],
     intervenciones: { ru: "Цвет добавлен при печати фотохрома.", es: "Color añadido en el proceso de impresión del fotocromo." }
@@ -440,7 +441,11 @@ const RAW = [
   }
 ];
 
-export const REGISTROS = localizar(RAW);
+/** Todos los materiales (archivo verificado + casos de estudio). */
+export const REGISTROS = localizar(RAW).map((r) => ({ ...r, caso: Boolean(CASOS[r.id]) }));
+
+/** Archivo público: solo registros verificados. Los casos de estudio NO aparecen aquí. */
+export const ARCHIVO = REGISTROS.filter((r) => !r.caso);
 
 /** URL de la página del archivo en Wikimedia Commons. */
 export function urlCommons(titulo) {

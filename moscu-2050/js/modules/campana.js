@@ -63,7 +63,12 @@ export function iniciarCampana(abrirRegistro) {
   const dialogo = $("#modal-pieza");
   const cuerpo = $("#mp-cuerpo");
 
-  pista.innerHTML = PIEZAS.map((p, i) => `<li>${piezaHTML(p, i)}</li>`).join("");
+  // Cada post enlaza con el registro del que procede (o con su caso de estudio)
+  pista.innerHTML = PIEZAS.map((p, i) => {
+    const reg = registroPorId(p.registro);
+    return `<li>${piezaHTML(p, i)}
+      <button class="btn-texto pieza__enlace" type="button" data-ir-registro="${esc(reg.id)}">${reg.caso ? t("verCaso") : t("verRegistro")} →</button></li>`;
+  }).join("");
   puntos.innerHTML = PIEZAS.map((_, i) => `<span class="${i === 0 ? "activo" : ""}"></span>`).join("");
   const items = $$("li", pista);
 
@@ -93,6 +98,8 @@ export function iniciarCampana(abrirRegistro) {
   };
 
   pista.addEventListener("click", (e) => {
+    const enlace = e.target.closest("[data-ir-registro]");
+    if (enlace) { abrirRegistro(enlace.dataset.irRegistro, enlace); return; }
     const b = e.target.closest("[data-pieza]"); if (!b) return;
     const i = Number(b.dataset.pieza);
     const p = PIEZAS[i];
@@ -104,7 +111,7 @@ export function iniciarCampana(abrirRegistro) {
           <p class="mono" id="mp-titulo">${t("piezaDe", i + 1, PIEZAS.length)} · ${t("hashtag")}</p>
           <p class="frase">${esc(p.frase)}</p>
           <p>${esc(t("imagenBase", reg.titulo, reg.fecha, reg.autor, reg.institucion, reg.licencia.nombre))}</p>
-          <button class="btn btn--linea" type="button" data-ir-registro="${esc(reg.id)}">${t("verRegistro")}</button>
+          <button class="btn btn--linea" type="button" data-ir-registro="${esc(reg.id)}">${reg.caso ? t("verCaso") : t("verRegistro")}</button>
           <div class="compartir__botones">${botonesCompartir(p.frase)}</div>
         </div>
       </div>`;

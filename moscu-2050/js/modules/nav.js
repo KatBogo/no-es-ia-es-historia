@@ -36,7 +36,11 @@ export function iniciarNav() {
 
   // Enlace activo según la sección visible
   const enlaces = $$("#menu a");
-  const mapa = { inicio: "inicio", "moscu-2050": "moscu-2050", archivo: "archivo", explora: "explora", historias: "explora", "antes-despues": "moscu-2050", campana: "campana", participa: "participa" };
+  const mapa = {
+    inicio: null, "moscu-2050": "moscu-2050", problema: "moscu-2050", manifiesto: "moscu-2050",
+    archivo: "archivo", explora: "explora", "antes-despues": "explora", historias: "explora",
+    campana: "campana", participa: "participa", resistencia: "proyecto", proyecto: "proyecto"
+  };
   const io = new IntersectionObserver((entradas) => {
     entradas.forEach((en) => {
       if (!en.isIntersecting) return;

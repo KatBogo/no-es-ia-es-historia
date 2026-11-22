@@ -14,6 +14,7 @@ import { iniciarHistorias } from "./modules/historias.js";
 import { iniciarComparador } from "./modules/comparador.js";
 import { iniciarCampana } from "./modules/campana.js";
 import { iniciarParticipa } from "./modules/participa.js";
+import { iniciarRecorrido } from "./modules/recorrido.js";
 
 const pasos = [
   ["idioma", () => iniciarIdioma()],
@@ -27,6 +28,7 @@ const pasos = [
   ["historias", () => iniciarHistorias(abrirRegistro)],
   ["comparador", () => iniciarComparador(abrirRegistro)],
   ["campaña", () => iniciarCampana(abrirRegistro)],
+  ["recorrido", () => iniciarRecorrido()],
   ["formulario", () => iniciarParticipa()],
   ["animaciones", () => iniciarReveal()]
 ];

@@ -56,7 +56,7 @@ const UI = {
     fuenteDisponible: "Доступный источник", porQue: "Зачем проверять",
     porQueTexto: "Смотреть недостаточно: классифицировать изображение позволяет только его происхождение — кто его создал, когда и кто его хранит.",
     verResumen: "Итоги", siguiente: "Следующее изображение", resumen: "Итоги",
-    fraseA: "Смотреть недостаточно.", fraseB: "Нужно исследовать.",
+    fraseA: "Недостаточно посмотреть на изображение, чтобы узнать его историю.", fraseB: "Нужно понять, откуда оно.",
     conteo: (ok, p, no, d) => `Совпадения: <strong>${ok}</strong> · Частично верные: <strong>${p}</strong> · Несовпадения: <strong>${no}</strong> · Сомнения: <strong>${d}</strong>. Результат не измеряет вашу способность распознавать подделки: он показывает, как трудно классифицировать изображение, не зная его происхождения.`,
     tuRespuesta: "Ваш ответ:", repetir: "Пройти ещё раз", investigar: "Исследовать архив",
     especulativa: " (спекулятивная)", escenarioEsp: " · СПЕКУЛЯТИВНЫЙ СЦЕНАРИЙ",
@@ -85,7 +85,28 @@ const UI = {
     noEnviado: "Материал не отправлен: это демонстрация",
     noEnviado1: "Все поля заполнены верно, но у этого прототипа нет системы для приёма и хранения материалов. Ваш файл не покинул браузер.",
     noEnviado2: "В реальной версии материал ожидал бы проверки и публиковался бы только после подтверждения его происхождения.",
-    kb: "КБ", mb: "МБ"
+    kb: "КБ", mb: "МБ",
+    // Verificación
+    verificado: "Проверено", verificadoMayus: "ПРОВЕРЕНО", noVerificado: "НЕ ПРОВЕРЕНО",
+    comoVerifico: "Как проверяли это изображение?", porQueNo: "Почему этого нет в проверенном архиве?",
+    casoBanner: "Учебный кейс · не входит в проверенный архив", casoCodigo: "УЧЕБНЫЙ КЕЙС",
+    v1: "Исходный источник", v2: "Исторический контекст", v3: "Сверка документов", v4: "Проверка человеком", v5: "Результат",
+    discrepancias: "Расхождения и невыясненное", comprobaciones: "Зафиксированные проверки",
+    alcance: "Объём проверки: изучены открытые метаданные и онлайн-каталог учреждения. Оригинал в учреждении не изучался.",
+    revisadoEl: (f) => `Проверка зафиксирована: ${f}`,
+    verificadoDoc: "Документальная проверка · учебный прототип",
+    motivo: "Причина", usoCaso: "Используется на сайте только как учебный пример: в упражнении, сравнении или кампании.",
+    fuentesOriginales: "Исходные источники", panelTitulo: "Процесс проверки",
+    // Ejercicio
+    tipoImagen: "Тип изображения", procedencia: "Происхождение", evidencias: "Что позволяет определить происхождение",
+    riesgoConfundir: "Чем опасно перепутать", porQueTexto2: "Подлинность не всегда видна глазами.",
+    // Comparador
+    origenCada: "Происхождение каждого изображения", evidenciaDoc: "Документальное свидетельство",
+    intHistorica: "Историческое вмешательство", intDemostrativa: "Демонстрационное вмешательство прототипа",
+    comoCambia: "Как меняется прочтение", leeOriginal: "Что показывает оригинал", leeIntervenida: "Что внушает изменённая версия",
+    pistaComparar: "Сдвиньте ползунок, чтобы сравнить.", preguntaLbl: "Вопрос",
+    // Campaña y recorrido
+    verCaso: "Открыть учебный кейс", etapa: "Этап"
   },
   es: {
     menuAbrir: "Abrir menú", menuCerrar: "Cerrar menú",
@@ -122,7 +143,7 @@ const UI = {
     fuenteDisponible: "Fuente disponible", porQue: "Por qué verificar",
     porQueTexto: "Mirar no basta: la procedencia —quién la hizo, cuándo y quién la conserva— es lo que permite clasificar una imagen.",
     verResumen: "Ver resumen", siguiente: "Siguiente imagen", resumen: "Resumen",
-    fraseA: "No basta con mirar.", fraseB: "Hay que investigar.",
+    fraseA: "No basta con mirar una imagen para conocer su historia.", fraseB: "Necesitamos comprender de dónde viene.",
     conteo: (ok, p, no, d) => `Coincidencias: <strong>${ok}</strong> · Parcialmente correctas: <strong>${p}</strong> · No coincidentes: <strong>${no}</strong> · Dudas: <strong>${d}</strong>. El resultado no mide tu capacidad para detectar falsificaciones: muestra lo difícil que es clasificar una imagen sin conocer su origen.`,
     tuRespuesta: "Tu respuesta:", repetir: "Repetir el ejercicio", investigar: "Investigar en el archivo",
     especulativa: " (especulativa)", escenarioEsp: " · ESCENARIO ESPECULATIVO",
@@ -151,7 +172,28 @@ const UI = {
     noEnviado: "Aporte no enviado: esto es una demostración",
     noEnviado1: "Todos los campos son válidos, pero este prototipo no tiene un sistema para recibir ni guardar envíos. Tu material no ha salido de tu navegador.",
     noEnviado2: "En una versión real, el aporte quedaría pendiente de revisión y solo se publicaría después de comprobar su procedencia.",
-    kb: "KB", mb: "MB"
+    kb: "KB", mb: "MB",
+    // Verificación
+    verificado: "Verificado", verificadoMayus: "VERIFICADO", noVerificado: "NO VERIFICADO",
+    comoVerifico: "¿Cómo se verificó esta imagen?", porQueNo: "¿Por qué no está en el archivo verificado?",
+    casoBanner: "Caso de estudio · no forma parte del archivo verificado", casoCodigo: "CASO DE ESTUDIO",
+    v1: "Fuente original", v2: "Contexto histórico", v3: "Contraste documental", v4: "Revisión humana", v5: "Resultado",
+    discrepancias: "Discrepancias y datos pendientes", comprobaciones: "Comprobaciones registradas",
+    alcance: "Alcance: se revisaron los metadatos públicos y el catálogo en línea de la institución. El original no se consultó en la institución.",
+    revisadoEl: (f) => `Revisión documentada el ${f}`,
+    verificadoDoc: "Verificación documental · prototipo académico",
+    motivo: "Motivo", usoCaso: "En esta web solo se usa como caso de estudio: en el ejercicio, el comparador o la campaña.",
+    fuentesOriginales: "Fuentes originales", panelTitulo: "Proceso de verificación",
+    // Ejercicio
+    tipoImagen: "Tipo de imagen", procedencia: "Procedencia", evidencias: "Evidencias que permiten determinar su origen",
+    riesgoConfundir: "El riesgo de confundirla", porQueTexto2: "La autenticidad no siempre se ve a simple vista.",
+    // Comparador
+    origenCada: "Origen de cada imagen", evidenciaDoc: "Evidencia documental",
+    intHistorica: "Intervención histórica", intDemostrativa: "Intervención demostrativa del prototipo",
+    comoCambia: "Cómo cambia la lectura", leeOriginal: "Lo que muestra el original", leeIntervenida: "Lo que sugiere la versión intervenida",
+    pistaComparar: "Mueve el control para comparar.", preguntaLbl: "Pregunta",
+    // Campaña y recorrido
+    verCaso: "Ver el caso de estudio", etapa: "Etapa"
   }
 };
 

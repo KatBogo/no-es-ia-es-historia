@@ -1,22 +1,26 @@
 /**
- * Archivo de la memoria: galería, buscador, categorías, estado, línea de tiempo
- * y ficha ampliada (modal) con procedencia.
+ * Archivo de la memoria: galería de registros VERIFICADOS, buscador, categorías,
+ * línea de tiempo, ficha ampliada y panel «¿Cómo se verificó esta imagen?».
+ * Los casos de estudio (material no verificado o reconstruido) no aparecen en la
+ * galería; solo se abren desde el ejercicio, el comparador o la campaña, y su
+ * ficha lo indica de forma visible.
  */
-import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast, etiquetaEstado } from "../utils.js";
-import { REGISTROS, CATEGORIAS, ESTADOS, urlCommons } from "../data/registros.js";
+import { $, $$, esc, normalizar, img, registroPorId, abrirDialogo, copiar, toast } from "../utils.js";
+import { ARCHIVO, CATEGORIAS, urlCommons } from "../data/registros.js";
+import { CONTRASTE, CASOS, FECHA_REVISION } from "../data/verificacion.js";
 import { t, LANG } from "../i18n.js";
 import { coleccion } from "./coleccion.js";
 
-const filtro = { q: "", categoria: "", estado: "", decada: "" };
+const filtro = { q: "", categoria: "", decada: "" };
 let visibles = [];
 
-const decadaDe = (r) => (r.anio == null ? "sin-fecha" : String(Math.floor(r.anio / 10) * 10));
-const etiquetaDecada = (d) => (d === "sin-fecha" ? t("sinFecha") : LANG === "ru" ? `${d}-е` : `${d}`);
+const decadaDe = (r) => String(Math.floor(r.anio / 10) * 10);
+const etiquetaDecada = (d) => (LANG === "ru" ? `${d}-е` : d);
 const categoriaLabel = (id) => (CATEGORIAS.find((c) => c.id === id) || {}).label || id;
+const sello = () => `<span class="estado estado--documentada"><i aria-hidden="true"></i>${t("verificado")}</span>`;
 
 function coincide(r) {
   if (filtro.categoria && r.categoria !== filtro.categoria) return false;
-  if (filtro.estado && r.estado !== filtro.estado) return false;
   if (filtro.decada && decadaDe(r) !== filtro.decada) return false;
   if (filtro.q) {
     const texto = normalizar([r.id, r.titulo, r.descripcion, r.ubicacion, r.fecha, r.anio, r.autor, r.institucion, r.tipo, categoriaLabel(r.categoria)].join(" "));
@@ -31,20 +35,20 @@ function tarjeta(r, i) {
   return `<li>
     <article class="tarjeta cargando" style="--delay:${Math.min(i, 8) * 60}ms" data-id="${esc(r.id)}">
       <button class="tarjeta__media" type="button" data-accion="ampliar" aria-label="${t("ampliarDe")}${esc(r.titulo)}">
-        <img src="${img(r.img, "sm")}" alt="${esc(r.titulo)}. ${esc(r.fecha)}." loading="lazy" decoding="async">
+        <img src="${img(r.img, "sm")}" alt="${esc(r.titulo)}. ${esc(r.fecha)}. ${esc(r.ubicacion)}." loading="lazy" decoding="async">
         <span class="tarjeta__tipo">${esc(r.tipo)}</span>
         <span class="tarjeta__hover" aria-hidden="true">${esc(r.fecha)}<br>${esc(nombreArchivo)}</span>
       </button>
       <div class="tarjeta__cuerpo">
-        <p class="tarjeta__meta"><span>${esc(categoriaLabel(r.categoria))}</span><span>${r.anio ?? t("sf")}</span></p>
+        <p class="tarjeta__meta"><span>${esc(categoriaLabel(r.categoria))}</span><span>${r.anio}</span></p>
         <h3 class="tarjeta__titulo">${esc(r.titulo)}</h3>
         <p class="tarjeta__lugar">${esc(r.ubicacion)}</p>
         <p class="tarjeta__fuente">${esc(r.institucion)}</p>
         <div class="tarjeta__pie">
-          ${etiquetaEstado(r.estado, ESTADOS)}
+          ${sello()}
           <div class="tarjeta__botones">
             <button class="btn-texto" type="button" data-accion="ampliar">${t("ampliar")}</button>
-            <button class="btn-texto" type="button" data-accion="procedencia">${t("verProcedencia")}</button>
+            <button class="btn-texto" type="button" data-accion="verificacion">${t("comoVerifico")}</button>
             <button class="btn-texto guardar" type="button" data-accion="guardar" aria-pressed="${guardado}">${guardado ? t("guardado") : t("guardar")}</button>
           </div>
         </div>
@@ -58,25 +62,22 @@ export function iniciarArchivo() {
   const resultados = $("#resultados");
   const vacio = $("#vacio");
   const buscar = $("#buscar");
-  const selEstado = $("#estado");
   const cats = $("#categorias");
   const tiempo = $("#linea-tiempo");
 
-  // Controles
   cats.innerHTML = [{ id: "", label: t("todas") }, ...CATEGORIAS]
     .map((c) => `<button type="button" class="chip" data-cat="${c.id}" aria-pressed="${c.id === ""}">${esc(c.label)}</button>`).join("");
-  selEstado.insertAdjacentHTML("beforeend", Object.entries(ESTADOS).map(([k, v]) => `<option value="${k}">${esc(v.label)}</option>`).join(""));
 
-  const decadas = [...new Set(REGISTROS.map(decadaDe))].sort((a, b) => (a === "sin-fecha" ? 1 : b === "sin-fecha" ? -1 : a - b));
-  const conteo = (d) => REGISTROS.filter((r) => decadaDe(r) === d).length;
+  const decadas = [...new Set(ARCHIVO.map(decadaDe))].sort((a, b) => a - b);
+  const conteo = (d) => ARCHIVO.filter((r) => decadaDe(r) === d).length;
   tiempo.innerHTML = `<button type="button" class="decada" data-decada="" aria-pressed="true">${t("todas")}<span class="decada__barra" style="--n:4" aria-hidden="true"></span></button>` +
     decadas.map((d) => `<button type="button" class="decada" data-decada="${d}" aria-pressed="false" aria-label="${t("decadaAria", etiquetaDecada(d), conteo(d))}">${etiquetaDecada(d)}<span class="decada__barra" style="--n:${conteo(d)}" aria-hidden="true"></span></button>`).join("");
 
   const pintar = () => {
-    visibles = REGISTROS.filter(coincide);
+    visibles = ARCHIVO.filter(coincide);
     galeria.innerHTML = visibles.map(tarjeta).join("");
     const n = visibles.length;
-    resultados.textContent = n === REGISTROS.length ? t("nRegistros", n) : t("nDeTotal", n, REGISTROS.length);
+    resultados.textContent = n === ARCHIVO.length ? t("nRegistros", n) : t("nDeTotal", n, ARCHIVO.length);
     vacio.hidden = n > 0;
     galeria.hidden = n === 0;
     prepararImagenes();
@@ -102,7 +103,6 @@ export function iniciarArchivo() {
   const marcar = (contenedor, attr, valor) => $$(`[${attr}]`, contenedor).forEach((b) => b.setAttribute("aria-pressed", String(b.getAttribute(attr) === valor)));
 
   buscar.addEventListener("input", () => { filtro.q = buscar.value.trim(); pintar(); });
-  selEstado.addEventListener("change", () => { filtro.estado = selEstado.value; pintar(); });
   cats.addEventListener("click", (e) => {
     const b = e.target.closest("[data-cat]"); if (!b) return;
     filtro.categoria = b.dataset.cat; marcar(cats, "data-cat", filtro.categoria); pintar();
@@ -113,8 +113,8 @@ export function iniciarArchivo() {
     marcar(tiempo, "data-decada", filtro.decada); pintar();
   });
   const limpiar = () => {
-    Object.assign(filtro, { q: "", categoria: "", estado: "", decada: "" });
-    buscar.value = ""; selEstado.value = "";
+    Object.assign(filtro, { q: "", categoria: "", decada: "" });
+    buscar.value = "";
     marcar(cats, "data-cat", ""); marcar(tiempo, "data-decada", "");
     pintar();
   };
@@ -125,7 +125,7 @@ export function iniciarArchivo() {
     const b = e.target.closest("[data-accion]"); if (!b) return;
     const id = b.closest(".tarjeta").dataset.id;
     if (b.dataset.accion === "ampliar") abrirRegistro(id, b);
-    if (b.dataset.accion === "procedencia") abrirRegistro(id, b, true);
+    if (b.dataset.accion === "verificacion") abrirVerificacion(id, b);
     if (b.dataset.accion === "guardar") coleccion.alternar(id);
   });
 
@@ -148,33 +148,41 @@ export function iniciarArchivo() {
   catch (err) { console.error(err); $("#error-archivo").hidden = false; resultados.textContent = t("errorArchivo"); }
 
   iniciarFicha();
+  iniciarVerificacion();
 }
 
 /* --------------------------- Ficha ampliada --------------------------- */
 let actual = null;
 let dialogo;
 
-function pintarFicha(id, verProcedencia = false) {
+function enlacesFuente(r) {
+  return `<div class="procedencia__enlaces">
+      ${r.original ? `<a href="${esc(r.original)}" target="_blank" rel="noopener">${t("catalogo")}</a>` : ""}
+      <a href="${urlCommons(r.commons)}" target="_blank" rel="noopener">${t("fichaCommons")}</a>
+    </div>`;
+}
+
+function pintarFicha(id) {
   const r = registroPorId(id);
   if (!r) return;
   actual = id;
-  const lista = visibles.length ? visibles : REGISTROS;
-  const pos = lista.findIndex((x) => x.id === id);
-  $("#mr-codigo").textContent = `${r.id} · ${pos >= 0 ? `${pos + 1} / ${lista.length}` : t("fueraFiltro")}`;
+  const pos = visibles.findIndex((x) => x.id === id);
+  $("#mr-codigo").textContent = r.caso ? `${t("casoCodigo")} · ${r.id}` : `${r.id} · ${pos >= 0 ? `${pos + 1} / ${visibles.length}` : t("fueraFiltro")}`;
+  $("#mr-prev").hidden = r.caso; $("#mr-sig").hidden = r.caso;
   $("#mr-prev").disabled = pos <= 0;
-  $("#mr-sig").disabled = pos < 0 || pos >= lista.length - 1;
+  $("#mr-sig").disabled = pos < 0 || pos >= visibles.length - 1;
   const guardado = coleccion.tiene(id);
   const licencia = r.licencia.url ? `<a href="${r.licencia.url}" target="_blank" rel="noopener">${esc(r.licencia.nombre)}</a>` : esc(r.licencia.nombre);
-  const li = (arr) => (arr && arr.length ? arr.map((x) => `<li>${esc(x)}</li>`).join("") : `<li>${t("nadaPendiente")}</li>`);
 
   $("#mr-cuerpo").innerHTML = `
+    ${r.caso ? `<p class="caso-banner" role="note"><strong class="mono">${t("casoBanner")}</strong> ${esc(CASOS[r.id])}</p>` : ""}
     <div class="ficha">
       <figure class="ficha__media">
         <img src="${img(r.img)}" alt="${esc(r.titulo)}. ${esc(r.descripcion)}">
         <figcaption>${esc(r.autor)} · ${esc(r.institucion)} · ${licencia}</figcaption>
       </figure>
       <div class="ficha__info">
-        <div class="ficha__tags">${etiquetaEstado(r.estado, ESTADOS)}<span class="mono">${esc(categoriaLabel(r.categoria))}</span><span class="mono">${esc(r.tipo)}</span></div>
+        <div class="ficha__tags">${r.caso ? `<span class="estado estado--caso"><i aria-hidden="true"></i>${t("casoCodigo")}</span>` : sello()}<span class="mono">${esc(categoriaLabel(r.categoria))}</span><span class="mono">${esc(r.tipo)}</span></div>
         <h2 class="ficha__titulo" id="mr-titulo">${esc(r.titulo)}</h2>
         <p>${esc(r.descripcion)}</p>
         <dl class="ficha__datos">
@@ -184,36 +192,25 @@ function pintarFicha(id, verProcedencia = false) {
           <div class="ancho"><dt>${t("institucion")}</dt><dd>${esc(r.institucion)}</dd></div>
           <div class="ancho"><dt>${t("licencia")}</dt><dd>${licencia}</dd></div>
         </dl>
-        <section class="procedencia" id="mr-procedencia" tabindex="-1" aria-labelledby="mr-proc-t">
-          <h3 id="mr-proc-t">${t("procedenciaTitulo")}</h3>
-          <ul class="lista lista--ok">${li(r.verificado)}</ul>
-          <div class="procedencia__enlaces">
-            <a href="${urlCommons(r.commons)}" target="_blank" rel="noopener">${t("fichaCommons")}</a>
-            ${r.original ? `<a href="${esc(r.original)}" target="_blank" rel="noopener">${t("catalogo")}</a>` : ""}
-          </div>
-        </section>
-        <section><h3>${t("pendiente")}</h3><ul class="lista lista--pend">${li(r.pendiente)}</ul></section>
         <section><h3>${t("intervenciones")}</h3><p class="intervencion">${esc(r.intervenciones)}</p></section>
-        <div class="ficha__acciones">
+        <button class="btn btn--verificacion" type="button" data-ficha="verificacion" aria-haspopup="dialog">
+          <span class="btn__icono" aria-hidden="true">${r.caso ? "!" : "✓"}</span>${r.caso ? t("porQueNo") : t("comoVerifico")}
+        </button>
+        ${enlacesFuente(r)}
+        ${r.caso ? "" : `<div class="ficha__acciones">
           <button class="btn ${guardado ? "btn--linea" : "btn--rojo"}" type="button" data-ficha="guardar" aria-pressed="${guardado}">${guardado ? t("quitarColeccion") : t("guardarColeccion")}</button>
           <button class="btn btn--linea" type="button" data-ficha="copiar">${t("copiarEnlace")}</button>
-        </div>
+        </div>`}
       </div>
     </div>`;
-  if (verProcedencia) {
-    const p = $("#mr-procedencia");
-    requestAnimationFrame(() => { p.scrollIntoView({ block: "center" }); p.classList.add("resaltar"); p.focus({ preventScroll: true }); });
-  } else {
-    dialogo.scrollTop = 0;
-  }
+  dialogo.scrollTop = 0;
 }
 
 function iniciarFicha() {
   dialogo = $("#modal-registro");
   const mover = (delta) => {
-    const lista = visibles.length ? visibles : REGISTROS;
-    const pos = lista.findIndex((x) => x.id === actual);
-    const sig = lista[pos + delta];
+    const pos = visibles.findIndex((x) => x.id === actual);
+    const sig = visibles[pos + delta];
     if (sig) { pintarFicha(sig.id); history.replaceState(null, "", "#registro/" + sig.id); }
   };
   $("#mr-prev").addEventListener("click", () => mover(-1));
@@ -227,6 +224,7 @@ function iniciarFicha() {
     const b = e.target.closest("[data-ficha]"); if (!b) return;
     if (b.dataset.ficha === "guardar") coleccion.alternar(actual);
     if (b.dataset.ficha === "copiar") toast((await copiar(location.href)) ? t("enlaceFicha") : t("noCopiado"));
+    if (b.dataset.ficha === "verificacion") abrirVerificacion(actual, b);
   });
   dialogo.addEventListener("cerrado", () => {
     actual = null;
@@ -241,14 +239,58 @@ function iniciarFicha() {
   abrirDesdeHash();
 }
 
-/** Abre la ficha de un registro. Exportada para otras secciones. */
-export function abrirRegistro(id, origen, verProcedencia = false) {
+/** Abre la ficha de un registro (o de un caso de estudio). Exportada para otras secciones. */
+export function abrirRegistro(id, origen) {
   if (!registroPorId(id)) return;
-  pintarFicha(id, verProcedencia);
+  pintarFicha(id);
   if (location.hash !== "#registro/" + id) history.replaceState(null, "", "#registro/" + id);
   abrirDialogo(dialogo, origen || document.activeElement);
-  if (verProcedencia) {
-    const p = $("#mr-procedencia");
-    requestAnimationFrame(() => { p.scrollIntoView({ block: "center" }); p.focus({ preventScroll: true }); });
+}
+
+/* ------------------- Panel «¿Cómo se verificó esta imagen?» ------------------- */
+let panel;
+
+function paso(num, titulo, contenido, extra = "") {
+  return `<li class="vpaso ${extra}" style="--i:${num}">
+      <span class="vpaso__num mono" aria-hidden="true">${String(num).padStart(2, "0")}</span>
+      <div class="vpaso__cuerpo"><h3 class="vpaso__titulo">${titulo}</h3>${contenido}</div>
+    </li>`;
+}
+const lista = (arr) => `<ul class="vlista">${arr.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>`;
+
+function pintarVerificacion(id) {
+  const r = registroPorId(id);
+  $("#mv-titulo").textContent = r.titulo;
+  $("#mv-codigo").textContent = `${t("panelTitulo")} · ${r.id}`;
+  const fuente = `<p><strong>${esc(r.institucion)}</strong></p><p>${t("autor")}: ${esc(r.autor)} · ${t("licencia")}: ${esc(r.licencia.nombre)}</p>${enlacesFuente(r)}`;
+  const contexto = `<p><strong>${esc(r.fecha)}</strong> · ${esc(r.ubicacion)}</p><p>${esc(r.descripcion)}</p>`;
+  let html;
+  if (r.caso) {
+    html =
+      paso(1, t("v1"), fuente) +
+      paso(2, t("v2"), contexto) +
+      paso(3, t("v3"), r.pendiente.length ? `<p class="vsub">${t("discrepancias")}</p>${lista(r.pendiente)}` : "") +
+      paso(4, t("v4"), `<p>${esc(CASOS[r.id])}</p><p class="vnota">${t("usoCaso")}</p>`) +
+      paso(5, t("v5"), `<p class="vresultado vresultado--no">${t("noVerificado")}</p><p class="vnota">${t("casoBanner")}</p>`, "vpaso--resultado");
+  } else {
+    html =
+      paso(1, t("v1"), fuente) +
+      paso(2, t("v2"), contexto) +
+      paso(3, t("v3"), `<p>${esc(CONTRASTE[r.id] || "")}</p>${r.pendiente.length ? `<p class="vsub">${t("discrepancias")}</p>${lista(r.pendiente)}` : ""}`) +
+      paso(4, t("v4"), `<p class="vsub">${t("comprobaciones")}</p>${lista(r.verificado)}<p class="vnota">${t("alcance")}</p>`) +
+      paso(5, t("v5"), `<p class="vresultado">${t("verificadoMayus")}</p><p class="vnota">${t("verificadoDoc")} · ${t("revisadoEl", FECHA_REVISION)}</p>`, "vpaso--resultado");
   }
+  $("#mv-pasos").innerHTML = html;
+  panel.scrollTop = 0;
+}
+
+function iniciarVerificacion() {
+  panel = $("#modal-verificacion");
+}
+
+/** Abre el panel de verificación de un registro concreto. */
+export function abrirVerificacion(id, origen) {
+  if (!registroPorId(id)) return;
+  pintarVerificacion(id);
+  abrirDialogo(panel, origen || document.activeElement);
 }
